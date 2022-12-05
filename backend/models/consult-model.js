@@ -13,7 +13,8 @@ const consultSchema = new Schema({
     attendingDoc: {
         type: String, 
         trim: true
-    }
+    },
+    patientID:String,
 }, { timestamps: true })
 
 // create new collection

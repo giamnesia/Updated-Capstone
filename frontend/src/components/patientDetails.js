@@ -20,7 +20,7 @@ const PatientDetails = ({ patientinfo }) => {
         //     return
         // }
 
-        const response = await fetch('/portal/health/' + patientinfo._id, {
+        const response = await fetch('/portal/health/get' + patientinfo._id, {
             method: 'DELETE',
             // headers: {
             //     'Authorization': `Bearer ${user.token}`

@@ -19,9 +19,7 @@ const DoctorDetails = ({ doctorinfo }) => {
 
         const response = await fetch('/portal/doctor/' + doctorinfo._id, {
             method: 'DELETE',
-            headers: {
-                // 'Authorization': `Bearer ${user.token}`
-            }
+         
         }) 
 
         const json = await response.json()

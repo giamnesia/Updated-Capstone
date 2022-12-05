@@ -34,5 +34,6 @@
   "bugs": {
     "url": "https://github.com/ceekaye-lipnica/capstone-project/issues"
   },
-  "homepage": "https://github.com/ceekaye-lipnica/capstone-project#readme"
+  "homepage": "https://github.com/ceekaye-lipnica/capstone-project#readme",
+  "devDependencies": {}
 }

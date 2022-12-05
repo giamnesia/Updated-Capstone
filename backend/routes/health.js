@@ -8,7 +8,9 @@ const {
     getOnePatient,
     createPatient, 
     deletePatient,
-    updatePatient
+    updatePatient,
+    getCount,
+    getAggPatient
 } = require('../controllers/patient-controller')
 
 // const requireAuth = require('../middleware/requireAuth')
@@ -20,7 +22,11 @@ const router = express.Router()
 // router.use(requireAuth)
 
 //GET all patients
-router.get('/', getAllPatients)
+router.get('/get', getAllPatients)
+router.get('/count', getCount)
+router.get('/agg/:id', getAggPatient)
+
+
 
 //GET a single patient
 router.get('/:id', getOnePatient)
