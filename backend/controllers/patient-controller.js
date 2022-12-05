@@ -1,4 +1,6 @@
 const patientInfo = require('../models/health-model')
+const doctorInfo = require('../models/doctor-model')
+
 const consult = require("../models/consult-model");
 const mongoose = require('mongoose')
 
@@ -19,11 +21,27 @@ const getCount = async (req, res) => {
     // const countPatient = await patientInfo.countDocuments(query); //FINDING CATEGORY
     
     const count = await patientInfo.estimatedDocumentCount();
+    const countDoc = await doctorInfo.estimatedDocumentCount();
+
+
+    const month = await patientInfo.aggregate(
+        [
+            {
+                $project:{
+                 
+                    month: {$month: '$createdAt' }
+                }
+            
+            }
+        ]
+    )
 
 
 
     res.status(200).json({
-      totalPatient: count
+      totalPatient: count,
+      totalMonth:month,
+      totalDoctor:countDoc
     });
   };
 

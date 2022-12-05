@@ -2,10 +2,8 @@ import React from 'react';
 // import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BiNotepad } from "react-icons/bi";
-// import { MdPendingActions } from "react-icons/md";
-// import { AiOutlineFileDone } from "react-icons/ai";
-
-
+import { BsFillPeopleFill } from 'react-icons/bs'
+import { Icon } from '@chakra-ui/react'
 const Count = () => {
   const [patientCount, setPatient] = useState();
   
@@ -23,10 +21,12 @@ const Count = () => {
       }
     };
     fetchCount();
-  }, [patientCount]);
+  }, []);
 
   return (
-    <div className="board">
+    <div className="flex flex-col items-start ">
+      <p>Dashboard</p>
+      <div class='flex flex-row items-start'>
       <div className="dash">
         <BiNotepad className="dash-icon"/>
         <div className="dash-text">
@@ -38,6 +38,20 @@ const Count = () => {
           </span>
         </div>
       </div>
+      <div className="dash">
+        <BsFillPeopleFill className="dash-icon"/>
+        <div className="dash-text">
+          <p className="dash-p">
+            Number of Staff Members:{" "}
+          </p>
+          <span className="dash-count">
+            {patientCount && patientCount.totalDoctor}
+          </span>
+        </div>
+      </div>
+      </div>
+    
+
 
  
      

@@ -3,12 +3,26 @@ import { useState } from "react"
 import { UseDoctorContext } from "../hooks/useDoctorContext"
 import barangays from '../data/barangay'
 // import { UseAuthContext } from "../hooks/useAuthContext"
-
-
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    Button,
+    useDisclosure,
+    Input,
+    FormControl,
+    FormLabel
+  } from '@chakra-ui/react'
+  import {BiEdit} from 'react-icons/bi'
 const DoctorForm = () => {
         const {dispatch} = UseDoctorContext()
        // const {user} = UseAuthContext()
 
+       const { isOpen, onOpen, onClose } = useDisclosure()
         const [fname, setFname] = useState('')
         const [mname, setMname] = useState('')
         const [lname, setLname] = useState('')
@@ -18,8 +32,7 @@ const DoctorForm = () => {
         const [contact, setContact] = useState('')
         const [specialization, setSpecialization] = useState('')
         const [error, setError] = useState(null)
-        const [emptyFields, setEmptyFields] = useState([])
-
+     
         const handleAddress =(e)=>{
 
              setAddress(e.target.value)
@@ -47,11 +60,11 @@ const DoctorForm = () => {
 
             if (!response.ok) {
                 setError(json.error)
-                setEmptyFields(json.emptyFields)
+           
             }
             if (response.ok) {
                 setError(null)
-                setEmptyFields([])
+            
                 setFname('')
                 setMname('')
                 setLname('')
@@ -60,102 +73,156 @@ const DoctorForm = () => {
                 setAddress('')
                 setContact('')
                 setSpecialization('')
-                console.log('Doctor Added!', json)
-                dispatch({type: 'CREATE_DOCTOR', payload: json})
+          
+            
             }
 
 
         }
-
+        const handleFname =(e)=>{
+            const { value } = e.target;
+        
+            const re = /^[A-Za-z]+$/;
+            if (value === "" || re.test(value)) {
+            setFname(e.target.value.toUpperCase() ) 
+              
+            }
+          }
+          const handleMname =(e)=>{
+            const { value } = e.target;
+        
+            const re = /^[A-Za-z]+$/;
+            if (value === "" || re.test(value)) {
+            setMname(e.target.value.toUpperCase() ) 
+              
+            }
+          }
+          const handleLname =(e)=>{
+            const { value } = e.target;
+        
+            const re = /^[A-Za-z]+$/;
+            if (value === "" || re.test(value)) {
+            setLname(e.target.value.toUpperCase() ) 
+              
+            }
+        
+          }
         return (
-            <form className="create-doc" onSubmit={handleSubmit}>
-            <h3>Add Doctor</h3>
 
-            <label>First Name: </label>
-            <input 
-                type="text"
-                onChange={(e) => setFname(e.target.value)}
-                value={fname}
-                className = {emptyFields.includes('fname') ? 'error': ''}
-            />
+            <>
 
-            <label>Middle Name: </label>
-            <input 
-                type="text"
-                onChange={(e) => setMname(e.target.value)}
-                value={mname}
-                className = {emptyFields.includes('mname') ? 'error': ''}
-            />
+            <Button leftIcon={<BiEdit />} onClick={onOpen}>Add Doctor</Button>
+                      <Modal
+                   
+                      isOpen={isOpen}
+                      onClose={onClose}
+                    >
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>Add Doctor</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody pb={6}>
+                          <FormControl  >
+                            <FormLabel>First name</FormLabel>
+                            <Input   focusBorderColor='orange.400' onChange={handleFname} value={fname}
+                          
+                            />
+                          </FormControl>
+                          <FormControl mt={4}>
+                            <FormLabel>Middle name</FormLabel>
+                            <Input  focusBorderColor='orange.400' onChange={handleMname} value={mname} 
+                        
+                            />
+                          </FormControl>
 
-            <label>Last Name: </label>
-            <input 
-                type="text"
-                onChange={(e) => setLname(e.target.value)}
-                value={lname}
-                className = {emptyFields.includes('lname') ? 'error': ''}
-            />
+                          <FormControl mt={4}>
+                            <FormLabel>Last name</FormLabel>
+                            <Input  focusBorderColor='orange.400'  onChange={handleLname} value={lname} 
+                          
+                            
+                            />
+                            <FormControl mt={4}>
+                            <FormLabel>Specialization</FormLabel>
+                            <Input  focusBorderColor='orange.400'       onChange={(e) => setSpecialization(e.target.value)}
+                         value={specialization}
+                       
+                            />
+                          </FormControl>
 
-            <label>Specialization: </label>
-            <input 
-                type="text"
-                onChange={(e) => setSpecialization(e.target.value)}
-                value={specialization}
-                className = {emptyFields.includes('specialization') ? 'error': ''}
-            />
+                          </FormControl>
+                          <FormControl mt={4}>
+                            <FormLabel>Gender</FormLabel>
+                          <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 "
+                            onChange={(e)=>setGender(e.target.value)} value={gender}
 
-            <label> Gender: </label>
-            <select value={gender} onChange ={(e)=>setGender(e.target.value)}>
-                <option value="" selected="selected" hidden="hidden">
-                  Choose here
-                </option>
-                <option value = "Female" selected> Female </option>
-                <option value = "Male" selected> Male </option>
-            </select>
-            {/* <input 
-                type="text"
-                onChange={(e) => setLname(e.target.value)}
-                value={lname}
-                className = {emptyFields.includes('lname') ? 'error': ''}
-            /> */}
+                          >
+           
+                            <option value="" selected="selected" hidden="hidden">
+                              Choose here
+                            </option>
+                            <option value={gender}>Male</option>
+                            <option value={gender}>Female</option>
 
-            <label>Age: </label>
-            <input 
-                type="number"
-                onChange={(e) => setAge(e.target.value)}
-                value={age}
-                className = {emptyFields.includes('age') ? 'error': ''}
-            />
+                            </select>
+                       
+                        
+                          </FormControl>
+                          
+                          <FormControl mt={4}>
+                            <FormLabel>Age</FormLabel>
+                            <Input  focusBorderColor='orange.400'  onChange={(e)=>setAge(e.target.value)} value={age}
+                          
+                             onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
+                            
+                            />
+                          </FormControl>
 
-            <label>Address: </label>
-            <select
-            value={address}
-            onChange={handleAddress}
-            className = {emptyFields.includes('address') ? 'error': ''}
-             
-          >
-            {barangays.map((item) => (
-              <>
-                <option value="" selected="selected" hidden="hidden">
-                  Choose here
-                </option>
-                <option key={item.name} value={item.name}>{item.name}</option>
-              </>
-            ))}
-          </select> 
+                          <FormControl mt={4}>
+                            <FormLabel>Contact</FormLabel>
+                            <Input  focusBorderColor='orange.400'  onChange={(e)=>setContact(e.target.value)} value={contact}
+                             onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
+                             maxLength="11"
+                             minLength="11"
+                            
+                            />
+                          </FormControl>
+                          <FormControl mt={4}>
+                            <FormLabel>Address</FormLabel>
+                      
+                            <select
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 "
+                            
+                       
+                            
+                            >
+                            {barangays.map((item) => (
+                                <>
+                                <option value="" selected="selected" hidden="hidden">
+                                    Choose here
+                                </option>
+                                <option key={item.name} value={item.name}>{item.name}</option>
+                                </>
+                            ))}
+                                </select>
+                            
+                          </FormControl>
+                        </ModalBody>
 
-            <label>Contact Number: </label>
-            <input 
-                type="number" 
-                maxLength="11"
-                onChange={(e) => setContact(e.target.value)}
-                value={contact}
-                className = {emptyFields.includes('contact') ? 'error': ''}
-            />
-
-            <button>Submit</button>
-            {error && <div className="error">{error}</div>}
-
-            </form>
+                        <ModalFooter>
+                          <Button colorScheme='orange' mr={3} onClick={handleSubmit}>
+                            Save
+                          </Button>
+                          <Button onClick={onClose}>Cancel</Button>
+                        </ModalFooter>
+                      </ModalContent>
+                    </Modal>
+            
+            </>
+        
         )
 }
 

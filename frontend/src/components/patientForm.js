@@ -62,34 +62,76 @@ const PatientForm = () => {
 
 
         }
-
+        const handleFname =(e)=>{
+          const { value } = e.target;
+      
+          const re = /^[A-Za-z]+$/;
+          if (value === "" || re.test(value)) {
+          setFname(e.target.value.toUpperCase() ) 
+            
+          }
+        }
+        const handleMname =(e)=>{
+          const { value } = e.target;
+      
+          const re = /^[A-Za-z]+$/;
+          if (value === "" || re.test(value)) {
+          setMname(e.target.value.toUpperCase() ) 
+            
+          }
+        }
+        const handleLname =(e)=>{
+          const { value } = e.target;
+      
+          const re = /^[A-Za-z]+$/;
+          if (value === "" || re.test(value)) {
+          setLname(e.target.value.toUpperCase() ) 
+            
+          }
+      
+        }
         return (
-            <form className="create" onSubmit={handleSubmit}>
+            <form className="create" onSubmit={handleSubmit}
+            class="m-4 flex flex-col items-center justify-center"
+            >
             <h3>Add Patient Information</h3>
 
-            <label>First Name: </label>
+            <div class="relative z-0 mb-6 w-96 group">
+            <label
+            >First Name: </label>
             <input 
+                class="block py-2.5 px-0 w-full  text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-amber-600 peer"
+                    
                 type="text"
-                onChange={(e) => setFname(e.target.value)}
+                onChange={handleFname}
                 value={fname}
                 className = {emptyFields.includes('fname') ? 'error': ''}
             />
-
+            </div>
+            <div class="relative z-0 mb-6 w-96 group">
             <label>Middle Name: </label>
             <input 
+                class="block py-2.5 px-0 w-full  text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-amber-600 peer"
+                    
                 type="text"
-                onChange={(e) => setMname(e.target.value)}
+                onChange={handleMname}
                 value={mname}
                 className = {emptyFields.includes('mname') ? 'error': ''}
             />
-
+            </div>
+            <div class="relative z-0 mb-6 w-96 group">
             <label>Last Name: </label>
             <input 
+                class="block py-2.5 px-0 w-full  text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-amber-600 peer"
+                    
                 type="text"
-                onChange={(e) => setLname(e.target.value)}
+                onChange={handleLname}
                 value={lname}
                 className = {emptyFields.includes('lname') ? 'error': ''}
             />
+            </div>
+
+            <div class="relative z-0 mb-6 w-96 group">
             <label> Gender: </label>
             <select value={gender} onChange ={(e)=>setGender(e.target.value)}>
                 <option value="" selected="selected" hidden="hidden">
@@ -99,14 +141,22 @@ const PatientForm = () => {
                 <option value = "Male" selected> Male </option>
             </select>
 
+            </div>
+
+            <div class="relative z-0 mb-6 w-96 group">
             <label>Age: </label>
             <input 
                 type="number"
                 onChange={(e) => setAge(e.target.value)}
                 value={age}
                 className = {emptyFields.includes('age') ? 'error': ''}
+                onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
+
             />
 
+           </div>
+            <div class="relative z-0 mb-6 w-96 group">
+          
             <label>Address: </label>
             <select
             value={address}
@@ -124,6 +174,9 @@ const PatientForm = () => {
             ))}
           </select> 
 
+            </div>
+
+            <div class="relative z-0 mb-6 w-96 group">
             <label>Contact Number: </label>
             <input 
                 maxLength="11"
@@ -133,9 +186,14 @@ const PatientForm = () => {
                 value={contact}
                 className = {emptyFields.includes('contact') ? 'error': ''}
             />
-
-            <button>Submit</button>
+             <button class='mt-8'>Submit</button>
             {error && <div className="error">{error}</div>}
+         
+
+            </div>
+
+
+     
 
             </form>
         )

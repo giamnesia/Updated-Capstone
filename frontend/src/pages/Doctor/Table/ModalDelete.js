@@ -1,24 +1,22 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-
+import { Link, useNavigate } from "react-router-dom";
 import { UsePatientContext } from '../../../hooks/usePatientContext'
 
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
   Button,
-  useDisclosure,
-  Input,
-  FormControl,
-  FormLabel
+ useDisclosure
 } from '@chakra-ui/react'
 const ModalDelete = ({item}) => {
+    const cancelRef = React.useRef()
 
+    const navigate= useNavigate()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const {dispatch,patient} = UsePatientContext()
 
@@ -34,7 +32,8 @@ const ModalDelete = ({item}) => {
         try {
           if (response.ok) {
             dispatch({type:'DELETE_PATIENT', payload: json})
-            console.log('success')
+            navigate('/patientRecord')
+
           }
         } catch (err) {
           console.log(err.message);
@@ -42,25 +41,36 @@ const ModalDelete = ({item}) => {
 }
   return (
     <div>
-        <Button onClick={onOpen}>Delete</Button>
+       <Button colorScheme='red' onClick={onOpen}>
+        Delete Patient
+      </Button>
 
-        <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-         
-            </ModalBody>
+      <AlertDialog
+        isOpen={isOpen}
+      
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Delete Patient
+            </AlertDialogHeader>
 
-            <ModalFooter>
-            <Button colorScheme='red' mr={3} onClick={handleDelete} >
+            <AlertDialogBody>
+              Are you sure? You can't undo this action afterwards.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme='red' onClick={handleDelete} ml={3}>
                 Delete
-            </Button>
-            <Button  onClick={onClose} >Secondary Action</Button>
-            </ModalFooter>
-        </ModalContent>
-        </Modal>
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
 
     </div>
   )
