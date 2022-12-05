@@ -28,7 +28,7 @@ const getOneConsult = async (req, res) => {
 // create a new consult
 const createConsult = async (req, res) => 
 {
-    const {purpose, diagnosis, description, treatment, bp, weight, height, bloodsugar, attendingDoc} = req.body
+    const {purpose, diagnosis, description, treatment, bp, weight, height, bloodsugar, attendingDoc,patientID} = req.body
 
     // let emptyFields = []
 
@@ -59,7 +59,8 @@ const createConsult = async (req, res) =>
 
     // adding document to database
     try{
-        const consultinfo = await consultInfo.create({purpose, diagnosis, description, treatment, bp, weight, height, bloodsugar, attendingDoc})
+        const consultinfo = await consultInfo.create({purpose, diagnosis, description, treatment, bp, weight, height, bloodsugar, attendingDoc,patientID})
+     
         res.status(200).json(consultinfo)
     } catch (error) {
         res.status(400).json({error: error.message})

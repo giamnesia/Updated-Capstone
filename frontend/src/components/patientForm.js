@@ -56,8 +56,8 @@ const PatientForm = () => {
                 setAge('')
                 setAddress('')
                 setContact('')
-                console.log('Patient Added!', json)
-                dispatch({type: 'CREATE_PATIENT', payload: json})
+         
+        
             }
 
 
@@ -126,8 +126,9 @@ const PatientForm = () => {
 
             <label>Contact Number: </label>
             <input 
-                type="number" 
                 maxLength="11"
+                minLength="11"
+                onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
                 onChange={(e) => setContact(e.target.value)}
                 value={contact}
                 className = {emptyFields.includes('contact') ? 'error': ''}

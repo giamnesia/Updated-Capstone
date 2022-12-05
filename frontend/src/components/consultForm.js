@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom'
 import RHUServices from "../data/rhuServices"
 // import { UseAuthContext } from "../hooks/useAuthContext"
 
-const ConsultForm = () => {
+const ConsultForm = ({item}) => {
         const {dispatch} = UseConsultContext()
         // const {user} = UseAuthContext()
 
         const [purpose, setPurpose] = useState('')
-        // const [diagnosis, setDiagnosis] = useState('')
+        const [patientID, setPatientID] = useState()
         // const [description, setDescription] = useState('')
         const [treatment, setTreatment] = useState('')
         const [bp, setBp] = useState('')
@@ -24,19 +24,15 @@ const ConsultForm = () => {
 
         const handlePurpose =(e)=>{
             setPurpose(e.target.value)
+            setPatientID(item&&item._id)
        }
 
 
         const handleSubmit = async (e) => {
             e.preventDefault()
 
-            // if (!user) {
-            //     setError('You must be logged in')
-            //     return
-            // }
-
-            // const consultinfo = {purpose, diagnosis, description, treatment, bp, weight, height, bloodsugar, attendingDoc}
-            const consultinfo = {purpose, treatment, bp, weight, height, bloodsugar, attendingDoc}
+            
+            const consultinfo = {purpose, treatment, bp, weight, height, bloodsugar, attendingDoc,patientID }
 
             const response = await fetch('/portal/consult', {
                 method: 'POST',
@@ -65,13 +61,15 @@ const ConsultForm = () => {
                 setHeight('')
                 setBloodsugar('')
                 setAttendingDoc('')
-                console.log('Consult Added!', json)
-                dispatch({type: 'CREATE_CONSULT', payload: json})
+         
+           
             }
         }
 
         return (
             <form className="create" onSubmit={handleSubmit}>
+        
+         
             <h3>Add Patient Record</h3>
 
             <label>Purpose of Visit: </label>
@@ -161,7 +159,7 @@ const ConsultForm = () => {
             <button>Submit</button>
             {error && <div className="error">{error}</div>}
 
-            <Link to="/managepatient"> <button>Back</button> </Link>
+    
 
             
             </form>

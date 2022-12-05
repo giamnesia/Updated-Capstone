@@ -7,7 +7,7 @@ import PatientForm from '../../components/patientForm'
 const AddPatient = () => {
    
     return (
-        <div>
+        <div >
             <div>
                 <PatientForm />
             </div>

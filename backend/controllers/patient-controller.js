@@ -1,4 +1,5 @@
 const patientInfo = require('../models/health-model')
+const consult = require("../models/consult-model");
 const mongoose = require('mongoose')
 
 // get all patients
@@ -18,6 +19,9 @@ const getCount = async (req, res) => {
     // const countPatient = await patientInfo.countDocuments(query); //FINDING CATEGORY
     
     const count = await patientInfo.estimatedDocumentCount();
+
+
+
     res.status(200).json({
       totalPatient: count
     });
@@ -40,6 +44,36 @@ const getOnePatient = async (req, res) => {
 
     res.status(200).json(patientinfo)
 }
+
+const getAggPatient= async (req, res) => {
+
+    const {id} = req.params
+    const patientFind = await patientInfo.findOne({ _id: id });
+  
+    const patient = await consult.aggregate([
+      {
+        $match: { patientID: id.toString()},
+      },
+  
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $lookup: {
+          from: "be-diagnoses",
+          localField: "patientID",
+          foreignField: "_id",
+          as: "consult",
+        },
+      },
+    ]);
+  
+    const result = {
+        patient,
+        patientFind
+      };
+      res.send(result);
+  };
 
 // create a new patient
 const createPatient = async (req, res) => 
@@ -128,5 +162,6 @@ module.exports = {
     createPatient, 
     deletePatient,
     updatePatient,
-    getCount
+    getCount,
+    getAggPatient
 }

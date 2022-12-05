@@ -22,6 +22,8 @@ import AddConsult from "./pages/Doctor/AddConsult";
 import ViewConsult from "./pages/Doctor/ViewConsult";
 import TablePatient from "./pages/Doctor/charts/tablepatient";
 import PatientRecord from "./pages/Doctor/Table/PatientRecord";
+import PatientView from "./pages/Doctor/Table/PatientView";
+
 
 //SIDEBAR
 // import Sidebar from './components/Sidebar';
@@ -36,12 +38,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <Navbar /> */}
+ 
         <SideNav />
 
-        <div className="pages">
+
           <Routes>
-            <Route path="/" exact element={<Dashboard />} />
+            <Route exact path="/" element={<Dashboard />} />
             <Route path="/report" element={<Report />} />
 
             <Route path="/home" element={<Home />} />
@@ -56,6 +58,8 @@ function App() {
             <Route path="/viewconsult" element={<ViewConsult />} />
             <Route path="/tablepatient" element={<TablePatient />} />
             <Route path="/patientRecord" element={<PatientRecord />} />
+            <Route path="/:id" element={<PatientView/>} />
+
             
             <Route path="*" element={<Page404 />} />
 
@@ -64,7 +68,7 @@ function App() {
             <Route path= "/signup" element={!user ? <Signup /> : <Navigate to="/" />} /> */}
             {/* <Route path= "/doctor" element={user ? <DoctorPage /> : <Navigate to="/doctor" />} /> */}
           </Routes>
-        </div>
+      
       </BrowserRouter>
     </div>
   );
