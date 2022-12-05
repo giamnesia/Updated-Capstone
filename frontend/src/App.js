@@ -54,7 +54,7 @@ function App() {
             <Route path="/managedoctor" element={<ManageDoctor />} />
             <Route path="/adddoctor" element={<AddDoctor />} />
             {/* <Route path="/viewhistory" element={<ViewHistory />} /> */}
-            <Route path="/addconsult" element={<AddConsult />} />
+    
             <Route path="/viewconsult" element={<ViewConsult />} />
             <Route path="/tablepatient" element={<TablePatient />} />
             <Route path="/patientRecord" element={<PatientRecord />} />
@@ -62,6 +62,8 @@ function App() {
 
             
             <Route path="*" element={<Page404 />} />
+    
+            
 
             {/* <Route path= "/" element={user ? <Home /> : <Navigate to="/login" />} />
             <Route path= "/login" element={!user ? <Login /> : <Navigate to="/" />} />

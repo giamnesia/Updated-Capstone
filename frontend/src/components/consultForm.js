@@ -4,9 +4,24 @@ import{ UseConsultContext } from "../hooks/useConsultContext"
 import { Link } from 'react-router-dom'
 import RHUServices from "../data/rhuServices"
 // import { UseAuthContext } from "../hooks/useAuthContext"
-
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    Button,
+    useDisclosure,
+    Input,
+    FormControl,
+    FormLabel
+  } from '@chakra-ui/react'
 const ConsultForm = ({item}) => {
         const {dispatch} = UseConsultContext()
+
+        const { isOpen, onOpen, onClose } = useDisclosure()
         // const {user} = UseAuthContext()
 
         const [purpose, setPurpose] = useState('')
@@ -67,102 +82,103 @@ const ConsultForm = ({item}) => {
         }
 
         return (
-            <form className="create" onSubmit={handleSubmit}>
-        
-         
-            <h3>Add Patient Record</h3>
 
-            <label>Purpose of Visit: </label>
+            <>
+                 <Button onClick={onOpen}>Add Consultation</Button>
+                      <Modal
+                   
+                      isOpen={isOpen}
+                      onClose={onClose}
+                    >
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>Add Consultation</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody pb={6}>
+                        <FormControl mt={4}>
+                            <FormLabel>Purpose of Visit</FormLabel>
+                            <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 "
+                            value={purpose}
+                            onChange={handlePurpose}
+                           
+                            >
+                        
+                            {RHUServices.map((item) => (
+                            <>
+                                <option value="" selected="selected" hidden="hidden">
+                                Choose here
+                                </option>
+                                <option key={item.name} value={item.name}>{item.name}</option>
+                            </>
+                            ))}
+                        </select> 
 
-            <select
-            value={purpose}
-            onChange={handlePurpose}
-            // className = {emptyFields.includes('purpose') ? 'error': ''}
-             >
-          
-            {RHUServices.map((item) => (
-              <>
-                <option value="" selected="selected" hidden="hidden">
-                  Choose here
-                </option>
-                <option key={item.name} value={item.name}>{item.name}</option>
-              </>
-            ))}
-          </select> 
+                        
+                          </FormControl>
+                          <FormControl>
+                            <FormLabel>Treatment</FormLabel>
+                            <Input  focusBorderColor='orange.400'   onChange={(e) => setTreatment(e.target.value)}
+                          value={treatment} />
+                          </FormControl>
+                          <FormControl mt={4}>
+                            <FormLabel>Blood Pressure</FormLabel>
+                            <Input 
+                                placeholder='mm Hg'
+                              focusBorderColor='orange.400'    onChange={(e) => setBp(e.target.value)}
+                          value={bp} />
+                          </FormControl>
 
-            {/* <label>Diagnosis: </label>
-            <input 
-                type="text"
-                onChange={(e) => setDiagnosis(e.target.value)}
-                value={diagnosis}
-                // className = {emptyFields.includes('mname') ? 'error': ''}
-            /> */}
-{/* 
-            <label>Description: </label>
-            <input 
-                type="text"
-                onChange={(e) => setDescription(e.target.value)}
-                value={description}
-                // className = {emptyFields.includes('lname') ? 'error': ''}
-            /> */}
+                          <FormControl mt={4}>
+                            <FormLabel>Blood Sugar</FormLabel>
+                            <Input  focusBorderColor='orange.400'
+                                placeholder='mg/dL'
 
-            <label>Prescription: </label>
-            <input 
-                type="text"
-                onChange={(e) => setTreatment(e.target.value)}
-                value={treatment}
-                // className = {emptyFields.includes('lname') ? 'error': ''}
-            />
-        
-            <label>Blood Pressure: </label>
-            <input 
-                type="text"
-                onChange={(e) => setBp(e.target.value)}
-                value={bp}
-                // className = {emptyFields.includes('age') ? 'error': ''}
-            /> 
+                                onChange={(e) => setBloodsugar(e.target.value)}
+                                value={bloodsugar}/>
+                          </FormControl>
+                         
+                          <FormControl mt={4}>
+                            <FormLabel>Weight</FormLabel>
+                            <Input 
+                                placeholder='kg'
+                            focusBorderColor='orange.400' onChange={(e)=>setWeight(e.target.value)} value={weight} />
+                          </FormControl>
 
-            <label>Bloodsugar: </label>
-            <input 
-                type="text"
-                onChange={(e) => setBloodsugar(e.target.value)}
-                value={bloodsugar}
-                // className = {emptyFields.includes('age') ? 'error': ''}
-            /> 
+                          <FormControl mt={4}>
+                            <FormLabel>Height</FormLabel>
+                            <Input  
+                                placeholder='cm'
+                             focusBorderColor='orange.400' onChange={(e)=>setHeight(e.target.value)} value={height} />
+                          </FormControl>
+                          <FormControl mt={4}>
+                          <FormLabel>Attending Physician:</FormLabel>
 
-            <label>Weight: </label>
-            <input 
-                type="text"
-                onChange={(e) => setWeight(e.target.value)}
-                value={weight}
-                // className = {emptyFields.includes('age') ? 'error': ''}
-            /> 
+                        <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        value={attendingDoc} onChange ={(e)=>setAttendingDoc(e.target.value)}>
+                        <option value="" selected="selected" hidden="hidden">
+                        Choose here
+                        </option>
+                        <option value = "Dra. Katherine Pulgar-Ruby" selected> Dra. Katherine Pulgar-Ruby </option>
+                        {/* className = {emptyFields.includes('attendingDoc') ? 'error': ''} */}
+                    </select>
+                          </FormControl>
+                        </ModalBody>
 
-            <label>Height: </label>
-            <input 
-                type="text"
-                onChange={(e) => setHeight(e.target.value)}
-                value={height}
-                // className = {emptyFields.includes('age') ? 'error': ''}
-            /> 
+                        <ModalFooter>
+                          <Button colorScheme='orange' mr={3} onClick={handleSubmit}>
+                            Save
+                          </Button>
+                          <Button onClick={onClose}>Cancel</Button>
+                        </ModalFooter>
+                      </ModalContent>
+                    </Modal>
 
-            <label>Attending Physician: </label>
-            <select value={attendingDoc} onChange ={(e)=>setAttendingDoc(e.target.value)}>
-                <option value="" selected="selected" hidden="hidden">
-                  Choose here
-                </option>
-                <option value = "Dra. Katherine Pulgar-Ruby" selected> Dra. Katherine Pulgar-Ruby </option>
-                {/* className = {emptyFields.includes('attendingDoc') ? 'error': ''} */}
-            </select>
-            
 
-            <button>Submit</button>
-            {error && <div className="error">{error}</div>}
-
-    
-
-            
-            </form>
+       
+            </>
+           
         )
 }
 

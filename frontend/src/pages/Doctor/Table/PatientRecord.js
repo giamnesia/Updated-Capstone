@@ -123,7 +123,7 @@ const PatientRecord = () => {
 
 
   return (
-    <div className='tbl-patient'>
+    <div className='tbl-patient ml-20'>
         <table className='tablePatient'>
             <thead className='thead'>
             <tr>
