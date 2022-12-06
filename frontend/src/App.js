@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { UseAuthContext } from './hooks/useAuthContext';
 
 //pages and components 
-import Home from "./pages/Home";
+
 // import Login from './pages/Login';
 // import Signup from './pages/Signup';
 // import Navbar from './components/Navbar';
@@ -46,7 +46,7 @@ function App() {
             <Route exact path="/" element={<Dashboard />} />
             <Route path="/report" element={<Report />} />
 
-            <Route path="/home" element={<Home />} />
+   
             <Route path="/doctor" element={<DoctorPage />} />
             <Route path="/consult" element={<ConsultPage />} />
             <Route path="/managepatient" element={<ManagePatient />} />

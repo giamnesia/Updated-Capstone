@@ -149,8 +149,7 @@ const ModalPatient = ({item}) => {
                              placeholder={item.contact}
                             />
                           </FormControl>
-                        </ModalBody>
-                        <FormControl mt={4}>
+                          <FormControl mt={4}>
                             <FormLabel>Address</FormLabel>
                       
                       <select
@@ -173,6 +172,8 @@ const ModalPatient = ({item}) => {
                         
                           </FormControl>
 
+                        </ModalBody>
+                       
                         <ModalFooter>
                           <Button colorScheme='orange' mr={3} onClick={handleUpdate}>
                             Save

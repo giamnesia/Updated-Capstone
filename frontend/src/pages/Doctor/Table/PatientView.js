@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import {Link,useParams} from 'react-router-dom'
 import ModalPatient from './ModalPatient'
 import ModalDelete from './ModalDelete'
-
+import { Icon } from '@chakra-ui/react'
+import {BiEdit} from 'react-icons/bi'
 import ConsultForm from '../../../components/consultForm'
-
 const PatientView = () => {
 
     const { id } = useParams();
@@ -31,7 +31,7 @@ const PatientView = () => {
       fetchPatient();
     }, [display,consult]);
   return (
-    <div>
+    <div class='ml-20'>
 
       <div >
       {
@@ -46,6 +46,8 @@ const PatientView = () => {
 
             <ModalPatient item={display}/>
             <ModalDelete item={display}/>
+
+            
 
       
                       

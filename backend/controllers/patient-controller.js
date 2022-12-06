@@ -1,5 +1,6 @@
 const patientInfo = require('../models/health-model')
 const doctorInfo = require('../models/doctor-model')
+const consultInfo = require('../models/consult-model') //doctorInfo
 
 const consult = require("../models/consult-model");
 const mongoose = require('mongoose')
@@ -22,6 +23,8 @@ const getCount = async (req, res) => {
     
     const count = await patientInfo.estimatedDocumentCount();
     const countDoc = await doctorInfo.estimatedDocumentCount();
+    const consult = await consultInfo.estimatedDocumentCount();
+
 
 
     const month = await patientInfo.aggregate(
@@ -41,7 +44,8 @@ const getCount = async (req, res) => {
     res.status(200).json({
       totalPatient: count,
       totalMonth:month,
-      totalDoctor:countDoc
+      totalDoctor:countDoc,
+      totalConsult:consult
     });
   };
 
