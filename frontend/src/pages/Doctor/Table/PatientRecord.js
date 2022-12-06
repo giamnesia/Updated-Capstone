@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import {Link }from 'react-router-dom'
 import axios from 'axios'
 import { UsePatientContext } from '../../../hooks/usePatientContext'
-import PatientView from './PatientView'
+import {AiOutlineEye} from 'react-icons/ai'
 import PatientForm from '../../../components/patientForm'
 
 import {
@@ -154,9 +154,9 @@ const PatientRecord = () => {
                     <PatientForm/>
                 </div>
                 <div class="mt-7 overflow-x-auto">
-                    <table class="w-full whitespace-nowrap">
+                    <table class="w-full whitespace-nowrap text-sm">
                     <thead >
-                    <tr tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
+                    <tr tabindex="0" class="focus:outline-none h-14 border border-gray-100 rounded">
                 
                         <th>First Name</th>
                         <th>Middle Name</th>
@@ -172,7 +172,7 @@ const PatientRecord = () => {
                         <tbody>
 
                         {item.map(item => 
-                            <tr tabindex="0" class="focus:outline-none h-16 border text-center border-gray-100 rounded">
+                            <tr tabindex="0" class="focus:outline-none h-14 border text-center border-gray-100 rounded">
                     
                         <td>{item.fname}</td>
                         <td>{item.mname}</td>
@@ -183,8 +183,10 @@ const PatientRecord = () => {
                         <td>{item.contact}</td>
                         <td>
 
-                        
-                          <button class="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-white py-3 px-5 bg-amber-500 rounded hover:bg-amber-400 focus:outline-none" >   <Link to={`/${item._id}`}>View</Link></button> 
+                        <td class='items-center flex flex-col justify-center'>
+                        <Link to={`/${item._id}`}> <AiOutlineEye class='w-16 h-5 text-amber-800'/> </Link>
+
+                        </td>
                       
                     
                         </td>

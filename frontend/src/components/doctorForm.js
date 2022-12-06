@@ -125,43 +125,47 @@ const DoctorForm = () => {
                         <ModalHeader>Add Doctor</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody pb={6}>
-                        <form className="create-doc" onSubmit={handleSubmit}>
+                        <form  onSubmit={handleSubmit}>
                         <h3>Add Doctor</h3>
 
-                        <label>First Name: </label>
+                        <label class='my-2'>First Name: </label>
                         <input 
                             type="text"
                             onChange={(e) => setFname(e.target.value)}
                             value={fname}
                             className = {emptyFields.includes('fname') ? 'error': ''}
+                            class='p-2 outline-amber-500'
                         />
 
-                        <label>Middle Name: </label>
+                        <label class='my-2'>Middle Name: </label>
                         <input 
                             type="text"
                             onChange={(e) => setMname(e.target.value)}
                             value={mname}
                             className = {emptyFields.includes('mname') ? 'error': ''}
+                            class='p-2 outline-amber-500'
                         />
 
-                        <label>Last Name: </label>
+                        <label class='my-2'>Last Name: </label>
                         <input 
                             type="text"
                             onChange={(e) => setLname(e.target.value)}
                             value={lname}
                             className = {emptyFields.includes('lname') ? 'error': ''}
+                            class='p-2 outline-amber-500'
                         />
 
-                        <label>Specialization: </label>
+                        <label class='my-2'>Specialization: </label>
                         <input 
                             type="text"
                             onChange={(e) => setSpecialization(e.target.value)}
                             value={specialization}
                             className = {emptyFields.includes('specialization') ? 'error': ''}
+                            class='p-2 outline-amber-500'
                         />
 
-                        <label> Gender: </label>
-                        <select value={gender} onChange ={(e)=>setGender(e.target.value)}>
+                        <label class='my-2'> Gender: </label>
+                        <select class='p-2 outline-amber-500 w-full border border-gray-300 rounded'  value={gender} onChange ={(e)=>setGender(e.target.value)}>
                             <option value="" selected="selected" hidden="hidden">
                               Choose here
                             </option>
@@ -175,20 +179,21 @@ const DoctorForm = () => {
                             className = {emptyFields.includes('lname') ? 'error': ''}
                         /> */}
 
-                        <label>Age: </label>
+                        <label class='my-2'>Age: </label>
                         <input 
                             type="number"
                             onChange={(e) => setAge(e.target.value)}
                             value={age}
                             className = {emptyFields.includes('age') ? 'error': ''}
+                            class='p-2 outline-amber-500'
                         />
 
-                        <label>Address: </label>
+                        <label class='my-2' >Address: </label>
                         <select
                         value={address}
                         onChange={handleAddress}
                         className = {emptyFields.includes('address') ? 'error': ''}
-                        
+                        class='p-2 outline-amber-500 w-full border border-gray-300 rounded' 
                       >
                         {barangays.map((item) => (
                           <>
@@ -200,7 +205,7 @@ const DoctorForm = () => {
                         ))}
                       </select> 
 
-                        <label>Contact Number: </label>
+                        <label class='my-2'>Contact Number: </label>
                         <input 
                         
                             onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
@@ -208,10 +213,12 @@ const DoctorForm = () => {
                             minLength="11"
                             onChange={(e) => setContact(e.target.value)}
                             value={contact}
-                            className = {emptyFields.includes('contact') ? 'error': ''}
+                            className = {emptyFields.includes('contact') ? 'error': ''}     
+                               class='p-2 outline-amber-500'
+
                         />
 
-                        <button>Submit</button>
+                        <button class='mt-2'>Submit</button>
                         {error && <div className="error">{error}</div>}
 
                         </form>
