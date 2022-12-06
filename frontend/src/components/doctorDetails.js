@@ -32,6 +32,7 @@ const DoctorDetails = ({ doctorinfo }) => {
 
     return (
         <div className="doctor-details">
+            
             <h4>{doctorinfo.fname} {doctorinfo.mname} {doctorinfo.lname}</h4>
             <p><strong> Specialization:</strong> {doctorinfo.specialization}</p>
             <p><strong> Gender:</strong> {doctorinfo.gender}</p>

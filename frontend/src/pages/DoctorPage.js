@@ -32,7 +32,7 @@ const DoctorPage = () => {
 
         fetchDoctors()
 
-    }, [dispatch] )
+    }, [docInfo] )
     // [dispatch, user]
 
     return (
@@ -43,6 +43,7 @@ const DoctorPage = () => {
 
                 ))}
             </div>
+            
             <DoctorForm />  
         </div>
     )

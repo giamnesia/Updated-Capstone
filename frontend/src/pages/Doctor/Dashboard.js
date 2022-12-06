@@ -3,10 +3,15 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import { BiNotepad } from "react-icons/bi";
 import { BsFillPeopleFill } from 'react-icons/bs'
+import {RiHealthBookLine} from 'react-icons/ri'
 import { Icon } from '@chakra-ui/react'
 const Count = () => {
   const [patientCount, setPatient] = useState();
+  const [dateNow, setDateNow] = useState();
   
+
+  
+
   useEffect(() => {
     const fetchCount = async () => {
       const response = await fetch("portal/health/count");
@@ -21,11 +26,31 @@ const Count = () => {
       }
     };
     fetchCount();
+    getDate()
   }, []);
 
+  const getDate=()=>{
+    var today = new Date(),
+
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var curTime = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+    setDateNow(date + ' ' + curTime)
+  }
+  
+
   return (
-    <div className="flex flex-col items-start ">
+    <div className="flex flex-col items-start ml-20 ">
+         <div class="px-4 md:px-10 py-4 md:py-7">
+                <div class="flex items-center justify-between">
+                    <p tabindex="0" class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Dashboard</p>
+                  
+                </div>
+            </div>
       <p>Dashboard</p>
+      <div>
+        <p> Good day, Admin</p>
+      </div>
+      <p>{dateNow}</p>
       <div class='flex flex-row items-start'>
       <div className="dash">
         <BiNotepad className="dash-icon"/>
@@ -39,6 +64,17 @@ const Count = () => {
         </div>
       </div>
       <div className="dash">
+        <RiHealthBookLine className="dash-icon"/>
+        <div className="dash-text">
+          <p className="dash-p">
+            Number of Consultations:{" "}
+          </p>
+          <span className="dash-count">
+            {patientCount && patientCount.totalConsult}
+          </span>
+        </div>
+        </div>
+      <div className="dash">
         <BsFillPeopleFill className="dash-icon"/>
         <div className="dash-text">
           <p className="dash-p">
@@ -50,11 +86,6 @@ const Count = () => {
         </div>
       </div>
       </div>
-    
-
-
- 
-     
 
     </div>
   );

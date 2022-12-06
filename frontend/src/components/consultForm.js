@@ -18,6 +18,7 @@ import {
     FormControl,
     FormLabel
   } from '@chakra-ui/react'
+  import {GrAddCircle} from 'react-icons/gr'
 const ConsultForm = ({item}) => {
         const {dispatch} = UseConsultContext()
 
@@ -84,7 +85,7 @@ const ConsultForm = ({item}) => {
         return (
 
             <>
-                 <Button onClick={onOpen}>Add Consultation</Button>
+                 <Button onClick={onOpen} leftIcon={<GrAddCircle/>}> Consultation</Button>
                       <Modal
                    
                       isOpen={isOpen}
