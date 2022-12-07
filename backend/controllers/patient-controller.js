@@ -178,6 +178,24 @@ const updatePatient = async (req, res) => {
     res.status(200).json(patientinfo)
 }
 
+const searchPatient = async (req, res) => {
+    const keyword = req.query.search
+      ? {
+          $or: [
+     
+            { fname: { $regex: req.query.search, $options: "i" } },
+            { mname: { $regex: req.query.search, $options: "i" } },
+            { lname: { $regex: req.query.search, $options: "i" } },
+           
+  
+          ],
+        }
+      : [];
+    const patient = await patientInfo.find(keyword);
+    res.status(200).json(patient);
+  };
+  
+
 module.exports = {
     getAllPatients,
     getOnePatient,
@@ -185,5 +203,6 @@ module.exports = {
     deletePatient,
     updatePatient,
     getCount,
-    getAggPatient
+    getAggPatient,
+    searchPatient
 }

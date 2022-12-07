@@ -31,6 +31,8 @@ import PatientView from "./pages/Doctor/Table/PatientView";
 import SideNav from "./components/SideNav/SideNav";
 import Dashboard from "./pages/Doctor/Dashboard";
 import Report from "./pages/Doctor/Report";
+import Search from "./pages/Doctor/Search";
+
 
 function App() {
   //  const {user} = UseAuthContext()
@@ -58,6 +60,8 @@ function App() {
             <Route path="/viewconsult" element={<ViewConsult />} />
             <Route path="/tablepatient" element={<TablePatient />} />
             <Route path="/patientRecord" element={<PatientRecord />} />
+            <Route path="/search" element={<Search />} />
+
             <Route path="/:id" element={<PatientView/>} />
 
             

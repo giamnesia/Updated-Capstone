@@ -78,27 +78,6 @@ const PatientRecord = () => {
 
   
 
-//   const handleSubmit = () => {
-//     const url = "http://localhost:3000/portal/health";
-//     const Credentials = {fname, mname, lname, gender, age, address, contact};
-//         axios.post(url, Credentials)
-//         .then(response => {
-//           const result = response.data;
-//           if (result.ok) {
-//             console.log(result)
-//           }
-//           else {
-//               console.log("error")
-//           }
-//       })
-//       .catch(err => {
-//           console.log(err)
-//       })
-// }
-
-
-  //EDIT FUNCTION 
-  // NEXT NA GAGAWIN AY EDIT MODAL 
 
     const handleUpdate= async (e) => {
       e.preventDefault();
