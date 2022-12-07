@@ -5,6 +5,7 @@ import { BiNotepad } from "react-icons/bi";
 import { BsFillPeopleFill } from 'react-icons/bs'
 import {RiHealthBookLine} from 'react-icons/ri'
 import { Icon } from '@chakra-ui/react'
+
 const Count = () => {
   const [patientCount, setPatient] = useState();
   const [dateNow, setDateNow] = useState();

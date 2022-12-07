@@ -17,8 +17,12 @@ export const doctorReducer = (state, action) => {
             return {
                 docInfo : state.docInfo.filter((w) => w.id !== action.payload._id)
             } 
-        default:
-            return state
+            case "SEARCH_PATIENT":
+                return {
+                  docInfo: state.docInfo.filter((x) => x.includes(action.payload)),
+                };
+              default:
+                return state;
     }
 }
 

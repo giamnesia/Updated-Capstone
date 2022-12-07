@@ -66,51 +66,50 @@ const PatientView = () => {
 
       
 
-    <p>Consultation History</p>
-    {
-      consult? (
-       
-         consult && consult.map(item=>(
+
+            <h3 class="text-2xl text-gray-700 font-bold mb-6 ml-3">Consultation</h3>
+
+        <ol >
+          <li class="border-l-2 border-purple-600">
+            <div class="md:flex flex-start">
+             
+              {
+                 consult && consult.map(item=>(
      
-             <div class="">
-        <article class="p-10  mb-6 bg-white rounded-lg border-t-4    shadow-md ">
-          <div class="flex justify-between  items-center mb-5 text-gray-500">
-            <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-              {/* <HiSpeakerphone class="text-gray-500 mx-1" /> */}
-              Consultation | {item.createdAt.split("T")[0]}
-            </span>
-            <span class="text-sm"></span>
-          
-          </div>
-          <div class="flex flex-col" id="divToDownload">
-            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-              {item.purpose}
-            </h2>
-            <p>Treatment: {item.treatment}</p>
-          <p>Blood Pressure: {item.bp} mm Hg</p>
-          <p>Weight: {item.weight} kg</p>
-          <p>Height: {item.height} cm</p>
-          <p>Blood Sugar: {item.bloodsugar?item.bloodsugar:'none'} mg/dL </p>
-          <p>Attending Doctor: {item.attendingDoc}</p>
-          </div>
+              <div class="block p-6 rounded-lg shadow-lg bg-gray-100 max-w-md ml-6 mb-10">
+                
+                <div class="flex justify-between mb-4">
+                  <a href="#!" class="font-medium text-purple-600 hover:text-purple-700 focus:text-purple-800 duration-300 transition ease-in-out text-sm">{item.purpose}</a>
+                  <a href="#!" class="font-medium text-purple-600 hover:text-purple-700 focus:text-purple-800 duration-300 transition ease-in-out text-sm"> {item.createdAt.split("T")[0]}</a>
+                </div>
+                <p class="text-gray-700 mb-6">
 
-   
-            </article>
+                      <p>Treatment: {item.treatment}</p>
+               <p>Blood Pressure: {item.bp} mm Hg</p>
+               <p>Weight: {item.weight} kg</p>
+               <p>Height: {item.height} cm</p>
+               <p>Blood Sugar: {item.bloodsugar?item.bloodsugar:'none'} mg/dL </p>
+               <p>Attending Doctor: {item.attendingDoc}</p>
+                </p>
+              </div>
+            
            
-          </div>
-
-    
-
-  
-       
-        ))
       
-      ):(
-        
-        <p>No consultation</p>
-      )
+     
+       
+            
+             ))
+           
+              }
+           
+            </div>
+          </li>
+         
+         
+        </ol>
+
    
-    }
+  
 
   
     
