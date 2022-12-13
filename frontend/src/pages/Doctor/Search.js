@@ -72,7 +72,7 @@ const Search = () => {
 
       <div class="flex flex-row flex-wrap items-center justify-center">
         {
-            docInfo? (
+            docInfo && docInfo? (
                 <div class="sm:px-6 w-full">
 
                 <div class="px-4 md:px-10 py-4 md:py-7">
@@ -129,17 +129,17 @@ const Search = () => {
                                 <tr tabindex="0" class="focus:outline-none h-14 border text-center border-gray-100 rounded">
                         
                             <td>
-                            <Highlight query={search} styles={{ px: '1', py: '1', bg: 'orange.100' }}>
+                            <Highlight query={search?search:'none'} styles={{ px: '1', py: '1', bg: 'orange.100' }}>
                             {item.fname}
                             </Highlight>
                             </td>
                             <td>
-                            <Highlight query={search} styles={{ px: '1', py: '1', bg: 'orange.100' }}>
+                            <Highlight query={search?search:'none'} styles={{ px: '1', py: '1', bg: 'orange.100' }}>
                             {item.mname}
                             </Highlight>
                             </td>
                             <td>
-                            <Highlight query={search} styles={{ px: '1', py: '1', bg: 'orange.100' }}>
+                            <Highlight query={search?search:'none'} styles={{ px: '1', py: '1', bg: 'orange.100' }}>
                             {item.lname}
                             </Highlight>
                             </td>

@@ -13,12 +13,13 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
+    IconButton,
     useDisclosure,
     Input,
     FormControl,
     FormLabel
   } from '@chakra-ui/react'
-  import {GrAddCircle} from 'react-icons/gr'
+  import {IoAddOutline} from 'react-icons/io5'
 const ConsultForm = ({item}) => {
         const {dispatch} = UseConsultContext()
 
@@ -85,7 +86,15 @@ const ConsultForm = ({item}) => {
         return (
 
             <>
-                 <Button onClick={onOpen} leftIcon={<GrAddCircle/>}> Consultation</Button>
+               <IconButton
+              margin={1}
+           
+              colorScheme='purple'
+              aria-label='Add'
+              icon={<IoAddOutline/>}
+              onClick={onOpen}
+            />
+         
                       <Modal
                    
                       isOpen={isOpen}
