@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
-  Button,
+  IconButton, Button,
  useDisclosure
 } from '@chakra-ui/react'
 import {AiFillDelete} from 'react-icons/ai'
@@ -42,10 +42,16 @@ const ModalDelete = ({item}) => {
 }
   return (
     <div>
-       <Button leftIcon={<AiFillDelete/>} colorScheme='red' onClick={onOpen}>
-        Delete 
-      </Button>
-
+      
+         <IconButton
+          margin={1}
+          
+              colorScheme='red'
+              aria-label='Delete'
+              icon={<AiFillDelete/>}
+              onClick={onOpen}
+            />
+    
       <AlertDialog
         isOpen={isOpen}
       

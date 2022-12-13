@@ -3,8 +3,18 @@ import {Link,useParams} from 'react-router-dom'
 import ModalPatient from './ModalPatient'
 import ModalDelete from './ModalDelete'
 import { Icon } from '@chakra-ui/react'
-import {BiEdit} from 'react-icons/bi'
 import ConsultForm from '../../../components/consultForm'
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
 const PatientView = () => {
 
     const { id } = useParams();
@@ -34,7 +44,7 @@ const PatientView = () => {
     <div class='ml-20'>
 
       <div >
-      {
+      {/* {
         display ?(
           <div class='bg-gray-200'>
            {display&& display.fname} {display&& display.mname} {display&& display.lname}
@@ -44,8 +54,6 @@ const PatientView = () => {
             <p> {display&& display.address}</p>
             <p> {display&& display.contact}</p>
 
-            <ModalPatient item={display}/>
-            <ModalDelete item={display}/>
 
             
 
@@ -57,62 +65,106 @@ const PatientView = () => {
             <p>No Patient</p>
         )
 
-      }
+      } */}
 
 
 
-        <ConsultForm item={display}/>
       </div>
+      <h3 class="text-2xl text-gray-700 font-bold pt-6 ml-3">Patient Details</h3>
+      <div class='flex flex-row items-start justify-start m-3'>
+               <ModalPatient item={display }/>  
+                <ConsultForm item={display}/>
+                <ModalDelete item={display}/>
 
-      
-
-
-            <h3 class="text-2xl text-gray-700 font-bold mb-6 ml-3">Consultation</h3>
-
-        <ol >
-          <li class="border-l-2 border-purple-600">
-            <div class="md:flex flex-start">
-             
-              {
-                 consult && consult.map(item=>(
-     
-              <div class="block p-6 rounded-lg shadow-lg bg-gray-100 max-w-md ml-6 mb-10">
-                
-                <div class="flex justify-between mb-4">
-                  <a href="#!" class="font-medium text-purple-600 hover:text-purple-700 focus:text-purple-800 duration-300 transition ease-in-out text-sm">{item.purpose}</a>
-                  <a href="#!" class="font-medium text-purple-600 hover:text-purple-700 focus:text-purple-800 duration-300 transition ease-in-out text-sm"> {item.createdAt.split("T")[0]}</a>
-                </div>
-                <p class="text-gray-700 mb-6">
-
-                      <p>Treatment: {item.treatment}</p>
-               <p>Blood Pressure: {item.bp} mm Hg</p>
-               <p>Weight: {item.weight} kg</p>
-               <p>Height: {item.height} cm</p>
-               <p>Blood Sugar: {item.bloodsugar?item.bloodsugar:'none'} mg/dL </p>
-               <p>Attending Doctor: {item.attendingDoc}</p>
-                </p>
-              </div>
-            
+      </div>
            
-      
-     
+
+              <TableContainer>
+          <Table variant='simple'>
+            <Thead>
+              <Tr >
+        
+  
+
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Name</Td>
+                <Td>{display&& display.fname} {display&& display.mname} {display&& display.lname}</Td>
+         
+              </Tr>
+              <Tr>
+                <Td>Gender</Td>
+                <Td>{display&&display.gender}</Td>
        
-            
-             ))
-           
-              }
-           
-            </div>
-          </li>
-         
-         
-        </ol>
-
-   
+              </Tr>
+              <Tr>
+                <Td>Age</Td>
+                <Td>{display&&display.age}</Td>
+              </Tr>
+              <Tr>
+                <Td>Address</Td>
+                <Td>{display&&display.address}</Td>
+              </Tr>
+              <Tr>
+                <Td>Contact</Td>
+                <Td>{display&&display.contact}</Td>
+              </Tr>
+            </Tbody>
   
 
-  
+          </Table>
+        </TableContainer>
+
+          <br/>
+            <h3 class="text-2xl text-gray-700 font-bold mb-6 ml-3">Consultation</h3>
     
+            <TableContainer>
+              <Table variant='simple' >
+                <TableCaption>Consultation History</TableCaption>
+                <Thead>
+                  <Tr>
+                    <Th>Date</Th>
+
+                    <Th>Purpose of Visit</Th>
+                    <Th>Treatment</Th>
+                    <Th>Blood Pressure</Th>
+                    <Th >Height</Th>
+                    <Th >Weight</Th>
+                    <Th >Blood Sugar</Th>
+                    <Th >Attending Doctor</Th>
+
+
+                  </Tr>
+                </Thead>
+                <Tbody >
+                    {
+                          consult && consult.map(item=>(
+                            <Tr>
+                             <Td>{item.createdAt.split("T")[0]}</Td> 
+                            <Td>{item.purpose}</Td>
+
+                            <Td>{item.treatment}</Td>
+                            <Td>{item.bp} mm/Hg</Td>
+                            <Td isNumeric>{item.height} cm</Td>
+
+                            <Td isNumeric>{item.weight} kg</Td>
+                            <Td>{item.bloodsugar?item.bloodsugar:'none'} mg/dL </Td>
+                            <Td>{item.attendingDoc}</Td>
+
+                            </Tr>
+                            
+                          ))
+                    }
+          
+                  
+                </Tbody>
+              
+              </Table>
+            </TableContainer>
+         
+
     </div>
   )
 }

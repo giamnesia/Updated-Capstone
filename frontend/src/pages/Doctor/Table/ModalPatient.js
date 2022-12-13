@@ -8,6 +8,7 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
+    IconButton,
     useDisclosure,
     Input,
     FormControl,
@@ -81,7 +82,14 @@ const ModalPatient = ({item}) => {
     }
   return (
     <div>
-                <Button leftIcon={<BiEdit />} onClick={onOpen}>Edit</Button>
+                <IconButton
+              margin={1}
+           
+              colorScheme='green'
+              aria-label='Edit'
+              icon={<BiEdit/>}
+              onClick={onOpen}
+            />
                       <Modal
                    
                       isOpen={isOpen}
@@ -95,13 +103,13 @@ const ModalPatient = ({item}) => {
                           <FormControl  >
                             <FormLabel>First name</FormLabel>
                             <Input   focusBorderColor='orange.400' onChange={handleFname} value={fname}
-                            placeholder={item.fname}
+                            placeholder={item? item.fname:'none'}
                             />
                           </FormControl>
                           <FormControl mt={4}>
                             <FormLabel>Middle name</FormLabel>
                             <Input  focusBorderColor='orange.400' onChange={handleMname} value={mname} 
-                            placeholder={item.mname}
+                            placeholder={item?item.mname:'none'}
                             
                             />
                           </FormControl>
@@ -109,7 +117,7 @@ const ModalPatient = ({item}) => {
                           <FormControl mt={4}>
                             <FormLabel>Last name</FormLabel>
                             <Input  focusBorderColor='orange.400'  onChange={handleLname} value={lname} 
-                            placeholder={item.lname}
+                            placeholder={item?item.lname:'none'}
                             
                             />
                           </FormControl>
@@ -134,7 +142,7 @@ const ModalPatient = ({item}) => {
                           <FormControl mt={4}>
                             <FormLabel>Age</FormLabel>
                             <Input  focusBorderColor='orange.400'  onChange={(e)=>setAge(e.target.value)} value={age}
-                            placeholder={item.age} 
+                            placeholder={item?item.age:'none'} 
                              onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
                             
                             />
@@ -146,7 +154,7 @@ const ModalPatient = ({item}) => {
                              onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
                              maxLength="11"
                              minLength="11"
-                             placeholder={item.contact}
+                             placeholder={item?item.contact:'none'}
                             />
                           </FormControl>
                           <FormControl mt={4}>
