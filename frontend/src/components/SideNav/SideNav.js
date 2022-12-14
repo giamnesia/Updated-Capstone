@@ -1,18 +1,18 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-
+import Calauag from '../../images/calauag.png'
 const SideNav= () => {
   return (
     <div>
-      <div class="h-full  absolute z-20 ">
+      <div class="h-full  absolute z-20  ">
         <div class="sidebar min-h-screen w-[3.35rem] overflow-hidden border-r hover:w-56 hover:bg-white hover:shadow-lg">
           <div class="flex h-screen flex-col justify-between pt-2 pb-6">
             <div>
               <div class="w-max p-2.5">
-                
+                 <img class='w-8' src={Calauag}/>
               </div>
               <ul class="mt-6 space-y-2 tracking-wide">
-                <li class="min-w-max">
+                <li class="min-w-max ">
                   <Link
                     to="/"
                     class="relative flex items-center space-x-4 bg-gradient-to-r from-amber-600 to-orange-400 px-4 py-3 text-white"
@@ -89,25 +89,15 @@ const SideNav= () => {
                   <Link to='/doctor'
                     class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        class="fill-current text-gray-600 group-hover:text-orange-600"
-                        fill-rule="evenodd"
-                        d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
-                        clip-rule="evenodd"
-                      />
-                      <path
-                        class="fill-current text-gray-300 group-hover:text-orange-300"
-                        d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"
-                      />
-                    </svg>
-                    
-                    <span class="group-hover:text-gray-700">Manage Doctor</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        width="24" height="24"
+                        viewBox="0 0 24 24">
+                            <path
+                           class="fill-current text-gray-600 group-hover:text-orange-600"
+                            
+                            d="M 6 2 C 4.897 2 4 2.897 4 4 L 4 20 C 4 21.103 4.897 22 6 22 L 18 22 C 19.103 22 20 21.103 20 20 L 20 4 C 20 2.897 19.103 2 18 2 L 6 2 z M 6 4 L 18 4 L 18 20 L 6 20.001953 L 6 4 z M 12 6 C 10.318 6 9 7.317 9 9 C 9 10.683 10.318 12 12 12 C 13.682 12 15 10.683 15 9 C 15 7.317 13.682 6 12 6 z M 12 8 C 12.58 8 13 8.421 13 9 C 13 9.579 12.58 10 12 10 C 11.42 10 11 9.579 11 9 C 11 8.421 11.42 8 12 8 z M 12 13 C 9.149 13 7 14.455766 7 16.384766 L 7 18 L 17 18 L 17 16.384766 C 17 14.455766 14.851 13 12 13 z M 12 15 C 13.47 15 14.489516 15.504 14.853516 16 L 9.1464844 16 C 9.5094844 15.504 10.53 15 12 15 z"></path>
+                        </svg>
+                          <span class="group-hover:text-gray-700">Manage Doctor</span>
                   </Link>
                 </li>
 
@@ -115,23 +105,14 @@ const SideNav= () => {
                   <Link to='/search'
                     class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
+                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                  width="24" height="24"
+                  viewBox="0 0 24 24">
                       <path
                         class="fill-current text-gray-600 group-hover:text-orange-600"
-                        fill-rule="evenodd"
-                        d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
-                        clip-rule="evenodd"
-                      />
-                      <path
-                        class="fill-current text-gray-300 group-hover:text-orange-300"
-                        d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"
-                      />
-                    </svg>
+                      
+                      d="M 9 2 C 5.1458514 2 2 5.1458514 2 9 C 2 12.854149 5.1458514 16 9 16 C 10.747998 16 12.345009 15.348024 13.574219 14.28125 L 14 14.707031 L 14 16 L 20 22 L 22 20 L 16 14 L 14.707031 14 L 14.28125 13.574219 C 15.348024 12.345009 16 10.747998 16 9 C 16 5.1458514 12.854149 2 9 2 z M 9 4 C 11.773268 4 14 6.2267316 14 9 C 14 11.773268 11.773268 14 9 14 C 6.2267316 14 4 11.773268 4 9 C 4 6.2267316 6.2267316 4 9 4 z"></path>
+                  </svg>
                     
                     <span class="group-hover:text-gray-700">Search</span>
                   </Link>

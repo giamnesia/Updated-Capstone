@@ -6,7 +6,7 @@ const TablePatient = () => {
 
         // table/chart for patient
 
-    <div>
+    <div >
        <iframe 
             title='tbl-patient'
             style=

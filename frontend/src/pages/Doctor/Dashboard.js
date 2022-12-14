@@ -47,7 +47,7 @@ const Count = () => {
                   
                 </div>
             </div>
-      <p>Dashboard</p>
+
       <div>
         <p> Good day, Admin</p>
       </div>
