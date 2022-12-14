@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Report() {
   return (
 
-  <div className='report-page'>
+  <div class='ml-20'>
     <button className='btn-report'> <Link to="/"> BACK TO DASHBOARD </Link> </button>
     {/* <MdIcons.MdArrowBack><Link to="/"> BACK </Link></MdIcons.MdArrowBack>  */}
 

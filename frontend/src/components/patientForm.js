@@ -2,7 +2,9 @@ import React from 'react'
 import { useState } from "react"
 import { UsePatientContext } from "../hooks/usePatientContext"
 import barangays from '../data/barangay'
-// import { UseAuthContext } from "../hooks/useAuthContext"
+import validator from 'validator' 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Modal,
   ModalOverlay,
@@ -34,6 +36,13 @@ const PatientForm = () => {
         const [error, setError] = useState(null)
         const [emptyFields, setEmptyFields] = useState([])
 
+        const validatePhoneNumber = (number) => {
+          const isValidPhoneNumber = validator.isMobilePhone(number, 'en-PH')
+          return (isValidPhoneNumber)
+         }
+      
+      
+
         const handleAddress =(e)=>{
              setAddress(e.target.value)
         }
@@ -45,6 +54,32 @@ const PatientForm = () => {
             //     setError('You must be logged in')
             //     return
             // }
+
+            const validate = validatePhoneNumber(contact)
+            if(!address){
+              toast.error("Invalid address", {
+                position: "bottom-right",
+                autoClose: 5000,
+              });
+              return;
+            }
+            if(!gender){
+              toast.error("Invalid gender", {
+                position: "bottom-right",
+                autoClose: 5000,
+              });
+              return;
+            }
+
+
+           
+            if(!validate){
+              toast.error("Invalid phone number", {
+                position: "bottom-right",
+                autoClose: 5000,
+              });
+              return;
+            }
 
             const patientinfo = {fname, mname, lname, gender, age, address, contact}
 
@@ -61,6 +96,10 @@ const PatientForm = () => {
             if (!response.ok) {
                 setError(json.error)
                 setEmptyFields(json.emptyFields)
+                toast.error("Fields required", {
+                  position: "bottom-right",
+                  autoClose: 5000,
+                });
             }
             if (response.ok) {
                 setError(null)
@@ -72,6 +111,10 @@ const PatientForm = () => {
                 setAge('')
                 setAddress('')
                 setContact('')
+                toast.success("Patient added successfully", {
+                  position: "bottom-right",
+                  autoClose: 5000,
+                });
             
                 dispatch({type: 'CREATE_PATIENT', payload: json})
         

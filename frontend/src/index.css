@@ -114,6 +114,7 @@ input, .create-doc {
   box-sizing: border-box;
 }
 
+
 form button {
   background: var(--primary);
   border: 0;
@@ -124,17 +125,20 @@ form button {
   cursor: pointer;
 }
 div.error {
-  padding: 10px;
+  padding: 2em;
   background: #ffefef;
   border: 1px solid var(--error);
   color: var(--error);
   border-radius: 4px;
-  margin: 20px 0;
+
 }
 
 /* Error in patient Form */
 input.error{
   border: 1px solid var(--error);
+  padding: 2em;
+ 
+  
 }
 
 /* icons */

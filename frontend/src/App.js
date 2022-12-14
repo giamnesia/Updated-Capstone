@@ -10,6 +10,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import Login from './pages/Login';
 // import Signup from './pages/Signup';
 // import Navbar from './components/Navbar';
+
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import DoctorPage from "./pages/DoctorPage";
 import ConsultPage from "./pages/ConsultPage";
 import Page404 from "./pages/Page404";
@@ -40,7 +44,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
- 
+      <ToastContainer />
+
         <SideNav />
 
 
