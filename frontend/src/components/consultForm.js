@@ -3,6 +3,8 @@ import React from 'react';
 import{ UseConsultContext } from "../hooks/useConsultContext"
 import { Link } from 'react-router-dom'
 import RHUServices from "../data/rhuServices"
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { UseAuthContext } from "../hooks/useAuthContext"
 import {
     Modal,
@@ -48,7 +50,13 @@ const ConsultForm = ({item}) => {
         const handleSubmit = async (e) => {
             e.preventDefault()
 
-            
+            if(!attendingDoc){
+              toast.error("Invalid doctor", {
+                position: "bottom-right",
+                autoClose: 5000,
+              });
+              return;
+            }
             const consultinfo = {purpose, treatment, bp, weight, height, bloodsugar, attendingDoc,patientID }
 
             const response = await fetch('/portal/consult', {

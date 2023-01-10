@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Helmet } from 'react-helmet';
 const TablePatient = () => {
 
     return (
@@ -7,7 +7,12 @@ const TablePatient = () => {
         // table/chart for patient
 
     <div >
+        <Helmet>
+        <title>RHU Calauag | Charts</title>
+        <meta name="description" content="Charts" />
+        </Helmet>
        <iframe 
+       
             title='tbl-patient'
             style=
            {{ background: "#FFFFFF",

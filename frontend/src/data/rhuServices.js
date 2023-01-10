@@ -13,10 +13,10 @@ const RHUServices = [
       id: 4,
       name: "Covid 19 Vaccination",
     },
-    {
-      id: 5,
-      name: "#",
-    },
+    // {
+    //   id: 5,
+    //   name: "",
+    // },
     {
       id: 6,
       name: "Medical Clearance",
@@ -53,7 +53,7 @@ const RHUServices = [
     },
     {
       id: 16,
-      name: "Laboratoty Examination ",
+      name: "Laboratory Examination ",
     },
     
   ];

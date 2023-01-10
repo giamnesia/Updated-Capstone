@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const healthRoutes = require('./routes/health')
 const doctorRoutes = require('./routes/doctor')
 const consultRoutes = require('./routes/consult')
-// const userRoutes = require('./routes/user')  FOR AUTHENTICATION
+ const userRoutes = require('./routes/user')
 
 
 // express app
@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 app.use('/portal/health', healthRoutes)
 app.use('/portal/doctor', doctorRoutes)
 app.use('/portal/consult', consultRoutes)
-// app.use('/portal/user', userRoutes) FOR AUTHENTICATION
+app.use('/portal/user', userRoutes) 
 
 
 //connect to DB

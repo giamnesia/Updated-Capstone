@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // import * as MdIcons from 'react-icons/md';
-
+import { Helmet } from 'react-helmet';
 function Report() {
   return (
 
   <div class='ml-20'>
+     <Helmet>
+        <title>RHU Calauag | Charts</title>
+        <meta name="description" content="Charts" />
+        </Helmet>
     <button className='btn-report'> <Link to="/"> BACK TO DASHBOARD </Link> </button>
     {/* <MdIcons.MdArrowBack><Link to="/"> BACK </Link></MdIcons.MdArrowBack>  */}
 

@@ -145,12 +145,12 @@ const PatientView = () => {
                              <Td>{item.createdAt.split("T")[0]}</Td> 
                             <Td>{item.purpose}</Td>
 
-                            <Td>{item.treatment}</Td>
-                            <Td>{item.bp} mm/Hg</Td>
-                            <Td isNumeric>{item.height} cm</Td>
+                            <Td>{item.treatment?item.treatment:'None'}</Td>
+                            <Td>{item.bp?item.bp:'0'} mm/Hg</Td>
+                            <Td isNumeric>{item.height?item.height:'0'} cm</Td>
 
-                            <Td isNumeric>{item.weight} kg</Td>
-                            <Td>{item.bloodsugar?item.bloodsugar:'none'} mg/dL </Td>
+                            <Td isNumeric>{item.weight?item.weight:'0'} kg</Td>
+                            <Td>{item.bloodsugar?item.bloodsugar:'0'} mg/dL </Td>
                             <Td>{item.attendingDoc}</Td>
 
                             </Tr>

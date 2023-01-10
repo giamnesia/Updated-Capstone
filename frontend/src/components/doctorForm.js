@@ -1,8 +1,13 @@
 import React from 'react'
-import { useState } from "react"
 import { UseDoctorContext } from "../hooks/useDoctorContext"
 import barangays from '../data/barangay'
 // import { UseAuthContext } from "../hooks/useAuthContext"
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import axios from "axios";
+
 import {
     Modal,
     ModalOverlay,
@@ -23,6 +28,9 @@ const DoctorForm = () => {
        // const {user} = UseAuthContext()
 
        const { isOpen, onOpen, onClose } = useDisclosure()
+       const [email, setEmail] = useState('')
+       const [password, setPassword] = useState('')
+
         const [fname, setFname] = useState('')
         const [mname, setMname] = useState('')
         const [lname, setLname] = useState('')
@@ -40,44 +48,73 @@ const DoctorForm = () => {
 
         const handleSubmit = async (e) => {
             e.preventDefault()
+            try{
+              await axios
+              .post(
+                "portal/user/signup",
+                {
+                  email,
+                  password,
+                  fname,
+                  mname,
+                  lname
+                },
+            
+              )
+              
+                  toast.success(`😃 Successfully created account`, {
+                    autoClose: 5000,
+                    position: "bottom-right",
+                    pauseOnHover: false,
+                  });
+                 
+                  window.location.reload();
+    
+            }catch (e) {
+            toast.error(`${e}`, {
+              autoClose: 5000,
+              position: "bottom-right",
+              pauseOnHover: false,
+            });
+          } 
 
-        //     if (!user) {
-        //         setError('You must be logged in')
-        //         return
-        //     }
+        // //     if (!user) {
+        // //         setError('You must be logged in')
+        // //         return
+        // //     }
 
-            const doctorinfo = {fname, mname, lname, gender, age, address, contact, specialization}
+        //     const doctorinfo = {fname, mname, lname, gender, age, address, contact, specialization}
 
-            const response = await fetch('/portal/doctor', {
-                method: 'POST',
-                body: JSON.stringify(doctorinfo),
-                headers: {
-                    'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${user.token}`
-                }
-            })
-            const json = await response.json()
+        //     const response = await fetch('/portal/doctor', {
+        //         method: 'POST',
+        //         body: JSON.stringify(doctorinfo),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             // 'Authorization': `Bearer ${user.token}`
+        //         }
+        //     })
+        //     const json = await response.json()
 
-            if (!response.ok) {
-                setError(json.error)
+        //     if (!response.ok) {
+        //         setError(json.error)
            
-            }
-            if (response.ok) {
-                setError(null)
+        //     }
+        //     if (response.ok) {
+        //         setError(null)
             
-                setFname('')
-                setMname('')
-                setLname('')
-                setGender('')
-                setAge('')
-                setAddress('')
-                setContact('')
-                setSpecialization('')
+        //         setFname('')
+        //         setMname('')
+        //         setLname('')
+        //         setGender('')
+        //         setAge('')
+        //         setAddress('')
+        //         setContact('')
+        //         setSpecialization('')
                
-                console.log('Doctor Added!', json)
-                dispatch({type: 'CREATE_DOCTOR', payload: json})
+        //         console.log('Doctor Added!', json)
+        //         dispatch({type: 'CREATE_DOCTOR', payload: json})
             
-            }
+        //     }
 
 
         }
@@ -155,7 +192,7 @@ const DoctorForm = () => {
                             class='p-2 outline-amber-500'
                         />
 
-                        <label class='my-2'>Specialization: </label>
+                        {/* <label class='my-2'>Specialization: </label>
                         <input 
                             type="text"
                             onChange={(e) => setSpecialization(e.target.value)}
@@ -171,7 +208,7 @@ const DoctorForm = () => {
                             </option>
                             <option value = "Female" selected> Female </option>
                             <option value = "Male" selected> Male </option>
-                        </select>
+                        </select> */}
                         {/* <input 
                             type="text"
                             onChange={(e) => setLname(e.target.value)}
@@ -179,7 +216,7 @@ const DoctorForm = () => {
                             className = {emptyFields.includes('lname') ? 'error': ''}
                         /> */}
 
-                        <label class='my-2'>Age: </label>
+                        {/* <label class='my-2'>Age: </label>
                         <input 
                             type="number"
                             onChange={(e) => setAge(e.target.value)}
@@ -203,8 +240,8 @@ const DoctorForm = () => {
                             <option key={item.name} value={item.name}>{item.name}</option>
                           </>
                         ))}
-                      </select> 
-
+                      </select>  */}
+{/* 
                         <label class='my-2'>Contact Number: </label>
                         <input 
                         
@@ -216,7 +253,27 @@ const DoctorForm = () => {
                             className = {emptyFields.includes('contact') ? 'error': ''}     
                                class='p-2 outline-amber-500'
 
-                        />
+                        /> */}
+
+                        
+                      <input
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="text"
+                        id="email-address-icon"
+                        class=" border border-gray-500 text-gray-900 text-sm rounded-lg outline-none focus:ring-amber-500 focus:border-amber-500 block w-full pl-10 p-2.5"
+                        placeholder="name@email.com"
+                        autoComplete="off"
+                        required
+                      />
+
+                      <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  type={"password"}
+                  class=" border border-gray-500 text-gray-900 outline-none  text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full pl-10 p-2.5"
+                  placeholder="password"
+                  required
+                />
+               
 
                         <button class='mt-2'>Submit</button>
                         {error && <div className="error">{error}</div>}

@@ -229,7 +229,7 @@ const barangays = [
     },
     {
       id: 58,
-      name: "Sabang I",
+      name: "Sabang Uno",
     },
     {
       id: 59,

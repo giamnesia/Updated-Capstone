@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import Calauag from '../../images/calauag.png'
+import Logout from "../auth/Logout";
 const SideNav= () => {
   return (
     <div>
@@ -137,7 +138,7 @@ const SideNav= () => {
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="group-hover:text-gray-700">Settings</span>
+                <span class="group-hover:text-gray-700"><Logout/></span>
               </a>
             </div>
           </div>
