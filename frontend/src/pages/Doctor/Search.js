@@ -145,7 +145,12 @@ const Search = () => {
                             </td>
                             <td>{item.gender}</td>
                             <td>{item.age}</td>
-                            <td>{item.address}</td>
+                            <td>
+                            <Highlight query={search?search:'none'} styles={{ px: '1', py: '1', bg: 'orange.100' }}>
+                            {item.address}
+                            </Highlight>
+                            </td>
+                         
                             <td>{item.contact}</td>
                             <td>
     

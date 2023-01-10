@@ -5,7 +5,7 @@ import axios from 'axios'
 import { UsePatientContext } from '../../../hooks/usePatientContext'
 import {AiOutlineEye} from 'react-icons/ai'
 import PatientForm from '../../../components/patientForm'
-
+import { Helmet } from 'react-helmet'
 import {
   Modal,
   ModalOverlay,
@@ -104,6 +104,10 @@ const PatientRecord = () => {
 
   return (
     <div className='tbl-patient ml-20'>
+      <Helmet>
+      <title>RHU Calauag | Patient Info</title>
+        <meta name="description" content="Patient Info" />
+      </Helmet>
        
        <div class="sm:px-6 w-full">
 

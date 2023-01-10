@@ -5,6 +5,7 @@ import { BiNotepad } from "react-icons/bi";
 import { BsFillPeopleFill } from 'react-icons/bs'
 import {RiHealthBookLine} from 'react-icons/ri'
 import { Icon } from '@chakra-ui/react'
+import { Helmet } from 'react-helmet';
 
 const Count = () => {
   const [patientCount, setPatient] = useState();
@@ -41,6 +42,10 @@ const Count = () => {
 
   return (
     <div className="flex flex-col items-start ml-20 ">
+       <Helmet>
+        <title>RHU Calauag | Charts</title>
+        <meta name="description" content="Charts" />
+        </Helmet>
          <div class="px-4 md:px-10 py-4 md:py-7">
                 <div class="flex items-center justify-between">
                     <p tabindex="0" class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Dashboard</p>

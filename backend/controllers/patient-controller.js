@@ -11,6 +11,19 @@ const getAllPatients = async (req, res) => {
 
     const info = await patientInfo.find({}).sort({createdAt: -1}) //sort by date
     // const info = await patientInfo.find({user_id}).sort({createdAt: -1}) //sort by date  FOR AUTHENTICATION
+    // const aggregatedDocs = await patientInfo.aggregate([
+    //     {
+    //       $group: {
+    //         _id: { fname: "$fname", lname: "$lname" },
+    //         docs: { $push: "$$ROOT" }
+    //       }
+    //     },
+    //     {
+    //       $match: {
+    //         "docs.1": { $exists: true }
+    //       }
+    //     }
+    //   ]);
 
     res.status(200).json(info)
 }
@@ -70,9 +83,9 @@ const getOnePatient = async (req, res) => {
 const getAggPatient= async (req, res) => {
 
     const {id} = req.params
-    const patientFind = await patientInfo.findOne({ _id: id });
+    const patientFind = await patientInfo.findById({ _id:id });
   
-    const patient = await consult.aggregate([
+    const patient = await consultInfo.aggregate([
       {
         $match: { patientID: id.toString()},
       },
@@ -90,11 +103,8 @@ const getAggPatient= async (req, res) => {
       },
     ]);
   
-    const result = {
-        patient,
-        patientFind
-      };
-      res.send(result);
+   
+      res.status(200).json({patient,patientFind})
   };
 
 // create a new patient
@@ -186,6 +196,8 @@ const searchPatient = async (req, res) => {
             { fname: { $regex: req.query.search, $options: "i" } },
             { mname: { $regex: req.query.search, $options: "i" } },
             { lname: { $regex: req.query.search, $options: "i" } },
+            { address: { $regex: req.query.search, $options: "i" } },
+
            
   
           ],
