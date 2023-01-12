@@ -4,6 +4,7 @@ import SearchResults from "./SearchResults";
 import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Highlight } from '@chakra-ui/react'
+import { Helmet } from "react-helmet";
 const Search = () => {
   const { docInfo, dispatch } = UseDoctorContext();
 
@@ -34,6 +35,10 @@ const Search = () => {
 
   return (
     <div class='ml-20'>
+        <Helmet>
+      <title>RHU Calauag | Search</title>
+        <meta name="description" content="Patient Info" />
+      </Helmet>
       <form onSubmit={handleSearch} >
         <label
           for="default-search"

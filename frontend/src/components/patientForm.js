@@ -120,15 +120,7 @@ const PatientForm = () => {
         
             }
         }
-        const handleFname =(e)=>{
-          const { value } = e.target;
-      
-          const re = /^[A-Za-z]+$/;
-          if (value === "" || re.test(value)) {
-          setFname(e.target.value.toUpperCase() ) 
-            
-          }
-        }
+  
         const handleMname =(e)=>{
           const { value } = e.target;
       
@@ -165,27 +157,115 @@ const PatientForm = () => {
                         <label class='my-2'>First Name: </label>
                         <input 
                             type="text"
-                            onChange={handleFname}
+                            onChange={ (e)=>{
+                              setFname(e.target.value.toUpperCase() ) 
+                
+                            }
+                            }
+                           
+                      
                             value={fname}
                             className = {emptyFields.includes('fname') ? 'error': ''}
                             class='p-2 outline-amber-500'
+
+                            
+                    onKeyDown={(function (e) {
+          
+                      if (e.shiftKey || e.ctrlKey || e.altKey) {
+                      
+                        
+                        e.preventDefault()
+                        
+                      } else {
+                      
+                        var key = e.keyCode;
+                        
+                        if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+                        
+                       
+                          e.preventDefault()
+                    
+                          
+                        }
+                  
+                      }
+                      
+                    })}
+                    required
 
                         />
 
                         <label class='my-2'>Middle Name: </label>
                         <input 
                             type="text"
-                            onChange={handleMname}
+                            onChange={ (e)=>{
+                              setMname(e.target.value.toUpperCase() ) 
+                
+                            }
+                            }
+                           
                             value={mname}
                             className = {emptyFields.includes('mname') ? 'error': ''}
                             class='p-2 outline-amber-500'
+                                       
+                    onKeyDown={(function (e) {
+          
+                      if (e.shiftKey || e.ctrlKey || e.altKey) {
+                      
+                        
+                        e.preventDefault()
+                        
+                      } else {
+                      
+                        var key = e.keyCode;
+                        
+                        if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+                        
+                       
+                          e.preventDefault()
+                    
+                          
+                        }
+                  
+                      }
+                      
+                    })}
+                    required
 
                         />
 
                         <label class='my-2'>Last Name: </label>
                         <input 
                             type="text"
-                            onChange={handleLname}
+                            onChange={ (e)=>{
+                              setLname(e.target.value.toUpperCase() ) 
+                
+                            }
+                            }
+                            onKeyDown={(function (e) {
+          
+                              if (e.shiftKey || e.ctrlKey || e.altKey) {
+                              
+                                
+                                e.preventDefault()
+                                
+                              } else {
+                              
+                                var key = e.keyCode;
+                                
+                                if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+                                
+                               
+                                  e.preventDefault()
+                            
+                                  
+                                }
+                          
+                              }
+                              
+                            })}
+                            required
+                           
                             value={lname}
                             className = {emptyFields.includes('lname') ? 'error': ''}
                             class='p-2 outline-amber-500'

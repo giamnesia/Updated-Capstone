@@ -1,52 +1,52 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { UseDoctorContext } from '../hooks/useDoctorContext'
-//import { UseAuthContext} from '../hooks/useAuthContext'
+// import React from 'react'
+// import { useEffect } from 'react'
+// import { UseDoctorContext } from '../hooks/useDoctorContext'
+// //import { UseAuthContext} from '../hooks/useAuthContext'
 
-//components
-import DoctorDetails from '../components/doctorDetails'
-import DoctorForm from '../components/doctorForm'
+// //components
+// import DoctorDetails from '../components/doctorDetails'
+// import DoctorForm from '../components/doctorForm'
 
-const DoctorPage = () => {
-    const {docInfo, dispatch} = UseDoctorContext()
-    //const {user} = UseAuthContext()
+// const DoctorPage = () => {
+//     const {docInfo, dispatch} = UseDoctorContext()
+//     //const {user} = UseAuthContext()
     
-    useEffect(() => {
+//     useEffect(() => {
 
-        const fetchDoctors = async () => {
-            const response = await fetch('/portal/doctor', {
-                headers: {
-                    // 'Authorization': `Bearer ${user.token}`
-                }
-            })
-            const json = await response.json()
+//         const fetchDoctors = async () => {
+//             const response = await fetch('/portal/doctor', {
+//                 headers: {
+//                     // 'Authorization': `Bearer ${user.token}`
+//                 }
+//             })
+//             const json = await response.json()
 
-            if (response.ok) {
-                dispatch ({type: 'SET_DOCTOR', payload: json})
-            }
-        }
+//             if (response.ok) {
+//                 dispatch ({type: 'SET_DOCTOR', payload: json})
+//             }
+//         }
 
-        // if (user) {
-        //     fetchDoctors()
-        // }
+//         // if (user) {
+//         //     fetchDoctors()
+//         // }
 
-        fetchDoctors()
+//         fetchDoctors()
 
-    }, [docInfo] )
-    // [dispatch, user]
+//     }, [docInfo] )
+//     // [dispatch, user]
 
-    return (
-        <div className="DoctorPage">
-            <div className="workouts"> 
-                {docInfo && docInfo.map((doctorinfo) => (
-                    <DoctorDetails key={doctorinfo._id} doctorinfo={doctorinfo} />
+//     return (
+//         <div className="DoctorPage">
+//             <div className="workouts"> 
+//                 {docInfo && docInfo.map((doctorinfo) => (
+//                     <DoctorDetails key={doctorinfo._id} doctorinfo={doctorinfo} />
 
-                ))}
-            </div>
+//                 ))}
+//             </div>
             
-            <DoctorForm />  
-        </div>
-    )
-}
+//             <DoctorForm />  
+//         </div>
+//     )
+// }
 
-export default DoctorPage
+// export default DoctorPage
