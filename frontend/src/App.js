@@ -8,6 +8,8 @@ import { UseAuthContext } from './hooks/useAuthContext';
 //pages and components 
 
 import Login from './components/auth/Login';
+import Forgot from './components/auth/Forgot';
+
 import Signup from './pages/Authentication/Signup';
 // import Navbar from './components/Navbar';
 
@@ -131,6 +133,8 @@ function App() {
 
 
             <Route path= "/login" element={ <Login /> } />
+            <Route path= "/forgot" element={ <Forgot /> } />
+
             <Route path= "/signup" element={<Signup /> } /> 
             {/* <Route path= "/doctor" element={user ? <DoctorPage /> : <Navigate to="/doctor" />} /> */}
           </Routes>

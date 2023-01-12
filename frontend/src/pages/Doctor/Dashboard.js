@@ -41,22 +41,24 @@ const Count = () => {
   
 
   return (
+    <div class='mx-20'>
     <div className="flex flex-col items-start ml-20 ">
        <Helmet>
         <title>RHU Calauag | Charts</title>
         <meta name="description" content="Charts" />
         </Helmet>
-         <div class="px-4 md:px-10 py-4 md:py-7">
+         <div class="mt-10">
                 <div class="flex items-center justify-between">
                     <p tabindex="0" class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Dashboard</p>
                   
                 </div>
             </div>
 
-      <div>
+      <div class='mt-5'>
         <p> Good day, Admin</p>
+         <p>Today is <span class='font-bold'>{dateNow}</span></p>
+
       </div>
-      <p>{dateNow}</p>
       <div class='flex flex-row items-start'>
       <div className="dash">
         <BiNotepad className="dash-icon"/>
@@ -92,8 +94,25 @@ const Count = () => {
         </div>
       </div>
       </div>
+     
 
     </div>
+    <div className='chart-services'>
+    <iframe 
+    title='chartservices'
+    style=
+   {{ background: "#FFFFFF",
+   marginTop:'1em',
+    border: "none",
+    borderRadius: "2px",
+    boxShadow:" 0 2px 10px 0 rgba(70, 76, 79, .2)",
+    width: "100%",
+    height: "400px",  }}
+
+    src="https://charts.mongodb.com/charts-capstone-rdggn/embed/charts?id=637fb005-733c-47dd-837a-4e2520db6d40&maxDataAge=10&theme=light&autoRefresh=true"> </iframe>
+
+    </div>
+   </div>
   );
 };
 

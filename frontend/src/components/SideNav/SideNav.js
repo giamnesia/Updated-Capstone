@@ -6,7 +6,8 @@ const SideNav= () => {
   return (
     <div>
       <div class="h-full  absolute z-20  ">
-        <div class="sidebar min-h-screen w-[3.35rem] overflow-hidden border-r hover:w-56 hover:bg-white hover:shadow-lg">
+        <div class="sidebar min-h-screen w-[3.35rem] overflow-hidden border-r hover:w-56 hover:bg-white  hover:shadow-lg transition 
+             duration-700">
           <div class="flex h-screen flex-col justify-between pt-2 pb-6">
             <div>
               <div class="w-max p-2.5">
@@ -86,8 +87,8 @@ const SideNav= () => {
                     <span class="group-hover:text-gray-700">Reports</span>
                   </Link>
                 </li>
-                <li class="min-w-max">
-                  <Link to='/doctor'
+                {/* <li class="min-w-max">
+                  <Link to='/'
                     class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -100,7 +101,7 @@ const SideNav= () => {
                         </svg>
                           <span class="group-hover:text-gray-700">Manage Doctor</span>
                   </Link>
-                </li>
+                </li> */}
 
                 <li class="min-w-max">
                   <Link to='/search'
