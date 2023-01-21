@@ -1,4 +1,3 @@
-require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
@@ -8,6 +7,7 @@ const consultRoutes = require('./routes/consult')
  const userRoutes = require('./routes/user')
  const path = require("path");
  const decodeToken = require("./middleware");
+ require('dotenv').config()
 
 // express app
 const app = express()
@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === "production") {
 
 
 //connect to DB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URL)
     .then(() => {
         // listen for request
     app.listen(process.env.PORT, () => {

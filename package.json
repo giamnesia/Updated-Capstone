@@ -21,9 +21,12 @@
   "name": "capstone",
   "description": "��#\u0000 \u0000P\u0000a\u0000t\u0000i\u0000e\u0000n\u0000t\u0000-\u0000I\u0000n\u0000f\u0000o\u0000\r\u0000 \u0000",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js ",
+    "dev": "nodemon backend/server.js ",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
