@@ -27,6 +27,10 @@ const patientSchema = new Schema({
         required: true,
         trim: true
     },
+    birthDate:{
+        type:Date,
+        required:true
+    },
     address: {
         type: String,
         required: true

@@ -14,7 +14,17 @@ const consultSchema = new Schema({
         type: String, 
         trim: true
     },
+    address:{
+        type:String
+    },
+    gender:{
+        type:String
+    },
+    age:{
+      type:Number
+    },
     patientID:String,
+    remarks:String,
 }, { timestamps: true })
 
 // create new collection

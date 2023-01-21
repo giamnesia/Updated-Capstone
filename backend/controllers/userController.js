@@ -1,5 +1,4 @@
-const be_portal= require('../models/userModel')
-
+const User= require('../models/userModel')
 const auth = require("../config/firebase-config");
 
 
@@ -9,7 +8,7 @@ const loginUser = async (req, res) => {
     const {email, password} = req.body
 
     try {
-        const user = await be_portal.login(email, password)
+        const user = await User.login(email, password)
     
             // create a token 
             const token = createToken(user._id)
@@ -26,13 +25,12 @@ const loginUser = async (req, res) => {
 const signupUser = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    const firstName = req.body.fname;
-    const middleName = req.body.mname;
+    const firstName = req.body.firstName;
+    const middleName = req.body.middleName;
   
-    const lastName = req.body.lname;
-  
-  
-  
+    const lastName = req.body.lastName;
+    const gender = req.body.gender;
+    const birthDate = req.body.birthDate;
   
     try {
       await auth
@@ -43,12 +41,16 @@ const signupUser = async (req, res) => {
           // displayName: displayName,
           disabled: false,
         })
-        .then(async () => {
-          console.log("Successfully created new user:");
-          const user = await be_portal.create({
+        .then(async (userRecord) => {
+          console.log("Successfully created new user:",userRecord.uid);
+          const user = await User.create({
+            userID: userRecord.uid,
+            email:email,
             firstName:firstName,
             middleName:middleName,
             lastName:lastName,
+            gender:gender,
+            birthDate:birthDate,
       
           });
           return res.status(201).json(user);
@@ -61,4 +63,4 @@ const signupUser = async (req, res) => {
     }
   };
 
-module.exports = { signupUser, loginUser }
+module.exports = { loginUser,signupUser  }

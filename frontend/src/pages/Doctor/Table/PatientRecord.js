@@ -20,7 +20,7 @@ import {
   FormControl,
   FormLabel
 } from '@chakra-ui/react'
-
+import Age from './Age'
 
 const PatientRecord = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -145,6 +145,8 @@ const PatientRecord = () => {
                         <th>Middle Name</th>
                         <th>Last Name</th>
                         <th>Gender</th>
+                        <th>Birth Date</th>
+
                         <th>Age</th>
                         <th>Address</th>
                         <th>Contact</th>
@@ -161,7 +163,8 @@ const PatientRecord = () => {
                         <td>{item.mname}</td>
                         <td>{item.lname}</td>
                         <td>{item.gender}</td>
-                        <td>{item.age}</td>
+                        <td>{item.birthDate? item.birthDate.split("T")[0]:''}</td>
+                        <td><Age birthdate={item.birthDate}/></td>
                         <td>{item.address}</td>
                         <td>{item.contact}</td>
                         <td>

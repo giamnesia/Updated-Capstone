@@ -20,6 +20,8 @@ import {
   FormLabel
 } from '@chakra-ui/react'
 import {IoPersonAddOutline} from 'react-icons/io5'
+import Age from '../pages/Doctor/Table/Age'
+import { parse, differenceInYears } from 'date-fns';
 const PatientForm = () => {
         const {dispatch} = UsePatientContext()
         // const {user} = UseAuthContext()
@@ -31,6 +33,8 @@ const PatientForm = () => {
         const [lname, setLname] = useState('')
         const [gender, setGender] = useState('')
         const [age, setAge] = useState('')
+        const [birthDate, setBirthDate] = useState('')
+
         const [address, setAddress] = useState('')
         const [contact, setContact] = useState('')
         const [error, setError] = useState(null)
@@ -81,7 +85,7 @@ const PatientForm = () => {
               return;
             }
 
-            const patientinfo = {fname, mname, lname, gender, age, address, contact}
+            const patientinfo = {fname, mname, lname, gender, age, address, contact,birthDate}
 
             const response = await fetch('/portal/health', {
                 method: 'POST',
@@ -121,23 +125,11 @@ const PatientForm = () => {
             }
         }
   
-        const handleMname =(e)=>{
-          const { value } = e.target;
-      
-          const re = /^[A-Za-z]+$/;
-          if (value === "" || re.test(value)) {
-          setMname(e.target.value.toUpperCase() ) 
-            
-          }
-        }
-        const handleLname =(e)=>{
-          const { value } = e.target;
-      
-          const re = /^[A-Za-z]+$/;
-          if (value === "" || re.test(value)) {
-          setLname(e.target.value.toUpperCase() ) 
-            
-          }
+       
+        const handleBirthDate =(e)=>{
+
+          setBirthDate(e.target.value)
+          setAge(differenceInYears(new Date(), parse(e.target.value, "yyyy-MM-dd", new Date())));
       
         }
         return (
@@ -280,17 +272,29 @@ const PatientForm = () => {
                             <option value = "Male" selected> Male </option>
                         </select>
 
-                        <label class='my-2'>Age: </label>
+                     
+                        <label class='my-2'>Birth Date: </label>
                         <input 
-                            type="number"
-                            onChange={(e) => setAge(e.target.value)}
-                            value={age}
+                            type="date"
+                            onChange={ handleBirthDate}
+                            value={birthDate}
                           
 
-                            className = {emptyFields.includes('age') ? 'error': ''}
+                            className = {emptyFields.includes('birthDate') ? 'error': ''}
                             class='p-2 outline-amber-500'
 
                         />
+
+                        <label class='my-2'>Age: </label>
+                        <input 
+
+                        value={age}
+
+                        class='p-2 outline-amber-500'
+
+                        />
+
+
 
                         <label class='my-2'>Address: </label>
                         <select

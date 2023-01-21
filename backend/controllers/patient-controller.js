@@ -110,7 +110,7 @@ const getAggPatient= async (req, res) => {
 // create a new patient
 const createPatient = async (req, res) => 
 {
-    const {fname, mname, lname, gender, age, address, contact} = req.body
+    const {fname, mname, lname, gender, age, address, contact,birthDate} = req.body
 
     let emptyFields = []
 
@@ -135,6 +135,9 @@ const createPatient = async (req, res) =>
     if (!contact) {
         emptyFields.push('contact')
     }
+    if (!birthDate) {
+        emptyFields.push('contact')
+    }
 
     //Error Message for adding new form
     if (emptyFields.length > 0) {
@@ -145,7 +148,7 @@ const createPatient = async (req, res) =>
     // adding document to database
     try{
         // const user_id = req.user._id   FOR AUTHENTICATION
-        const patientinfo = await patientInfo.create({fname, mname, lname, gender, age, address, contact})
+        const patientinfo = await patientInfo.create({fname, mname, lname, gender, age, address, contact,birthDate})
         // const patientinfo = await patientInfo.create({fname, mname, lname, gender, age, address, contact, user_id})
         res.status(200).json(patientinfo)
     } catch (error) {

@@ -26,9 +26,15 @@ const userSchema = new Schema(
     },
     contact:{
       type:String,
+    },
+    gender:{
+      type:String,
+    },
+    birthDate:{
+      type:Date
     }
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("be_portal", userSchema);
+module.exports = mongoose.model("be_user", userSchema);

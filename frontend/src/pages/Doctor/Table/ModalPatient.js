@@ -16,6 +16,8 @@ import {
   } from '@chakra-ui/react'
   import {BiEdit} from 'react-icons/bi'
   import barangays from '../../../data/barangay'
+  import Age from './Age'
+import { parse, differenceInYears } from 'date-fns';
 const ModalPatient = ({item}) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -28,12 +30,14 @@ const ModalPatient = ({item}) => {
       const [lname, setLname] = useState();
       const [age, setAge] = useState();
       const [gender, setGender] = useState();
+      const [birthDate, setBirthDate] = useState();
+
       const [address, setAddress] = useState();
       const [contact, setContact] = useState();
 
       const handleUpdate= async (e) => {
         e.preventDefault();
-        const patient = { fname, mname, lname, gender, age, address, contact };
+        const patient = { fname, mname, lname, gender, age, address, contact, birthDate};
     
         const response = await fetch(`http://localhost:3000/portal/health/${item._id}`, {
           method: "PATCH",
@@ -70,14 +74,10 @@ const ModalPatient = ({item}) => {
         
       }
     }
-    const handleLname =(e)=>{
-      const { value } = e.target;
-  
-      const re = /^[A-Za-z]+$/;
-      if (value === "" || re.test(value)) {
-      setLname(e.target.value.toUpperCase() ) 
-        
-      }
+    const handleBirthDate =(e)=>{
+
+      setBirthDate(e.target.value)
+      setAge(differenceInYears(new Date(), parse(e.target.value, "yyyy-MM-dd", new Date())));
   
     }
   return (
@@ -227,10 +227,21 @@ const ModalPatient = ({item}) => {
                         
                           </FormControl>
                           <FormControl mt={4}>
+                            <FormLabel>Birth Date</FormLabel>
+                            <input type='date' focusBorderColor='orange.400'  onChange={handleBirthDate} value={birthDate}
+                           
+                     
+                           class='p-2 outline-amber-500'
+                            
+                            />
+                       
+                        
+                          </FormControl>
+                          <FormControl mt={4}>
                             <FormLabel>Age</FormLabel>
-                            <Input  focusBorderColor='orange.400'  onChange={(e)=>setAge(e.target.value)} value={age}
+                            <Input  focusBorderColor='orange.400' disabled  value={age}
                             placeholder={item?item.age:'none'} 
-                             onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
+                         
                             
                             />
                           </FormControl>

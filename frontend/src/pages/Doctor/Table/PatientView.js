@@ -100,6 +100,10 @@ const PatientView = () => {
        
               </Tr>
               <Tr>
+                <Td>Birth Date</Td>
+                <Td>{display&&display.birthDate}</Td>
+              </Tr>
+              <Tr>
                 <Td>Age</Td>
                 <Td>{display&&display.age}</Td>
               </Tr>
@@ -128,12 +132,17 @@ const PatientView = () => {
                     <Th>Date</Th>
 
                     <Th>Purpose of Visit</Th>
+                    <Th>Diagnosis</Th>
+
                     <Th>Treatment</Th>
                     <Th>Blood Pressure</Th>
+                    <Th >Blood Sugar</Th>
+
                     <Th >Height</Th>
                     <Th >Weight</Th>
-                    <Th >Blood Sugar</Th>
-                    <Th >Attending Doctor</Th>
+                    <Th >Comment</Th>
+
+                    <Th >Assisted By</Th>
 
 
                   </Tr>
@@ -144,13 +153,17 @@ const PatientView = () => {
                             <Tr>
                              <Td>{item.createdAt.split("T")[0]}</Td> 
                             <Td>{item.purpose}</Td>
+                            <Td>{item.diagnosis?item.diagnosis:'None'}</Td>
 
                             <Td>{item.treatment?item.treatment:'None'}</Td>
-                            <Td>{item.bp?item.bp:'0'} mm/Hg</Td>
+                            <Td>{item.bp?item.bp:'0'} mmHg</Td>
+                            <Td>{item.bloodsugar?item.bloodsugar:'0'} mg/dL </Td>
+
                             <Td isNumeric>{item.height?item.height:'0'} cm</Td>
 
                             <Td isNumeric>{item.weight?item.weight:'0'} kg</Td>
-                            <Td>{item.bloodsugar?item.bloodsugar:'0'} mg/dL </Td>
+                            <Td >{item.remarks?item.remarks:'None'}</Td>
+
                             <Td>{item.attendingDoc}</Td>
 
                             </Tr>

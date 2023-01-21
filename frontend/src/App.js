@@ -29,7 +29,7 @@ import ViewConsult from "./pages/Doctor/ViewConsult";
 import TablePatient from "./pages/Doctor/charts/tablepatient";
 import PatientRecord from "./pages/Doctor/Table/PatientRecord";
 import PatientView from "./pages/Doctor/Table/PatientView";
-
+import AddUser from './pages/Admin/AddUser';
 import { UserAuthContextProvider } from './context/UserAuthContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 //SIDEBAR
@@ -37,7 +37,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 // import SideBar from './components/Sidebar/SideBar';
 import SideNav from "./components/SideNav/SideNav";
 import Dashboard from "./pages/Doctor/Dashboard";
-import Report from "./pages/Doctor/Report";
+import Report from "./pages/Doctor/charts/Report";
 import Search from "./pages/Doctor/Search";
 
 
@@ -90,6 +90,13 @@ function App() {
               }
             />
             <Route path="/adddoctor" element={<AddDoctor />} />
+            <Route path="/addUser" 
+             element={
+              <AddUser/>
+            
+            }
+            />
+
             {/* <Route path="/viewhistory" element={<ViewHistory />} /> */}
     
             <Route path="/viewconsult" 
@@ -134,8 +141,6 @@ function App() {
 
             <Route path= "/login" element={ <Login /> } />
             <Route path= "/forgot" element={ <Forgot /> } />
-
-            <Route path= "/signup" element={<Signup /> } /> 
             {/* <Route path= "/doctor" element={user ? <DoctorPage /> : <Navigate to="/doctor" />} /> */}
           </Routes>
           </UserAuthContextProvider>
