@@ -151,7 +151,7 @@ const Signup = () => {
             <br/>
 
             <ReCAPTCHA
-              sitekey="6LfMV1IiAAAAAMPmpixYh7hb3ojn7UZcpHYdNpDR"
+              sitekey="6Ld_HxckAAAAAIiLCNHriKVxG1oxzLm-mVpPObex"
               onChange={onChange}
             />
 
