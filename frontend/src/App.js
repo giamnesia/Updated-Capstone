@@ -29,7 +29,9 @@ import ViewConsult from "./pages/Doctor/ViewConsult";
 import TablePatient from "./pages/Doctor/charts/tablepatient";
 import PatientRecord from "./pages/Doctor/Table/PatientRecord";
 import PatientView from "./pages/Doctor/Table/PatientView";
-import AddUser from './pages/Admin/AddUser';
+import UserList from './pages/Admin/UserList';
+import UserView from './pages/Admin/UserView';
+
 import { UserAuthContextProvider } from './context/UserAuthContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 //SIDEBAR
@@ -92,7 +94,7 @@ function App() {
             <Route path="/adddoctor" element={<AddDoctor />} />
             <Route path="/addUser" 
              element={
-              <AddUser/>
+              <UserList/>
             
             }
             />
@@ -126,6 +128,12 @@ function App() {
             <Route path="/:id" 
               element={<ProtectedRoute>
                 <PatientView/>
+              </ProtectedRoute>
+              }
+            />
+              <Route path="/user/:id" 
+              element={<ProtectedRoute>
+                <UserView/>
               </ProtectedRoute>
               }
             />

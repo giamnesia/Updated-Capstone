@@ -1,8 +1,44 @@
 const User= require('../models/userModel')
 const auth = require("../config/firebase-config");
+const mongoose = require('mongoose')
 
 
+const getAllUsers = async (req, res) => {
+  const userInfo = await User.find({}).sort({createdAt: -1}) 
 
+  res.status(200).json(userInfo)
+}
+const deleteUser= async (req, res) => {
+  const {id} = req.params
+
+  if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({error: 'No record found!'})
+   }
+
+   const userInfo = await User.findOneAndDelete({_id: id})
+
+   if (!userInfo) {
+      return res.status(400).json({error: 'No record found!'}) // if no record found
+  }
+
+  res.status(200).json(userInfo)
+
+}
+const getOneUser = async (req, res) => {
+  const {id} = req.params
+
+  if(!mongoose.Types.ObjectId.isValid(id)) {
+     return res.status(404).json({error: 'No record found!'})
+  }
+
+  const userInfo = await User.findById(id) 
+
+  if (!userInfo) {
+      return res.status(404).json({error: 'No record found!'}) // if no record found
+  }
+
+  res.status(200).json(userInfo)
+}
 // login user
 const loginUser = async (req, res) => {
     const {email, password} = req.body
@@ -31,6 +67,8 @@ const signupUser = async (req, res) => {
     const lastName = req.body.lastName;
     const gender = req.body.gender;
     const birthDate = req.body.birthDate;
+    const specialization= req.body.specialization;
+    console.log(auth)
   
     try {
       await auth
@@ -51,6 +89,7 @@ const signupUser = async (req, res) => {
             lastName:lastName,
             gender:gender,
             birthDate:birthDate,
+            specialization:specialization
       
           });
           return res.status(201).json(user);
@@ -62,5 +101,6 @@ const signupUser = async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   };
+ 
 
-module.exports = { loginUser,signupUser  }
+module.exports = { loginUser,signupUser ,getAllUsers, deleteUser,getOneUser}

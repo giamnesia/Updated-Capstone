@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    patient: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Patient",
-    },
+    // patient: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Patient",
+    // },
 
     // displayName: {
     //   type: String,
@@ -32,6 +32,9 @@ const userSchema = new Schema(
     },
     birthDate:{
       type:Date
+    },
+   specialization:{
+      type:String
     }
   },
   { timestamps: true }

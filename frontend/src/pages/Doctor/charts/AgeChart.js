@@ -35,11 +35,12 @@ function AgeChart() {
 
    const handleDate=(e)=>{
      const date= new Date(e.target.value)
-     chart.setFilter({createdAt:{$gte:date}})
+     chart.setFilter({createdAt:{$gte:date}}, {gender:{$gte:gender}})
   
    }
    const handleGender=(e)=>{
     setGender(e.target.value)
+    chart.setFilter({gender:{$gte:gender}})
 
  
   }
@@ -58,7 +59,7 @@ function AgeChart() {
         <title>RHU Calauag | Charts</title>
         <meta name="description" content="Charts" />
         </Helmet>
-        {/* <input type='date' onChange={handleDate}/>
+        <input type='date' onChange={handleDate}/>
         <select value={gender} onChange={handleGender}>
           <option value='Male'>Male</option>
           <option value='Female'>Female</option>
@@ -79,7 +80,7 @@ function AgeChart() {
               <option key={item.name} value={item.name}>{item.name}</option>
           </>
           ))}
-      </select>  */}
+      </select> 
         <div ref={chartDiv}></div>
 
 

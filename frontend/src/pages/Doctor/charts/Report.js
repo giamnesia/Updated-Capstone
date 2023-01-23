@@ -11,6 +11,9 @@ function Report() {
    const [gender, setGender] = useState()
    const [purpose, setPurpose] = useState()
    const [barangay, setBarangay] = useState()
+   const [date, setDate] = useState()
+
+   
 
 
 
@@ -34,11 +37,12 @@ function Report() {
 
 
    const handleDate=(e)=>{
-     const date= new Date(e.target.value)
-     chart.setFilter({createdAt:{$gte:date}})
+    
+     chart.setFilter({createdAt:{$gte:date}},{gender:{$gte:e.target.value}})
   
    }
    const handleGender=(e)=>{
+
 
     chart.setFilter({gender:{$gte:e.target.value}})
     
@@ -61,7 +65,17 @@ function Report() {
         <meta name="description" content="Charts" />
         </Helmet>
         <input type='date' onChange={handleDate}/>
+        <select value={date} onChange={handleDate}>
+        <option value="" selected="selected" hidden="hidden">
+          Choose here
+          </option>
+          <option value='2022'>2022</option>
+          <option value='2023'>2023</option>
+        </select>
         <select value={gender} onChange={handleGender}>
+        <option value="" selected="selected" hidden="hidden">
+          Choose here
+          </option>
           <option value='Male'>Male</option>
           <option value='Female'>Female</option>
         </select>
