@@ -15,7 +15,7 @@ import Signup from './pages/Authentication/Signup';
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useState, useEffect } from 'react';
 import DoctorPage from "./pages/DoctorPage";
 import ConsultPage from "./pages/ConsultPage";
 import Page404 from "./pages/Page404";
@@ -45,7 +45,16 @@ import Search from "./pages/Doctor/Search";
 
 function App() {
    const {user} = UseAuthContext()
+   const [isLoading, setIsLoading] = useState(true);
 
+   useEffect(() => {
+   
+     setIsLoading(false);
+   }, []);
+ 
+   if (isLoading) {
+     return <div>Loading...</div>;
+   }
   return (
     <div className="App">
       <BrowserRouter>

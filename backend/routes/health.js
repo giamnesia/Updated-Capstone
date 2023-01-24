@@ -6,12 +6,14 @@ const be_client = require('../models/health-model')
 const {
     getAllPatients,
     getOnePatient,
+    getSortPatient,
+    
     createPatient, 
     deletePatient,
     updatePatient,
     getCount,
     getAggPatient,
-    searchPatient
+    searchPatient,
 } = require('../controllers/patient-controller')
 
 // const requireAuth = require('../middleware/requireAuth')
@@ -28,6 +30,8 @@ router.get('/count', getCount)
 router.get('/agg/:id', getAggPatient)
 router.get('/:id', getOnePatient)
 router.get('/', searchPatient)
+router.get('/getSort', getSortPatient)
+
 
 
 

@@ -38,20 +38,19 @@ function Report() {
 
    const handleDate=(e)=>{
     
-     chart.setFilter({createdAt:{$gte:date}},{gender:{$gte:e.target.value}})
+     chart.setFilter({createdAt:{$eq:date}},{gender:{$gte:e.target.value}})
   
    }
    const handleGender=(e)=>{
 
+   
+    chart.setFilter({gender:{$eq:e.target.value}})
 
-    chart.setFilter({gender:{$gte:e.target.value}})
-    
  
   }
   const handleBarangay=(e)=>{
-    
-    // setBarangay(e.target.value)
-    // chart.setFilter({ $or: [ { address: { $gte: e.target.value } },  { gender: {$gte: "$gender"}}  ] })
+      
+    chart.setFilter({ barangay: {$eq: e.target.value} })
     
  
   }

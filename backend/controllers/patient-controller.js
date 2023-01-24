@@ -3,29 +3,40 @@ const doctorInfo = require('../models/doctor-model')
 const consultInfo = require('../models/consult-model') //doctorInfo
 
 const consult = require("../models/consult-model");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
+var mongoXlsx = require('mongo-xlsx');
 // get all patients
 const getAllPatients = async (req, res) => {
     // const user_id = req.user._id
 
-    const info = await patientInfo.find({}).sort({createdAt: -1}) //sort by date
-    // const info = await patientInfo.find({user_id}).sort({createdAt: -1}) //sort by date  FOR AUTHENTICATION
-    // const aggregatedDocs = await patientInfo.aggregate([
-    //     {
-    //       $group: {
-    //         _id: { fname: "$fname", lname: "$lname" },
-    //         docs: { $push: "$$ROOT" }
-    //       }
-    //     },
-    //     {
-    //       $match: {
-    //         "docs.1": { $exists: true }
-    //       }
-    //     }
-    //   ]);
+    const page_size = 20;
+    const page= parseInt(req.query.page || '0')
 
-    res.status(200).json(info)
+    const totalResults = await patientInfo.countDocuments({});
+    const totalPages= Math.ceil(totalResults/page_size)
+    const results = await patientInfo.find({}).limit(page_size).skip(page_size*page).sort({
+        createdAt: -1,
+      });
+
+
+      const patient = await patientInfo.find({}).sort({createdAt: -1}) 
+
+      
+    res.status(200).json({ results:results, totalResults:totalResults, totalPages:totalPages, patient:patient});
+   
+}
+const getSortPatient= async (req,res)=>{
+  
+        
+    const page_size = 3;
+    const page= parseInt(req.query.page || '0')
+
+    const totalResults = await patientInfo.countDocuments({});
+    const results = await patientInfo.find({}).limit(page_size).skip(page_size*page);
+    res.status(200).json({ results:results, totalResults:totalResults });
+ 
+
 }
 
 //COUNT DOCUMENT 
@@ -214,10 +225,12 @@ const searchPatient = async (req, res) => {
 module.exports = {
     getAllPatients,
     getOnePatient,
+    getSortPatient,
     createPatient, 
     deletePatient,
     updatePatient,
     getCount,
     getAggPatient,
-    searchPatient
+    searchPatient,
+   
 }
