@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link,useParams} from 'react-router-dom'
 import UserDelete from './UserDelete'
+import UserUpdate from './UserUpdate'
 import { Icon } from '@chakra-ui/react'
 import {
   Table,
@@ -50,8 +51,9 @@ const UserView = () => {
       </div>
       <h3 class="text-2xl text-gray-700 font-bold pt-6 ml-3">User Details</h3>
       <div class='flex flex-row items-start justify-start m-3'>
-               {/* <ModalPatient item={display }/>   */}
+               <UserUpdate item={display }/>  
                 <UserDelete item={display}/>
+
 
       </div>
            

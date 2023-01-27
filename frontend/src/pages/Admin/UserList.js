@@ -64,7 +64,7 @@ const UserList = () => {
     // DELETE FUNCTION
     const handleDelete = async () =>{
 
-          const response = await fetch(`http://localhost:3000/portal/health/${id}` , {
+          const response = await fetch(`/portal/health/${id}` , {
             method: "DELETE"
           });
       
@@ -84,7 +84,7 @@ const UserList = () => {
       e.preventDefault();
       const patient = { fname, mname, lname, gender, age, address, contact };
   
-      const response = await fetch(`http://localhost:3000/portal/health/${id}`, {
+      const response = await fetch(`/portal/health/${id}`, {
         method: "PATCH",
         body: JSON.stringify(patient),
         headers: {

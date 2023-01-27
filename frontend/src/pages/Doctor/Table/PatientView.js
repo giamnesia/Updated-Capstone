@@ -26,7 +26,7 @@ const PatientView = () => {
     useEffect(() => {
       const fetchPatient = async () => {
       
-        const response = await fetch(`http://localhost:3000/portal/health/agg/${id}`);
+        const response = await fetch(`/portal/health/agg/${id}`);
         response.json().then((data) => {
           if (response.ok) {
             setDisplay(data.patientFind);

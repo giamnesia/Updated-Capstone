@@ -35,6 +35,9 @@ const userSchema = new Schema(
     },
    specialization:{
       type:String
+    },
+    age:{
+      type:String
     }
   },
   { timestamps: true }

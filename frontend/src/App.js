@@ -28,6 +28,8 @@ import AddConsult from "./pages/Doctor/AddConsult";
 import ViewConsult from "./pages/Doctor/ViewConsult";
 import TablePatient from "./pages/Doctor/charts/tablepatient";
 import PatientRecord from "./pages/Doctor/Table/PatientRecord";
+import FilterPatient from "./pages/Doctor/Table/FilterPatient";
+
 import PatientView from "./pages/Doctor/Table/PatientView";
 import UserList from './pages/Admin/UserList';
 import UserView from './pages/Admin/UserView';
@@ -124,6 +126,13 @@ function App() {
             <Route path="/patientRecord" 
             element={<ProtectedRoute>
               <PatientRecord />
+            </ProtectedRoute>
+            }
+             />
+
+              <Route path="/filter" 
+            element={<ProtectedRoute>
+              <FilterPatient />
             </ProtectedRoute>
             }
              />

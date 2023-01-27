@@ -24,7 +24,7 @@ const ModalDelete = ({item}) => {
     const handleDelete = async (e) =>{
         e.preventDefault()
 
-        const response = await fetch(`http://localhost:3000/portal/health/${item._id}` , {
+        const response = await fetch(`/portal/health/${item._id}` , {
           method: "DELETE"
         });
     

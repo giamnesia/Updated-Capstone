@@ -130,7 +130,7 @@ const Signup = () => {
         try{
           await axios
           .post(
-            "localhost:3000/portal/user/register",
+            "/portal/user/register",
             {
               email,
               password,

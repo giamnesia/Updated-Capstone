@@ -101,6 +101,22 @@ const signupUser = async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   };
- 
 
-module.exports = { loginUser,signupUser ,getAllUsers, deleteUser,getOneUser}
+// upadate patient
+const updateUser= async (req, res) => {
+    const {id} = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No record found!'})
+     }
+
+     const userinfo = await User.findOneAndUpdate({_id: id}, {...req.body})
+
+     if (!userinfo) {
+        return res.status(400).json({error: 'No record found!'}) // if no record found
+    }
+
+    res.status(200).json(userinfo)
+}
+
+module.exports = { loginUser,signupUser ,getAllUsers, deleteUser,getOneUser,updateUser}

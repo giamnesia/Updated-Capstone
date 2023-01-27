@@ -14,16 +14,57 @@ const getAllPatients = async (req, res) => {
     const page= parseInt(req.query.page || '0')
 
     const totalResults = await patientInfo.countDocuments({});
+    
     const totalPages= Math.ceil(totalResults/page_size)
     const results = await patientInfo.find({}).limit(page_size).skip(page_size*page).sort({
         createdAt: -1,
       });
 
+      const search = req.query.search || "";
+      let gender = req.query.gender || "Gender";
+      let address = req.query.address || "Address";
+
+      const addressOptions = [
+          "Sabang Dos",
+          "Balibago",
+          "Bagong Silang",
+
+      ];
+      
+      const genderOptions = [
+        "Male",
+        "Female",
+    ];
+
+      address === "Address"
+          ? (address = [...addressOptions])
+          : (address = req.query.address.split(","));
+
+
+        
+         gender === "Gender"
+          ? (gender = [...genderOptions])
+          : (gender = req.query.gender.split(","));
+      
+
+  
+
+      const filtered = await patientInfo.find(
+        {
+           $and: [
+              { address: [...address] },
+              { gender: [...gender]},
+           ]
+        }
+     )
+        
+     
+
 
       const patient = await patientInfo.find({}).sort({createdAt: -1}) 
 
       
-    res.status(200).json({ results:results, totalResults:totalResults, totalPages:totalPages, patient:patient});
+    res.status(200).json({ results:results, totalResults:totalResults, totalPages:totalPages, patient:patient,filtered:filtered, address:addressOptions});
    
 }
 const getSortPatient= async (req,res)=>{

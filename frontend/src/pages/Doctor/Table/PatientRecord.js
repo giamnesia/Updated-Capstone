@@ -58,7 +58,7 @@ const PatientRecord = () => {
         return;
       }
       if (password==='giaadmin123'){
-        axios.get('http://localhost:3000/portal/health/get')
+        axios.get('/portal/health/get')
         .then(response => {
           const data = response.data.patient;
           const ws = XLSX.utils.json_to_sheet(data);
@@ -95,12 +95,13 @@ const PatientRecord = () => {
  
     useEffect(() => {
       const fetchPatient = async () => {
-        const response = await fetch(`http://localhost:3000/portal/health/get?page=${currentPage}`);
+        const response = await fetch(`/portal/health/get?page=${currentPage}`);
         const json = await response.json();
   
         try {
           if (response.ok) {
             setItem(json.results);
+            
             setTotalPages(json.totalPages);
 
             dispatch ({type: 'SET_PATIENT', payload: json})
@@ -166,7 +167,10 @@ const PatientRecord = () => {
                 
                 </div>
                 <div><p>Showing {currentPage+1} out of {totalPages} pages</p></div>
-                <Button class='float-right' onClick={onOpen}>Export to Excel (.xlsx) file</Button>
+                <div class='p-6'>
+                <Button class='float-right bg-gray-200 p-2 rounded' onClick={onOpen}>Export to Excel (.xlsx) file</Button>
+
+                </div>
                                           
                     <Modal
 

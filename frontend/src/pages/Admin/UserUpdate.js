@@ -15,31 +15,31 @@ import {
     FormLabel,
   } from '@chakra-ui/react'
   import {BiEdit} from 'react-icons/bi'
-  import barangays from '../../../data/barangay'
-  import Age from './Age'
+
+  import Age from '../Doctor/Table/Age';
 import { parse, differenceInYears } from 'date-fns';
-const ModalPatient = ({item}) => {
+const UserUpdate = ({item}) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
       // FOR UPDATE AND DELETE 
       const [id ,setId] = useState("");
   
-      const [fname, setFname] = useState();
-      const [mname, setMname] = useState();
-      const [lname, setLname] = useState();
+      const [firstName, setFirstName] = useState();
+      const [middleName, setMiddleName] = useState();
+      const [lastName, setLastName] = useState();
       const [age, setAge] = useState();
       const [gender, setGender] = useState();
       const [birthDate, setBirthDate] = useState();
 
       const [address, setAddress] = useState();
-      const [contact, setContact] = useState();
+      const [specialization, setSpecialization] = useState();
 
       const handleUpdate= async (e) => {
         e.preventDefault();
-        const patient = { fname, mname, lname, gender, age, address, contact, birthDate};
+        const patient = { firstName, middleName, lastName, gender, age, specialization, birthDate};
     
-        const response = await fetch(`/portal/health/${item._id}`, {
+        const response = await fetch(`/portal/user/${item._id}`, {
           method: "PATCH",
           body: JSON.stringify(patient),
           headers: {
@@ -56,24 +56,7 @@ const ModalPatient = ({item}) => {
         }
     }
 
-    const handleFname =(e)=>{
-      const { value } = e.target;
-  
-      const re = /^[A-Za-z]+$/;
-      if (value === "" || re.test(value)) {
-      setFname(e.target.value.toUpperCase() ) 
-        
-      }
-    }
-    const handleMname =(e)=>{
-      const { value } = e.target;
-  
-      const re = /^[A-Za-z]+$/;
-      if (value === "" || re.test(value)) {
-      setMname(e.target.value.toUpperCase() ) 
-        
-      }
-    }
+
     const handleBirthDate =(e)=>{
 
       setBirthDate(e.target.value)
@@ -97,7 +80,7 @@ const ModalPatient = ({item}) => {
                     >
                       <ModalOverlay />
                       <ModalContent>
-                        <ModalHeader>Edit Patient Information</ModalHeader>
+                        <ModalHeader>Edit User Information</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody pb={6}>
                           <FormControl  >
@@ -105,7 +88,7 @@ const ModalPatient = ({item}) => {
                             <Input   focusBorderColor='orange.400' 
                               type="text"
                               onChange={ (e)=>{
-                                setFname(e.target.value.toUpperCase() ) 
+                                setFirstName(e.target.value.toUpperCase() ) 
                   
                               }
                               }
@@ -132,8 +115,8 @@ const ModalPatient = ({item}) => {
                                 
                               })}
                           
-                              value={fname}
-                            placeholder={item? item.fname:'none'}
+                              value={firstName}
+                            placeholder={item? item.firstName:'none'}
                             />
                           </FormControl>
                           <FormControl mt={4}>
@@ -141,7 +124,7 @@ const ModalPatient = ({item}) => {
                             <Input  focusBorderColor='orange.400' 
                               type="text"
                               onChange={ (e)=>{
-                                setMname(e.target.value.toUpperCase() ) 
+                                setMiddleName(e.target.value.toUpperCase() ) 
                   
                               }
                               }
@@ -167,8 +150,8 @@ const ModalPatient = ({item}) => {
                                 }
                                 
                               })}
-                              value={mname}
-                            placeholder={item?item.mname:'none'}
+                              value={middleName}
+                            placeholder={item?item.middleName:'none'}
                             
                             />
                           </FormControl>
@@ -177,7 +160,7 @@ const ModalPatient = ({item}) => {
                             <FormLabel>Last name</FormLabel>
                             <Input  focusBorderColor='orange.400'    type="text"
                             onChange={ (e)=>{
-                              setLname(e.target.value.toUpperCase() ) 
+                              setLastName(e.target.value.toUpperCase() ) 
                 
                             }
                             }
@@ -203,8 +186,8 @@ const ModalPatient = ({item}) => {
                               }
                               
                             })}
-                            value={lname} 
-                            placeholder={item?item.lname:'none'}
+                            value={lastName} 
+                            placeholder={item?item.lastName:'none'}
                             
                             />
                           </FormControl>
@@ -247,36 +230,15 @@ const ModalPatient = ({item}) => {
                           </FormControl>
 
                           <FormControl mt={4}>
-                            <FormLabel>Contact</FormLabel>
-                            <Input  focusBorderColor='orange.400'  onChange={(e)=>setContact(e.target.value)} value={contact}
+                            <FormLabel>Specialization</FormLabel>
+                            <Input  focusBorderColor='orange.400'  onChange={(e)=>setSpecialization(e.target.value)} value={specialization}
                              onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()}
                              maxLength="11"
                              minLength="11"
-                             placeholder={item?item.contact:'none'}
+                             placeholder={item?item.specialization:'none'}
                             />
                           </FormControl>
-                          <FormControl mt={4}>
-                            <FormLabel>Address</FormLabel>
-                      
-                      <select
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 "
-                  
-                    >
-                      {barangays.map((item) => (
-                        <>
-                          <option value="" selected="selected" hidden="hidden">
-                            Choose here
-                          </option>
-                          <option key={item.name} value={item.name}>{item.name}</option>
-                        </>
-                      ))}
-                        </select>
-                       
-                        
-                          </FormControl>
+                         
 
                         </ModalBody>
                        
@@ -293,4 +255,4 @@ const ModalPatient = ({item}) => {
   )
 }
 
-export default ModalPatient;
+export default UserUpdate;

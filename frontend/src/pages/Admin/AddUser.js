@@ -161,6 +161,7 @@ const AddUser = () => {
                 position:'bottom-left',
                 pauseOnHover: false,
               });
+              onClose()
             setFirstName('')
             setMiddleName('')
             setLastName('')
@@ -168,6 +169,7 @@ const AddUser = () => {
             setEmail('')
             setPassword('')
             setBirthDate('')
+          
         }catch (e) {
         toast.error(`${e}`, {
           autoClose: 5000,
@@ -340,7 +342,10 @@ const AddUser = () => {
 
               <Box>
                 <FormLabel >Gender</FormLabel>
-                <select value={gender} onChange={(e)=>setGender(e.target.value)}>
+                <select value={gender}
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 "
+                
+                onChange={(e)=>setGender(e.target.value)}>
                 <option value="" selected="selected" hidden="hidden">
                           Choose Here
                 </option>

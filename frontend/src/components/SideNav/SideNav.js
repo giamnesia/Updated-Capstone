@@ -86,7 +86,7 @@ const SideNav= () => {
                       />
                     </svg>
 
-                    <span class="group-hover:text-gray-700">Add User</span>
+                    <span class="group-hover:text-gray-700">User Record</span>
                   </Link>
                 </li>
                 <li class="min-w-max">
