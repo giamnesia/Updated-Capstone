@@ -59,8 +59,8 @@ function AgeChart() {
         <title>RHU Calauag | Charts</title>
         <meta name="description" content="Charts" />
         </Helmet>
-        <input type='date' onChange={handleDate}/>
-        <select value={gender} onChange={handleGender}>
+        {/* <input type='date' onChange={handleDate}/> */}
+        {/* <select value={gender} onChange={handleGender}>
           <option value='Male'>Male</option>
           <option value='Female'>Female</option>
         </select>
@@ -80,7 +80,7 @@ function AgeChart() {
               <option key={item.name} value={item.name}>{item.name}</option>
           </>
           ))}
-      </select> 
+      </select>  */}
         <div ref={chartDiv}></div>
 
 

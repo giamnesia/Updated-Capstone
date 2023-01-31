@@ -120,7 +120,6 @@ const PatientForm = () => {
                   autoClose: 5000,
                 });
             
-                dispatch({type: 'CREATE_PATIENT', payload: json})
         
             }
         }

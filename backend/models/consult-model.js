@@ -25,6 +25,9 @@ const consultSchema = new Schema({
     },
     patientID:String,
     remarks:String,
+    fname:String,
+    mname:String,
+    lname:String,
 }, { timestamps: true })
 
 // create new collection

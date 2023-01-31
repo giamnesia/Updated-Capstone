@@ -28,7 +28,9 @@ const ConsultForm = ({item}) => {
 
         const { isOpen, onOpen, onClose } = useDisclosure()
         // const {user} = UseAuthContext()
-
+        const [fname, setFname] = useState('')
+        const [mname, setMname] = useState('')
+        const [lname, setLname] = useState('')
         const [purpose, setPurpose] = useState('')
         const [patientID, setPatientID] = useState()
         const [age, setAge] = useState()
@@ -56,6 +58,11 @@ const ConsultForm = ({item}) => {
             setAddress(item&&item.address)
             setAge(item&&item.age)
             setGender(item&&item.gender)
+            setFname(item&& item.fname)
+            setMname(item&&item.mname)
+            setLname(item&&item.lname)
+          
+
        }
 
 
@@ -69,7 +76,7 @@ const ConsultForm = ({item}) => {
               });
               return;
             }
-            const consultinfo = {purpose,diagnosis, treatment, bp, weight, height, bloodsugar, attendingDoc,patientID,gender,address,age ,remarks}
+            const consultinfo = {purpose,diagnosis, treatment, bp, weight, height, bloodsugar, attendingDoc,patientID,gender,address,age ,remarks,fname,mname,lname}
 
             const response = await fetch('/portal/consult', {
                 method: 'POST',

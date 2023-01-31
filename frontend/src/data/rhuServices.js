@@ -1,61 +1,87 @@
-const RHUServices = [
-    {
-      id: 1,
-      name: "Consultation – OPD",
-    },
-  
-    {
-      id: 2,
-      name: "TB-DOTS",
-    },
-   
-    {
-      id: 4,
-      name: "Covid 19 Vaccination",
-    },
-    // {
-    //   id: 5,
-    //   name: "",
-    // },
-    {
-      id: 6,
-      name: "Medical Clearance",
-    },
-  
-    {
-      id: 8,
-      name: "Animal Bite Center",
-    },
-    {
-      id: 9,
-      name: "Immunization Program",
-    },
-    {
-      id: 10,
-      name: "Post- Natal Care",
-    },
-    {
-      id: 11,
-      name: "Pre - Natal Care, Maternal Care",
-    },
+const rhuServices = [
+  {
+    id: 1,
+    name: "Consultation-OPD",
+    date:"(Monday to Friday)"
+
+
+  },
+
+  {
+    id: 2,
+    name: "TB-DOTS",
+    date:"(Tuesday, Wednesday & Thursday)"
+
+  },
+ 
+  {
+    id: 4,
+    name: "Covid 19 Vaccination",
+    date:"( Monday to Friday)"
+
+  },
+  {
+    id: 5,
+    name: "Animal Bite Treatment",
+    date:"(Monday, Tuesday & Friday)"
+
+  },
+  {
+    id: 6,
+    name: "Medical Clearance",
+    date:"( Monday to Friday)"
+
+  },
+
+  {
+    id: 8,
+    name: "Environmental & Sanitation Program",
+    date:"( Monday to Friday)"
+
+  },
+  {
+    id: 9,
+    name: "Immunization Program",
+    date:'(Every Wednesday)'
+  },
+  {
+    id: 10,
+    name: "Post- Natal Care",
+    date:'( Monday to Friday)'
+
     
-    {
-      id: 13,
-      name: "Family Planning Program ",
-    },
-    {
-      id: 14,
-      name: "Nutrition Program",
-    },
-    {
-      id: 15,
-      name: "Bantay Presyon Program ",
-    },
-    {
-      id: 16,
-      name: "Laboratory Examination ",
-    },
-    
-  ];
+  },
+  {
+    id: 11,
+    name: "Maternal Care",
+    date:'( Monday to Friday)'
+
+  },
   
-  export default  RHUServices;
+  {
+    id: 13,
+    name: "Family Planning Program",
+    date:'( Monday to Friday)'
+
+  },
+  {
+    id: 14,
+    name: "Nutrition Program",
+    date:'(Monday to Friday)'
+    
+  },
+  {
+    id: 15,
+    name: "Bantay Presyon Program",
+    date:' (Tuesday)'
+
+  },
+  {
+    id: 16,
+    name: "Laboratory Examination",
+    date:'( Monday to Friday)'
+  },
+  
+];
+
+export default rhuServices;

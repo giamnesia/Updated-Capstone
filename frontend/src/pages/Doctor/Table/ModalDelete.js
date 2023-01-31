@@ -34,6 +34,7 @@ const ModalDelete = ({item}) => {
           if (response.ok) {
             dispatch({type:'DELETE_PATIENT', payload: json})
             navigate('/patientRecord')
+            window.location.reload()
 
           }
         } catch (err) {

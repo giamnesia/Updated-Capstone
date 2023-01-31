@@ -111,7 +111,7 @@ const PatientRecord = () => {
         }
       };
       fetchPatient();
-    }, [currentPage]);
+    }, [currentPage,patient,item]);
 
     // DELETE FUNCTION
 

@@ -63,8 +63,8 @@ function Report() {
         <title>RHU Calauag | Charts</title>
         <meta name="description" content="Charts" />
         </Helmet>
-        <input type='date' onChange={handleDate}/>
-        <select value={date} onChange={handleDate}>
+        {/* <input type='date' onChange={handleDate}/> */}
+        {/* <select value={date} onChange={handleDate}>
         <option value="" selected="selected" hidden="hidden">
           Choose here
           </option>
@@ -77,8 +77,8 @@ function Report() {
           </option>
           <option value='Male'>Male</option>
           <option value='Female'>Female</option>
-        </select>
-
+        </select> */}
+{/* 
         <select
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 "
           value={barangay}
@@ -94,7 +94,7 @@ function Report() {
               <option key={item.name} value={item.name}>{item.name}</option>
           </>
           ))}
-      </select> 
+      </select>  */}
         <div ref={chartDiv}></div>
 
      <AgeChart/>
