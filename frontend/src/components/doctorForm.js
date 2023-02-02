@@ -1,7 +1,6 @@
 import React from 'react'
 import { UseDoctorContext } from "../hooks/useDoctorContext"
 import barangays from '../data/barangay'
-// import { UseAuthContext } from "../hooks/useAuthContext"
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,14 +12,10 @@ import {
     ModalOverlay,
     ModalContent,
     ModalHeader,
-    ModalFooter,
     ModalBody,
     ModalCloseButton,
     Button,
     useDisclosure,
-    Input,
-    FormControl,
-    FormLabel
   } from '@chakra-ui/react'
   import {BiEdit} from 'react-icons/bi'
 const DoctorForm = () => {

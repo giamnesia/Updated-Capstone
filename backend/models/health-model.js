@@ -9,7 +9,7 @@ const patientSchema = new Schema({
     },
     mname: {
         type: String,
-        required: true,
+      
         trim: true
     },
     lname: {
@@ -37,18 +37,11 @@ const patientSchema = new Schema({
     },
     contact: {
         type: String,
-        required: true,
         trim: true
     },
    
 }, { timestamps: true })
 
-// user_id: {
-//     type: String,
-//     required: true
-// }  FOR AUTHENTICATION / KASAMA SA MODEL SA TAAS
 
-
-// create new collection
 module.exports = mongoose.model('be_client', patientSchema)
 

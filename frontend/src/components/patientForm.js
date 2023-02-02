@@ -58,8 +58,10 @@ const PatientForm = () => {
             //     setError('You must be logged in')
             //     return
             // }
-
+          
             const validate = validatePhoneNumber(contact)
+
+             
             if(!address){
               toast.error("Invalid address", {
                 position: "bottom-right",
@@ -75,9 +77,7 @@ const PatientForm = () => {
               return;
             }
 
-
-           
-            if(!validate){
+            if(validate==true){
               toast.error("Invalid phone number", {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -221,7 +221,6 @@ const PatientForm = () => {
                       }
                       
                     })}
-                    required
 
                         />
 

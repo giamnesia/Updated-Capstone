@@ -322,9 +322,6 @@ const createPatient = async (req, res) => {
   if (!lname) {
     emptyFields.push("lname");
   }
-  if (!mname) {
-    emptyFields.push("mname");
-  }
   if (!gender) {
     emptyFields.push("gender");
   }
@@ -333,9 +330,6 @@ const createPatient = async (req, res) => {
   }
   if (!address) {
     emptyFields.push("address");
-  }
-  if (!contact) {
-    emptyFields.push("contact");
   }
   if (!birthDate) {
     emptyFields.push("contact");

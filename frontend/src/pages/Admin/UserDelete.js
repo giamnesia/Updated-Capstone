@@ -43,7 +43,7 @@ const UserDelete = ({item}) => {
           return;
         }
 
-        if(password==='giaadmin123'){
+        if(password==='rhuadmin123'){
           const response = await fetch(`/portal/user/${item._id}` , {
             method: "DELETE"
           });

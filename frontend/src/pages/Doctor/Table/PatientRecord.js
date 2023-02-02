@@ -57,7 +57,7 @@ const PatientRecord = () => {
         });
         return;
       }
-      if (password==='giaadmin123'){
+      if (password==='rhuadmin123'){
         axios.get('/portal/health/get')
         .then(response => {
           const data = response.data.patient;
@@ -247,7 +247,7 @@ const PatientRecord = () => {
                         <td>{item.birthDate? item.birthDate.split("T")[0]:''}</td>
                         <td><Age birthdate={item.birthDate}/></td>
                         <td>{item.address}</td>
-                        <td>{item.contact}</td>
+                        <td>{item.contact?item.contact:'N/A'}</td>
                         <td>
 
                         <td class='items-center flex flex-col justify-center'>
