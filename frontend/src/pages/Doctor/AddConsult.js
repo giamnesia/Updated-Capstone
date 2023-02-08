@@ -1,17 +1,19 @@
 
-import React from 'react';
+import React,{Suspense} from 'react';
 
 //import { UseAuthContext} from '../hooks/useAuthContext'
 
 //components
-import ConsultForm from '../../components/consultForm'
-
+const ConsultForm = React.lazy(() => import('../../components/consultForm'));
 const AddConsult = () => {
 
     return (
     <div>
         <div>
+            <Suspense fallback={<div class='text-center'>Loading...</div>}>
             <ConsultForm />
+
+            </Suspense>
         </div>
     </div>
     )

@@ -115,13 +115,6 @@ const PatientRecord = () => {
 
     // DELETE FUNCTION
 
-  
-
-
-
-  
-
-
   return (
     <div className='tbl-patient ml-20'>
       <Helmet>
@@ -239,10 +232,11 @@ const PatientRecord = () => {
 
                         {item.map(item => 
                             <tr tabindex="0" class="focus:outline-none h-14 border text-center border-gray-100 rounded">
-                    
-                        <td>{item.fname}</td>
-                        <td>{item.mname}</td>
-                        <td>{item.lname}</td>
+                         {/* make fname first letter only visible */}
+                       
+                        <td>{item.fname.charAt(0)+ '*'.repeat(item.fname.length - 1)}</td>
+                        <td>{item.mname.charAt(0)+ '*'.repeat(item.mname?item.mname.length - 1:'')}</td>
+                        <td>{item.lname.charAt(0)+ '*'.repeat(item.lname.length - 1)}</td>
                         <td>{item.gender}</td>
                         <td>{item.birthDate? item.birthDate.split("T")[0]:''}</td>
                         <td><Age birthdate={item.birthDate}/></td>

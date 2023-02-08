@@ -16,7 +16,6 @@ import Signup from './pages/Authentication/Signup';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from 'react';
-import DoctorPage from "./pages/DoctorPage";
 import ConsultPage from "./pages/ConsultPage";
 import Page404 from "./pages/Page404";
 import ManagePatient from "./pages/Doctor/ManagePatient";
@@ -82,12 +81,7 @@ function App() {
             />
 
    
-            <Route path="/doctor" 
-              element={<ProtectedRoute>
-                <DoctorPage/>
-              </ProtectedRoute>
-              }
-            />
+          
             <Route path="/consult" element={<ConsultPage />} />
             <Route path="/managepatient" 
               element={<ProtectedRoute>

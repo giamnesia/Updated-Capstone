@@ -53,35 +53,10 @@ const createConsult = async (req, res) => {
     cbc,
     wa,
     bloodChem,
+    month,
   } = req.body;
 
-  // let emptyFields = []
 
-  // if (!diagnosis) {
-  //     emptyFields.push('diagnosis')
-  // }
-  // if (!description) {
-  //     emptyFields.push('description')
-  // }
-  // if (!treatment) {
-  //     emptyFields.push('treatment')
-  // }
-  // if (!bp) {
-  //     emptyFields.push('bp')
-  // }
-  // if (!weight) {
-  //     emptyFields.push('weight')
-  // }
-  // if (!attendingDoc) {
-  //     emptyFields.push('attendingDoc')
-  // }
-
-  //Error Message for adding new form
-  // if (emptyFields.length > 0) {
-  //     return res.status(400).json({error: 'Please fill all the fields', emptyFields})
-  // }
-
-  // adding document to database
   try {
     const consultinfo = await consultInfo.create({
       purpose,
@@ -109,6 +84,7 @@ const createConsult = async (req, res) => {
       cbc,
       wa,
       bloodChem,
+      month
     });
 
     res.status(200).json(consultinfo);

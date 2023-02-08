@@ -28,6 +28,15 @@ const consultSchema = new Schema({
     fname:String,
     mname:String,
     lname:String,
+    complaint:String,
+    hr:String,
+    rr:String,
+    temp:Number,
+    findings:String,
+    cbc:String,
+    wa:String,
+    bloodChem:String,
+    month:String,
 }, { timestamps: true })
 
 // create new collection

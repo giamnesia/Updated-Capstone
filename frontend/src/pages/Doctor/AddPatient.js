@@ -1,18 +1,19 @@
-import React from 'react';
+import React,{Suspense} from "react";
 // import { UseAuthContext} from '../hooks/useAuthContext'
 
 //components
-import PatientForm from '../../components/patientForm'
+const PatientForm = React.lazy(() => import('../../components/patientForm'));
 
 const AddPatient = () => {
-   
-    return (
-        <div >
-            <div>
-                <PatientForm />
-            </div>
-        </div>
-    )
-}
+  return (
+    <div>
+      <div>
+        <Suspense fallback={<div class="text-center">Loading...</div>}>
+          <PatientForm />
+        </Suspense>
+      </div>
+    </div>
+  );
+};
 
-export default AddPatient
+export default AddPatient;

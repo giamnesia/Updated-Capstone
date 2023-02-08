@@ -1,11 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import {Link }from 'react-router-dom'
 import axios from 'axios'
 import { UsePatientContext } from '../../hooks/usePatientContext'
 import {AiOutlineEye} from 'react-icons/ai'
-import AddUser from './AddUser'
-import Disable from './Disable'
 import { Helmet } from 'react-helmet'
 import {
   Modal,
@@ -22,7 +20,7 @@ import {
   FormLabel
 } from '@chakra-ui/react'
 import Age from '../../pages/Doctor/Table/Age'
-
+const AddUser = React.lazy(() => import('./AddUser'));
 const UserList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -128,7 +126,9 @@ const UserList = () => {
                         </a>
                       
                     </div>
-                <AddUser/>
+                    <Suspense fallback={<div class='text-center'>Loading...</div>}>
+                    <AddUser/>
+                    </Suspense>
                 </div>
                 <div class="mt-7 overflow-x-auto">
                     <table class="w-full whitespace-nowrap text-sm">

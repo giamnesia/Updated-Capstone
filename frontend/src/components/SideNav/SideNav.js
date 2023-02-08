@@ -63,7 +63,7 @@ const SideNav= () => {
                     <span class="group-hover:text-gray-700">Patient Record</span>
                   </Link>
                 </li>
-                {/* <li class="min-w-max">
+                <li class="min-w-max">
                   <Link
                     to="/filter"
                     class="bg group flex items-center space-x-4 rounded-full px-4 py-3 text-gray-600"
@@ -88,7 +88,7 @@ const SideNav= () => {
 
                     <span class="group-hover:text-gray-700">Filter Patient</span>
                   </Link>
-                </li> */}
+                </li>
                 <li class="min-w-max">
                   <Link
                     to="/addUser"

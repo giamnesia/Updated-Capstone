@@ -27,6 +27,8 @@ const getAllPatients = async (req, res) => {
   let gender = req.query.gender || "Gender";
   let address = req.query.address || "Address";
   let services = req.query.services || "Services";
+  let month = req.query.month || "Month";
+
 
   const addressOptions = [
     "Agoho",
@@ -189,6 +191,24 @@ const getAllPatients = async (req, res) => {
     "Laboratory Examination",
   ];
 
+
+  const monthOptions = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+
+
   address === "Address"
     ? (address = [...addressOptions])
     : (address = req.query.address.split(","));
@@ -200,12 +220,19 @@ const getAllPatients = async (req, res) => {
     services === "Services"
     ? (services = [...servicesOptions])
     : (services = req.query.services.split(","));
+
+    month === "Month"
+    ? (month = [...monthOptions])
+    : (month = req.query.month.split(","));
+
+   
+    
   const filtered = await consultInfo.find({
-    $and: [{ address: [...address] }, { gender: [...gender] }, { purpose: [...services] }],
+    $and: [{ address: [...address] }, { gender: [...gender] }, { purpose: [...services] }, { month: [...month] }],
   });
 
-  const patient = await patientInfo.find({}).sort({ createdAt: -1 });
 
+  const patient = await patientInfo.find({}).sort({ createdAt: -1 }); 
 
   res.status(200).json({
     results: results,
@@ -217,6 +244,8 @@ const getAllPatients = async (req, res) => {
     address: addressOptions,
     gender: genderOptions,
     services:servicesOptions,
+    month:monthOptions
+  
 
   });
 };

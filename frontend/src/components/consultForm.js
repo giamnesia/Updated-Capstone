@@ -62,9 +62,11 @@ const ConsultForm = ({ item }) => {
 
   const [wa, setWa] = useState("");
   const [bloodChem, setBloodChem] = useState("");
+  const [month, setMonth] = useState("");
 
   const [error, setError] = useState(null);
   // const [emptyFields, setEmptyFields] = useState([])
+  
 
   const handlePurpose = (e) => {
     setPurpose(e.target.value);
@@ -75,6 +77,13 @@ const ConsultForm = ({ item }) => {
     setFname(item && item.fname);
     setMname(item && item.mname);
     setLname(item && item.lname);
+    
+    const date = new Date(item&&item.createdAt);
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthIndex = date.getMonth();
+const monthString = months[monthIndex];
+  setMonth(monthString)
+
   };
 
   const handleSubmit = async (e) => {
@@ -112,6 +121,7 @@ const ConsultForm = ({ item }) => {
       cbc,
       wa,
       bloodChem,
+      month
     };
 
     const response = await fetch("/portal/consult", {
@@ -130,6 +140,7 @@ const ConsultForm = ({ item }) => {
     }
 
     if (response.ok) {
+      onClose();
       setError(null);
       // setEmptyFields([])
       setPurpose("");
@@ -260,7 +271,7 @@ const ConsultForm = ({ item }) => {
               <FormLabel>Temperature</FormLabel>
               <Input
                 focusBorderColor="orange.400"
-                placeholder="mg/dL"
+                placeholder="Temperature"
                 onChange={(e) => setTemp(e.target.value)}
                 value={temp}
               />

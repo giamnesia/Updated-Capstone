@@ -11,8 +11,10 @@ const consultRoutes = require('./routes/consult')
 
 // express app
 const app = express()
-
+const compression = require('compression');
 // middleware
+app.use(compression());
+
 app.use(express.json())
 app.use((req, res, next) => {
     console.log(req.path, req.method)
