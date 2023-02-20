@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef} from "react";
 import { Link, useParams } from "react-router-dom";
 import ModalPatient from "./ModalPatient";
 import ModalDelete from "./ModalDelete";
@@ -29,20 +29,28 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
-import * as XLSX from 'xlsx';
-import axios from 'axios'
-import { toast } from 'react-toastify'
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import * as XLSX from "xlsx";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { AiFillEyeInvisible, AiFillEye, AiFillPrinter } from "react-icons/ai";
 import { BsFillLockFill } from "react-icons/bs";
+import Age from "./Age";
 import "react-toastify/dist/ReactToastify.css";
+import {useReactToPrint} from 'react-to-print';
+
 const PatientView = () => {
   const { id } = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [password,setPassword] = useState();
+  const [password, setPassword] = useState();
 
   const [display, setDisplay] = useState();
   const [consult, setConsult] = useState();
   const [show, setShow] = useState(false);
+  const componentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const togglePass = () => {
     setShow(!show);
@@ -64,52 +72,54 @@ const PatientView = () => {
   }, [display, consult]);
 
   const exportToExcel = () => {
-    if (!password){
-      toast.error("Please input your password",{
+    if (!password) {
+      toast.error("Please input your password", {
         position: "bottom-right",
         autoClose: 5000,
       });
       return;
     }
-    if (password==='rhuadmin123'){
-      axios.get(`/portal/health/agg/${id}`)
-      .then(response => {
-        const data = response.data.patient;
-        const ws = XLSX.utils.json_to_sheet(data);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(new Blob([XLSX.write(wb, { type: 'array' })], { type: 'application/octet-stream' }));
-      const dateToday= new Date().toLocaleDateString()
-      link.download = `${response.data.patientFind.fname}-${response.data.patientFind.mname}'s.xlsx`;
-      link.click();
-      toast.success("File downloaded successfully",{
-        position: "bottom-right",
-        autoClose: 5000,
-      });
-      onClose()
-      setPassword('')
-      })
-      .catch(error => {
-        console.log(error)
-      });
-    }
-    else{
-      toast.error("Wrong Password",{
+    if (password === "rhuadmin123") {
+      axios
+        .get(`/portal/health/agg/${id}`)
+        .then((response) => {
+          const data = response.data.patient;
+          const ws = XLSX.utils.json_to_sheet(data);
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+          const link = document.createElement("a");
+          link.href = window.URL.createObjectURL(
+            new Blob([XLSX.write(wb, { type: "array" })], {
+              type: "application/octet-stream",
+            })
+          );
+          const dateToday = new Date().toLocaleDateString();
+          link.download = `${response.data.patientFind.fname}-${response.data.patientFind.mname}'s.xlsx`;
+          link.click();
+          toast.success("File downloaded successfully", {
+            position: "bottom-right",
+            autoClose: 5000,
+          });
+          onClose();
+          setPassword("");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      toast.error("Wrong Password", {
         position: "bottom-right",
         autoClose: 5000,
       });
       return;
     }
+  };
 
-  }
-
- 
   return (
     <div class="ml-20">
-      <div>
-      
-      </div>
+      {/* <div>
+        <button onClick={handlePrint}><AiFillPrinter/></button>
+      </div> */}
       <h3 class="text-2xl text-gray-700 font-bold pt-6 ml-3">
         Patient Details
       </h3>
@@ -117,11 +127,13 @@ const PatientView = () => {
         <ModalPatient item={display} />
         <ConsultForm item={display} />
         <ModalDelete item={display} />
-        <Button class='float-right bg-gray-200 p-2 rounded' onClick={onOpen}>Export to Excel (.xlsx) file</Button>
-
+        <Button class="float-right bg-gray-200 p-2 m-1 rounded" onClick={onOpen}>
+          Export {display&& display.fname.charAt(0) +
+                    "*".repeat(display.fname.length - 1)}'s data to Excel
+        </Button>
       </div>
 
-      <TableContainer>
+      <TableContainer >
         <Table variant="simple">
           <Thead>
             <Tr></Tr>
@@ -138,7 +150,9 @@ const PatientView = () => {
                     "*".repeat(
                       display.mname ? display.mname.length - 1 : ""
                     )}{" "}
-                {display && display.lname.charAt(0)+ '*'.repeat(display.lname.length - 1)}
+                {display &&
+                  display.lname.charAt(0) +
+                    "*".repeat(display.lname.length - 1)}
               </Td>
             </Tr>
             <Tr>
@@ -147,11 +161,22 @@ const PatientView = () => {
             </Tr>
             <Tr>
               <Td>Birth Date</Td>
-              <Td>{display && display.birthDate}</Td>
+              <Td>
+                {display && display.birthDate
+                  ? display.birthDate.split("T")[0]
+                  : ""}
+              </Td>
             </Tr>
             <Tr>
               <Td>Age</Td>
-              <Td>{display && display.age}</Td>
+              <Td>
+                {" "}
+                <Age
+                  birthdate={
+                    display && display.birthDate ? display.birthDate : ""
+                  }
+                />
+              </Td>
             </Tr>
             <Tr>
               <Td>Address</Td>
@@ -164,45 +189,39 @@ const PatientView = () => {
           </Tbody>
         </Table>
       </TableContainer>
-      <Modal
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Export {display&& display.fname.charAt(0) +
+                    "*".repeat(display.fname.length - 1)}'s data to Excel</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl mt={4}>
+              <FormLabel>Type Admin Password</FormLabel>
 
-isOpen={isOpen}
-onClose={onClose}
->
-<ModalOverlay />
-<ModalContent>
-  <ModalHeader>Export data to Excel</ModalHeader>
-  <ModalCloseButton />
-  <ModalBody pb={6}>
-    
-
-    <FormControl mt={4}>
-      <FormLabel>Type Admin Password</FormLabel>
-    
-          
-      <div class="relative">
-        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-          <BsFillLockFill class="text-gray-400" />
-        </div>
-        <input
-          
-          onChange={(e) =>setPassword(e.target.value)} value={password}
-          type={show ? "text" : "password"}
-          class=" border border-gray-400 text-gray-900 text-sm rounded-lg outline-none  focus:ring-amber-500 focus:border-amber-500 block w-full pl-10 p-2.5"
-          placeholder="New Password"
-        />
-        <div class="flex absolute inset-y-0  right-0 text-gray-500 items-center px-3 cursor-pointer">
-          {show ? (
-            <AiFillEye class="w-5 h-5" onClick={togglePass} />
-          ) : (
-            <AiFillEyeInvisible class="w-5 h-5" onClick={togglePass} />
-          )}
-        </div>
-      </div>
-    </FormControl>
-  </ModalBody>
-     <ModalFooter>
-            <Button colorScheme='orange' onClick={exportToExcel} mr={3}>
+              <div class="relative">
+                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                  <BsFillLockFill class="text-gray-400" />
+                </div>
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  type={show ? "text" : "password"}
+                  class=" border border-gray-400 text-gray-900 text-sm rounded-lg outline-none  focus:ring-amber-500 focus:border-amber-500 block w-full pl-10 p-2.5"
+                  placeholder="New Password"
+                />
+                <div class="flex absolute inset-y-0  right-0 text-gray-500 items-center px-3 cursor-pointer">
+                  {show ? (
+                    <AiFillEye class="w-5 h-5" onClick={togglePass} />
+                  ) : (
+                    <AiFillEyeInvisible class="w-5 h-5" onClick={togglePass} />
+                  )}
+                </div>
+              </div>
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="orange" onClick={exportToExcel} mr={3}>
               Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>
@@ -212,7 +231,7 @@ onClose={onClose}
       <br />
       <h3 class="text-2xl text-gray-700 font-bold mb-6 ml-3">Consultation</h3>
 
-      <TableContainer>
+      <TableContainer >
         <Table variant="simple">
           <TableCaption>Consultation History</TableCaption>
           <Thead>
@@ -243,9 +262,8 @@ onClose={onClose}
                   <Td>{item.purpose}</Td>
                   <Td>{item.complaint ? item.complaint : "N/A"}</Td>
                   <Td>
-                    <VitalSigns item={item}/>
+                    <VitalSigns item={item} />
                   </Td>
-
 
                   <Td>
                     <LabResults

@@ -77,13 +77,7 @@ const Forgot = () => {
                   </button>
                 </div>
                 <hr class="mb-6 border-t" />
-                <div class="text-start">
-                  <Link to="/signup">
-                    <a class="inline-block text-sm text-gray-800 align-baseline ">
-                      Create an Account <span class="underline hover:text-amber-500">Sign-up</span> 
-                    </a>
-                  </Link>
-                </div>
+             
                 <div class="text-start">
                   <Link to="/login">
                     <a class="inline-block text-sm text-gray-800 align-baseline ">

@@ -229,11 +229,16 @@ const getAllPatients = async (req, res) => {
     
   const filtered = await consultInfo.find({
     $and: [{ address: [...address] }, { gender: [...gender] }, { purpose: [...services] }, { month: [...month] }],
-  });
+  })
+
+  //count filtered
+  const totalResultsFiltered = await consultInfo.find({
+    $and: [{ address: [...address] }, { gender: [...gender] }, { purpose: [...services] }, { month: [...month] }],
+  }).countDocuments({});
+
 
 
   const patient = await patientInfo.find({}).sort({ createdAt: -1 }); 
-
   res.status(200).json({
     results: results,
     totalResults: totalResults,
@@ -244,7 +249,8 @@ const getAllPatients = async (req, res) => {
     address: addressOptions,
     gender: genderOptions,
     services:servicesOptions,
-    month:monthOptions
+    month:monthOptions,
+    totalResultsFiltered: totalResultsFiltered,
   
 
   });

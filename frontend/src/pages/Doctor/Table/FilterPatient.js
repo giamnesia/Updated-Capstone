@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import axios from "axios";
 import Filter from "./Filter";
 import FilterServices from "./FilterServices";
 import { UsePatientContext } from "../../../hooks/usePatientContext";
-import List from "./List";
 import FilterGender from "./FilterGender";
 import FilterMonth from "./FilterMonth";
+import {useReactToPrint} from 'react-to-print';
 import {
   Drawer,
   DrawerBody,
@@ -26,12 +26,18 @@ import {
   Input,
   FormControl,
   FormLabel,
+  Spinner,
+  Tag,
+  TagLabel,
+  TagCloseButton,
+  TagIcon,
+  HStack
 } from "@chakra-ui/react";
 import * as XLSX from "xlsx";
 import { toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { AiFillEyeInvisible, AiFillEye, AiFillPrinter} from "react-icons/ai";
 import { BsFillLockFill } from "react-icons/bs";
 const FilterPatient = () => {
   const [filterAddress, setFilterAddress] = useState([]);
@@ -49,8 +55,14 @@ const FilterPatient = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [page, setPage] = useState(0);
+  const [total,setTotal]= useState(0);
   const [show, setShow] = useState(false);
   const pages = new Array(totalPages).fill(null).map((v, i) => i);
+  const componentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   const togglePass = () => {
     setShow(!show);
   };
@@ -59,7 +71,9 @@ const FilterPatient = () => {
       const response = await fetch(
         `/portal/health/get?page=${currentPage}&address=${
           filterAddress ? filterAddress.toString() : ""
-        }&gender=${filterGender.toString()}&services=${filterServices.toString()}&month=${filterMonth?filterMonth.toString():''}`
+        }&gender=${filterGender.toString()}&services=${filterServices.toString()}&month=${
+          filterMonth ? filterMonth.toString() : ""
+        }`
       );
       const json = await response.json();
 
@@ -67,7 +81,7 @@ const FilterPatient = () => {
         if (response.ok) {
           setItem(json ? json : []);
           setTotalPages(json.totalPages);
-
+          setTotal(json.totalResultsFiltered)
           dispatch({ type: "SET_PATIENT", payload: json });
         }
       } catch (err) {
@@ -76,7 +90,7 @@ const FilterPatient = () => {
     };
 
     fetchPatient();
-  }, [filterAddress, filterGender, filterServices,filterMonth]);
+  }, [filterAddress, filterGender, filterServices, filterMonth]);
 
   const exportToExcel = async () => {
     try {
@@ -112,7 +126,6 @@ const FilterPatient = () => {
 
   return (
     <div>
-     
       <div class="ml-20">
         <p>Filter by Barangay</p>
         <Button onClick={onOpen} m={4}>
@@ -138,48 +151,45 @@ const FilterPatient = () => {
         </Drawer>
       </div>
 
-      <div class='flex flex-row items-start'>
-    
-      {item && item ? (
-        <>
-          <FilterServices
-          filterServices={filterServices}
-          services={item ? item.services : []}
-          setFilterServices={(services) => setFilterServices(services)}
-        />
-        </>
-      
-      ) : (
-        <p>None</p>
-      )}
-        <FilterGender
-        filterGender={filterGender}
-        gender={item.gender ? item.gender : []}
-        setFilterGender={(gender) => setFilterGender(gender)}
-      />
+      <div class="flex flex-row items-start ml-6">
         {item && item ? (
-        <FilterMonth
-        filterMonth={filterMonth}
-        month={item.month? item.month : []}
-        setFilterMonth={(month) => setFilterMonth(month)}
-      />
-      ) : (
-        <p>None</p>
-      )}
-    
+          <>
+            <FilterServices
+              filterServices={filterServices}
+              services={item ? item.services : []}
+              setFilterServices={(services) => setFilterServices(services)}
+            />
+          </>
+        ) : (
+          <p>None</p>
+        )}
+        <FilterGender
+          filterGender={filterGender}
+          gender={item.gender ? item.gender : []}
+          setFilterGender={(gender) => setFilterGender(gender)}
+        />
+        {item && item ? (
+          <FilterMonth
+            filterMonth={filterMonth}
+            month={item.month ? item.month : []}
+            setFilterMonth={(month) => setFilterMonth(month)}
+          />
+        ) : (
+          <p>None</p>
+        )}
       </div>
-     
+    
 
-      <div class="sm:px-6 w-full">
-        <div class="px-4 md:px-10 py-4 md:py-7">
-          <div class="flex items-center justify-between">
-            <p
-              tabindex="0"
-              class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800"
+      <div class="sm:px-6 w-full ">
+        <div class="px-7 ">
+          <div class="flex flex-col items-center justify-center mt-6">
+            {/* <p
+          
+              class="text-center sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-800"
             >
               Patient Information
-            </p>
-            <div class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded">
+            </p> */}
+            {/* <div class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded">
               <p>Sort By:</p>
               <select
                 aria-label="select"
@@ -189,34 +199,12 @@ const FilterPatient = () => {
                 <option class="text-sm text-indigo-800">Oldest</option>
                 <option class="text-sm text-indigo-800">Latest</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </div>
-
-        <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
-          <div class="sm:flex items-center justify-between">
-            <div class="flex items-center">
-              <a
-                class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800"
-                href=" javascript:void(0)"
-              >
-                <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
-                  <p>All</p>
-                </div>
-              </a>
-            </div>
-            {/*           
-              <PatientForm/> */}
-          </div>
-          {/* <div class='flex flex-row items-center justify-center mb-10'>
-          {
-            pages.map(item=>(
-              <button class='p-3  bg-amber-500 text-white ' onClick={()=>setCurrentPage(item)}>{item+1}</button>
-            ))
-          }
-          
-          </div>
-          <div><p>Showing {currentPage+1} out of {totalPages} pages</p></div> */}
+   
+        <div class="bg-white py-4 md:py-7  md:px-8 xl:px-10">
+         
           <div class="p-6">
             <Button
               class="float-right bg-gray-200 p-2 rounded"
@@ -225,7 +213,42 @@ const FilterPatient = () => {
               Export to Excel (.xlsx) file
             </Button>
           </div>
+          <div class="p-6">
+            <Button
+              class="float-right bg-gray-200 p-2 rounded"
+              onClick={handlePrint}
+            >
+              Print File
+            </Button>
+          </div>
+          <div class='ml-20'>
+          <p class='text-xl'>Showing {total} results</p>
+        </div>
 
+        <HStack spacing={4} ml='20' mt='10' >
+      <Tag size="sm" borderRadius="full" variant="solid" colorScheme="green">
+        <TagLabel>
+          {filterAddress.length > 0 ? filterAddress.toString() : "All"}
+        </TagLabel>
+      
+      </Tag >
+      <Tag size="sm" borderRadius="full" variant="solid" colorScheme="green">
+        <TagLabel>
+          {filterServices.length > 0 ? filterServices.toString() : "All"}
+        </TagLabel>
+      </Tag>
+      <Tag size="sm" borderRadius="full" variant="solid" colorScheme="green">
+        <TagLabel>
+          {filterGender.length > 0 ? filterGender.toString() : "All"}
+        </TagLabel>
+      </Tag>
+      <Tag size="sm" borderRadius="full" variant="solid" colorScheme="green">
+        <TagLabel>
+          {filterMonth.length > 0 ? filterMonth.toString() : "All"}
+        </TagLabel>
+      </Tag>
+      </HStack>
+   
           {/* <Modal
 
         isOpen={isOpen}
@@ -272,7 +295,7 @@ const FilterPatient = () => {
                 </ModalContent>
               </Modal> */}
           <div class="mt-7 overflow-x-auto">
-            <table class="w-full whitespace-nowrap text-sm">
+            <table ref={componentRef} class="w-full whitespace-nowrap text-sm">
               <thead>
                 <tr
                   tabindex="0"
@@ -289,7 +312,7 @@ const FilterPatient = () => {
                   <th>Purpose</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {item.filtered &&
                   item.filtered.map((item) => (
                     <tr

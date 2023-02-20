@@ -121,7 +121,8 @@ const Signup = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   type="text"
                   id="email-address-icon"
-                  class=" border border-gray-400 text-gray-900 text-sm rounded-lg outline-none focus:ring-amber-500 focus:border-amber-500 block w-full pl-10 p-2.5"
+                  class="block w-full px-8 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md   focus:ring-amber-400 focus:outline-none focus:ring focus:ring-opacity-40"
+
                   placeholder="name@email.com"
                   autoComplete="off"
                 />
@@ -134,7 +135,8 @@ const Signup = () => {
                 <input
                   onChange={(e) => setPassword(e.target.value)}
                   type={show ? "text" : "password"}
-                  class=" border border-gray-400 text-gray-900 text-sm rounded-lg outline-none  focus:ring-amber-500 focus:border-amber-500 block w-full pl-10 p-2.5"
+                  class="block w-full px-8 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md   focus:ring-amber-400 focus:outline-none focus:ring focus:ring-opacity-40"
+
                   placeholder="password"
                 />
                 <div class="flex absolute inset-y-0  right-0 text-gray-500 items-center px-3 cursor-pointer">
@@ -170,16 +172,7 @@ const Signup = () => {
             </div>
           </form>
 
-          <div class="text-center mt-3">
-            {/* <GoogleLogin /> */}
-
-            <p class="mt-4 text-sm">
-              Don't Have An Account?{" "}
-              <span class="underline cursor-pointer">
-                <Link to="/signup">Signup</Link>{" "}
-              </span>
-            </p>
-          </div>
+          
         </div>
         <div class="w-40 h-40 absolute rounded-full top-0 right-12 hidden md:block"></div>
         <div class="w-20 h-40 absolute  rounded-full bottom-20 left-10 transform rotate-45 hidden md:block"></div>

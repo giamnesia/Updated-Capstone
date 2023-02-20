@@ -18,7 +18,7 @@ const FilterServices = ({ services, filterServices, setFilterServices }) => {
 	  <br/>
 
       <div class="flex flex-col flex-wrap"></div>
-      <CheckboxGroup colorScheme="green">
+      <CheckboxGroup colorScheme="orange">
         {services &&
           services.map((item) => (
             <Stack spacing={[1, 5]} direction={["column", "row"]}>

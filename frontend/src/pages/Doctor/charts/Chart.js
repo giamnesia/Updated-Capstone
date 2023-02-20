@@ -1,9 +1,9 @@
-// import React from 'react'
+import React from 'react'
 
-// const Chart = ({data}) => {
-//   return (
-//     <div>{data}</div>
-//   )
-// }
+const Chart = ({data}) => {
+  return (
+    <div>{data}</div>
+  )
+}
 
-// export default Chart
+export default Chart

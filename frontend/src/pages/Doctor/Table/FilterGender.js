@@ -17,7 +17,7 @@ const FilterGender = ({ gender, filterGender, setFilterGender }) => {
       <h1>Filter By Gender</h1>
 	  <br/>
       <div>
-        <CheckboxGroup colorScheme="green">
+        <CheckboxGroup colorScheme="orange">
           {gender &&
             gender.map((item) => (
               <Stack spacing={[1, 5]} direction={["column", "row"]}>

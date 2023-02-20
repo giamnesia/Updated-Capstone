@@ -54,12 +54,18 @@ const PatientForm = () => {
         const handleSubmit = async (e) => {
             e.preventDefault()
 
-            // if (!user) {
-            //     setError('You must be logged in')
-            //     return
-            // }
-          
-            const validate = validatePhoneNumber(contact)
+        
+
+            if (contact) {
+              const validate = validatePhoneNumber(contact);
+              if (!validate) {
+                toast.error("Invalid phone number", {
+                  position: "bottom-right",
+                  autoClose: 5000,
+                });
+                return;
+              }
+            }
 
              
             if(!address){
@@ -77,13 +83,7 @@ const PatientForm = () => {
               return;
             }
 
-            // if(validate==true){
-            //   toast.error("Invalid phone number", {
-            //     position: "bottom-right",
-            //     autoClose: 5000,
-            //   });
-            //   return;
-            // }
+         
 
             const patientinfo = {fname, mname, lname, gender, age, address, contact,birthDate}
 

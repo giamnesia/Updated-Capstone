@@ -1,17 +1,19 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-import Calauag from '../../images/calauag.png'
+import Calauag from "../../images/calauag.png";
 import Logout from "../auth/Logout";
-const SideNav= () => {
+const SideNav = () => {
   return (
     <div>
       <div class="h-full  absolute z-20  ">
-        <div class="sidebar min-h-screen w-[3.35rem] overflow-hidden border-r hover:w-56 hover:bg-white  hover:shadow-lg transition 
-             duration-700">
+        <div
+          class="sidebar min-h-screen w-[3.35rem] overflow-hidden border-r hover:w-56 hover:bg-white  hover:shadow-lg transition 
+             duration-700"
+        >
           <div class="flex h-screen flex-col justify-between pt-2 pb-6">
             <div>
               <div class="w-max p-2.5">
-                 <img class='w-8' src={Calauag}/>
+                <img class="w-8" src={Calauag} />
               </div>
               <ul class="mt-6 space-y-2 tracking-wide">
                 <li class="min-w-max ">
@@ -60,7 +62,9 @@ const SideNav= () => {
                       />
                     </svg>
 
-                    <span class="group-hover:text-gray-700">Patient Record</span>
+                    <span class="group-hover:text-gray-700">
+                      Patient Record
+                    </span>
                   </Link>
                 </li>
                 <li class="min-w-max">
@@ -71,22 +75,15 @@ const SideNav= () => {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-5 w-5"
-                      viewBox="0 0 20 20"
                       fill="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <path
-                        class="fill-current text-gray-300 group-hover:text-orange-300"
-                        fill-rule="evenodd"
-                        d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"
-                        clip-rule="evenodd"
-                      />
-                      <path
-                        class="fill-current text-gray-600 group-hover:text-orange-600"
-                        d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z"
-                      />
+                      <path d="M 4 2 C 2.895 2 2 2.895 2 4 L 2 16 C 2 17.105 2.895 18 4 18 L 16 18 C 17.105 18 18 17.105 18 16 L 18 4 C 18 2.895 17.105 2 16 2 L 4 2 z M 13.585938 6 L 15 7.4140625 L 9 13.414062 L 5 9.4140625 L 6.4140625 8 L 9 10.585938 L 13.585938 6 z M 20 6 L 20 20 L 6 20 L 6 22 L 20 22 C 21.105 22 22 21.105 22 20 L 22 6 L 20 6 z"></path>
                     </svg>
 
-                    <span class="group-hover:text-gray-700">Filter Patient</span>
+                    <span class="group-hover:text-gray-700">
+                      Filter Patient
+                    </span>
                   </Link>
                 </li>
                 <li class="min-w-max">
@@ -97,19 +94,11 @@ const SideNav= () => {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-5 w-5"
-                      viewBox="0 0 20 20"
                       fill="currentColor"
+                      viewBox="0 0 24 24"
+                      
                     >
-                      <path
-                        class="fill-current text-gray-300 group-hover:text-orange-300"
-                        fill-rule="evenodd"
-                        d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"
-                        clip-rule="evenodd"
-                      />
-                      <path
-                        class="fill-current text-gray-600 group-hover:text-orange-600"
-                        d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z"
-                      />
+                      <path d="M18,2H6C4.895,2,4,2.895,4,4v16c0,1.105,0.895,2,2,2h12c1.105,0,2-0.895,2-2V4C20,2.895,19.105,2,18,2z M12,6 c1.7,0,3,1.3,3,3s-1.3,3-3,3s-3-1.3-3-3S10.3,6,12,6z M16.333,18H7.667C7.298,18,7,17.702,7,17.333V17c0-1.571,2.512-3,5-3 s5,1.429,5,3v0.333C17,17.702,16.702,18,16.333,18z"></path>
                     </svg>
 
                     <span class="group-hover:text-gray-700">User Record</span>
@@ -135,7 +124,7 @@ const SideNav= () => {
                         d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"
                       />
                     </svg>
-                    
+
                     <span class="group-hover:text-gray-700">Reports</span>
                   </Link>
                 </li>
@@ -156,25 +145,48 @@ const SideNav= () => {
                 </li> */}
 
                 <li class="min-w-max">
-                  <Link to='/search'
+                  <Link
+                    to="/search"
                     class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
                   >
-                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                  width="24" height="24"
-                  viewBox="0 0 24 24">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         class="fill-current text-gray-600 group-hover:text-orange-600"
-                      
-                      d="M 9 2 C 5.1458514 2 2 5.1458514 2 9 C 2 12.854149 5.1458514 16 9 16 C 10.747998 16 12.345009 15.348024 13.574219 14.28125 L 14 14.707031 L 14 16 L 20 22 L 22 20 L 16 14 L 14.707031 14 L 14.28125 13.574219 C 15.348024 12.345009 16 10.747998 16 9 C 16 5.1458514 12.854149 2 9 2 z M 9 4 C 11.773268 4 14 6.2267316 14 9 C 14 11.773268 11.773268 14 9 14 C 6.2267316 14 4 11.773268 4 9 C 4 6.2267316 6.2267316 4 9 4 z"></path>
-                  </svg>
-                    
+                        d="M 9 2 C 5.1458514 2 2 5.1458514 2 9 C 2 12.854149 5.1458514 16 9 16 C 10.747998 16 12.345009 15.348024 13.574219 14.28125 L 14 14.707031 L 14 16 L 20 22 L 22 20 L 16 14 L 14.707031 14 L 14.28125 13.574219 C 15.348024 12.345009 16 10.747998 16 9 C 16 5.1458514 12.854149 2 9 2 z M 9 4 C 11.773268 4 14 6.2267316 14 9 C 14 11.773268 11.773268 14 9 14 C 6.2267316 14 4 11.773268 4 9 C 4 6.2267316 6.2267316 4 9 4 z"
+                      ></path>
+                    </svg>
+
                     <span class="group-hover:text-gray-700">Search</span>
                   </Link>
                 </li>
-                
               </ul>
             </div>
             <div class="w-max -mb-3">
+              <li class="min-w-max">
+                <a
+                  href="https://rhu-calauag.herokuapp.com"
+                  class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    class="h-5 w-5 group-hover:fill-orange-600"
+                    fill="currentColor"
+                  >
+                    <path d="M 3 3 L 3 21 L 21 21 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 3 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z"></path>
+                  </svg>
+
+                  <span class="group-hover:text-gray-700">RHU Portal</span>
+                </a>
+              </li>
+
               <a
                 href="#"
                 class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
@@ -191,7 +203,9 @@ const SideNav= () => {
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="group-hover:text-gray-700"><Logout/></span>
+                <span class="group-hover:text-gray-700">
+                  <Logout />
+                </span>
               </a>
             </div>
           </div>

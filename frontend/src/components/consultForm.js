@@ -211,7 +211,8 @@ const monthString = months[monthIndex];
                 focusBorderColor="orange.400"
               />
             </FormControl>
-            
+        
+
             <FormControl mt={4}>
               <FormLabel>Weight</FormLabel>
               <Input
@@ -342,9 +343,26 @@ const monthString = months[monthIndex];
                 <option value="" selected="selected" hidden="hidden">
                   Choose here
                 </option>
-                <option value="Dra. Katherine Pulgar-Ruby" selected>
-                  {" "}
-                  Dra. Katherine Pulgar-Ruby{" "}
+                <option value="Dra. Katherine Pulgar-Ruby" >
+                  Dra. Katherine Pulgar-Ruby
+                </option>
+                <option value="Ma. Letitia Cana" >
+                  Ma. Letitia Cana
+                </option>
+                <option value="Ricky De Chavez" >
+                  Ricky De Chavez
+                </option>
+                <option value="Rowena Umali" >
+                  Rowena Umali
+                </option>
+                <option value="Evangeline Talolong" >
+                Evangeline Talolong
+                </option>
+                <option value="Mirriam Alfuen" >
+                Mirriam Alfuen
+                </option>
+                <option value="Jamila Pedrezuela" >
+                Jamila Pedrezuela
                 </option>
                 {/* className = {emptyFields.includes('attendingDoc') ? 'error': ''} */}
               </select>

@@ -18,18 +18,15 @@ const FilterMonth = ({ month, filterMonth, setFilterMonth }) => {
 	  <br/>
 
       <div class="flex flex-col flex-wrap"></div>
-      {month &&
-          month.map((item) => (
-            <div>
-              <input
-                class="w-64 flex items-center m-0"
-                type="checkbox"
-                value={item}
-                onChange={onChange}
-              />
-              <p class="m-0 ml-2">{item}</p>
-            </div>
-          ))}
+      <CheckboxGroup colorScheme="orange">
+          {month &&
+            month.map((item) => (
+              <Stack spacing={[1, 5]} direction={["column", "row"]}>
+                <Checkbox value={item} onChange={onChange}></Checkbox>
+                <p class="m-0">{item}</p>
+              </Stack>
+            ))}
+        </CheckboxGroup>
     </div>
   );
 };
