@@ -1,11 +1,4 @@
-import { useState } from "react";
-import React from "react";
-import { UseConsultContext } from "../hooks/useConsultContext";
-import { Link } from "react-router-dom";
-import RHUServices from "../data/rhuServices";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// import { UseAuthContext } from "../hooks/useAuthContext"
+import React, { useState } from "react";
 import {
   Drawer,
   DrawerBody,
@@ -22,22 +15,14 @@ import {
   FormLabel,
   Textarea,
 } from "@chakra-ui/react";
-import { IoAddOutline } from "react-icons/io5";
-const ConsultForm = ({ item }) => {
-  const { dispatch } = UseConsultContext();
+import { BiEdit } from "react-icons/bi";
 
+import RHUServices from "../../../data/rhuServices";
+
+const ModalEditConsult = ({ item }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const {user} = UseAuthContext()
-  const [fname, setFname] = useState("");
-  const [mname, setMname] = useState("");
-  const [lname, setLname] = useState("");
-  const [purpose, setPurpose] = useState("");
-  const [patientID, setPatientID] = useState();
-  const [age, setAge] = useState();
 
-  const [gender, setGender] = useState();
-  const [address, setAddress] = useState();
-
+  // FOR UPDATE AND DELETE
   const [diagnosis, setDiagnosis] = useState("");
   const [description, setDescription] = useState("");
   const [remarks, setRemarks] = useState("");
@@ -49,6 +34,7 @@ const ConsultForm = ({ item }) => {
   const [bloodsugar, setBloodsugar] = useState("");
   const [attendingDoc, setAttendingDoc] = useState("");
   const [complaint, setComplaint] = useState("");
+  const [purpose, setPurpose] = useState("");
 
   const [hr, setHr] = useState("");
 
@@ -64,38 +50,8 @@ const ConsultForm = ({ item }) => {
   const [bloodChem, setBloodChem] = useState("");
   const [month, setMonth] = useState("");
 
-  const [error, setError] = useState(null);
-  // const [emptyFields, setEmptyFields] = useState([])
-  
-
-  const handlePurpose = (e) => {
-    setPurpose(e.target.value);
-    setPatientID(item && item._id);
-    setAddress(item && item.address);
-    setAge(item && item.age);
-    setGender(item && item.gender);
-    setFname(item && item.fname);
-    setMname(item && item.mname);
-    setLname(item && item.lname);
-    
-    const date = new Date(item&&item.createdAt);
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const monthIndex = date.getMonth();
-const monthString = months[monthIndex];
-  setMonth(monthString)
-
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!attendingDoc) {
-      toast.error("Invalid doctor", {
-        position: "bottom-right",
-        autoClose: 5000,
-      });
-      return;
-    }
     const consultinfo = {
       purpose,
       diagnosis,
@@ -105,14 +61,8 @@ const monthString = months[monthIndex];
       height,
       bloodsugar,
       attendingDoc,
-      patientID,
-      gender,
-      address,
-      age,
+
       remarks,
-      fname,
-      mname,
-      lname,
       complaint,
       hr,
       rr,
@@ -121,63 +71,39 @@ const monthString = months[monthIndex];
       cbc,
       wa,
       bloodChem,
-      month
     };
 
-    const response = await fetch("/portal/consult", {
-      method: "POST",
+    const response = await fetch(`/portal/consult/${item._id}`, {
+      method: "PATCH",
       body: JSON.stringify(consultinfo),
       headers: {
         "Content-Type": "application/json",
-        // 'Authorization': `Bearer ${user.token}`
       },
     });
     const json = await response.json();
-
     if (!response.ok) {
-      setError(json.error);
-      // setEmptyFields(json.emptyFields)
+      console.log(json.error);
     }
-
     if (response.ok) {
-      onClose();
-      setError(null);
-      // setEmptyFields([])
-      setPurpose("");
-      // setDiagnosis('')
-      // setDescription('')
-      setTreatment("");
-      setBp("");
-      setWeight("");
-      setHeight("");
-      setBloodsugar("");
-      setAttendingDoc("");
-      setRemarks("");
-      setComplaint ("")
-      setHr ("")
-      setRr("")
-      setTemp("")
-      setFindings("")
-      setCbc("")
-      setWa("")
-      setBloodChem("")
+      console.log(json);
+      window.location.reload();
     }
   };
 
   return (
-    <>
+    <div>
       <IconButton
         margin={1}
         colorScheme="purple"
         aria-label="Add"
-        icon={<IoAddOutline />}
+        icon={<BiEdit />}
         onClick={onOpen}
       />
 
-      <Drawer isOpen={isOpen} size='lg' onClose={onClose}>
+      <Drawer isOpen={isOpen} size="lg" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader>Add Consultation</DrawerHeader>
+          <DrawerHeader>Edit Consultation</DrawerHeader>
           <DrawerCloseButton />
           <DrawerBody pb={6}>
             <FormControl mt={4}>
@@ -185,7 +111,7 @@ const monthString = months[monthIndex];
               <select
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 "
                 value={purpose}
-                onChange={handlePurpose}
+                onChange={(e) => setPurpose(e.target.value)}
               >
                 {RHUServices.map((item) => (
                   <>
@@ -201,17 +127,15 @@ const monthString = months[monthIndex];
             </FormControl>
             <FormControl>
               <FormLabel>Chief Complaint</FormLabel>
-              
-               <Textarea
+
+              <Textarea
                 value={complaint}
                 onChange={(e) => setComplaint(e.target.value)}
-
                 placeholder="Type the complaint here.."
                 size="sm"
                 focusBorderColor="orange.400"
               />
             </FormControl>
-        
 
             <FormControl mt={4}>
               <FormLabel>Weight</FormLabel>
@@ -299,8 +223,6 @@ const monthString = months[monthIndex];
               />
             </FormControl>
 
-
-
             <FormControl>
               <FormLabel>Diagnosis</FormLabel>
               <Input
@@ -317,9 +239,6 @@ const monthString = months[monthIndex];
                 value={treatment}
               />
             </FormControl>
-          
-
-           
 
             <FormControl>
               <FormLabel>Comment</FormLabel>
@@ -343,27 +262,15 @@ const monthString = months[monthIndex];
                 <option value="" selected="selected" hidden="hidden">
                   Choose here
                 </option>
-                <option value="Dra. Katherine Pulgar-Ruby" >
+                <option value="Dra. Katherine Pulgar-Ruby">
                   Dra. Katherine Pulgar-Ruby
                 </option>
-                <option value="Ma. Letitia Cana" >
-                  Ma. Letitia Cana
-                </option>
-                <option value="Ricky De Chavez" >
-                  Ricky De Chavez
-                </option>
-                <option value="Rowena Umali" >
-                  Rowena Umali
-                </option>
-                <option value="Evangeline Talolong" >
-                Evangeline Talolong
-                </option>
-                <option value="Mirriam Alfuen" >
-                Mirriam Alfuen
-                </option>
-                <option value="Jamila Pedrezuela" >
-                Jamila Pedrezuela
-                </option>
+                <option value="Ma. Letitia Cana">Ma. Letitia Cana</option>
+                <option value="Ricky De Chavez">Ricky De Chavez</option>
+                <option value="Rowena Umali">Rowena Umali</option>
+                <option value="Evangeline Talolong">Evangeline Talolong</option>
+                <option value="Mirriam Alfuen">Mirriam Alfuen</option>
+                <option value="Jamila Pedrezuela">Jamila Pedrezuela</option>
                 {/* className = {emptyFields.includes('attendingDoc') ? 'error': ''} */}
               </select>
             </FormControl>
@@ -377,8 +284,8 @@ const monthString = months[monthIndex];
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-    </>
+    </div>
   );
 };
 
-export default ConsultForm;
+export default ModalEditConsult;

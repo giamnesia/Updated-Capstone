@@ -37,6 +37,8 @@ import { BsFillLockFill } from "react-icons/bs";
 import Age from "./Age";
 import "react-toastify/dist/ReactToastify.css";
 import {useReactToPrint} from 'react-to-print';
+import ModalConsultDelete from "./ModalConsultDelete";
+import ModalEditConsult from "./ModalEditConsult";
 
 const PatientView = () => {
   const { id } = useParams();
@@ -128,8 +130,7 @@ const PatientView = () => {
         <ConsultForm item={display} />
         <ModalDelete item={display} />
         <Button class="float-right bg-gray-200 p-2 m-1 rounded" onClick={onOpen}>
-          Export {display&& display.fname.charAt(0) +
-                    "*".repeat(display.fname.length - 1)}'s data to Excel
+          Export {display&& display.fname}'s data to Excel
         </Button>
       </div>
 
@@ -143,16 +144,11 @@ const PatientView = () => {
               <Td>Name</Td>
               <Td>
                 {display &&
-                  display.fname.charAt(0) +
-                    "*".repeat(display.fname.length - 1)}{" "}
+                  display.fname}{" "}
                 {display &&
-                  display.mname.charAt(0) +
-                    "*".repeat(
-                      display.mname ? display.mname.length - 1 : ""
-                    )}{" "}
+                  display.mname}{" "}
                 {display &&
-                  display.lname.charAt(0) +
-                    "*".repeat(display.lname.length - 1)}
+                  display.lname}
               </Td>
             </Tr>
             <Tr>
@@ -186,14 +182,14 @@ const PatientView = () => {
               <Td>Contact</Td>
               <Td>{display && display.contact}</Td>
             </Tr>
+            
           </Tbody>
         </Table>
       </TableContainer>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Export {display&& display.fname.charAt(0) +
-                    "*".repeat(display.fname.length - 1)}'s data to Excel</ModalHeader>
+          <ModalHeader>Export {display&& display.fname}'s data to Excel</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl mt={4}>
@@ -252,6 +248,10 @@ const PatientView = () => {
               <Th>Comment</Th>
 
               <Th>Assisted By</Th>
+              <Th>Edit</Th>
+
+              <Th>Delete</Th>
+
             </Tr>
           </Thead>
           <Tbody>
@@ -279,6 +279,10 @@ const PatientView = () => {
                   <Td>{item.remarks ? item.remarks : "None"}</Td>
 
                   <Td>{item.attendingDoc}</Td>
+                  <Td><ModalEditConsult item={item}/></Td>
+
+                  <Td><ModalConsultDelete item={item}/></Td>
+
                 </Tr>
               ))}
           </Tbody>

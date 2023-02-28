@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import EmbedSDK from "@mongodb-js/charts-embed-dom/";
 import barangays from "../../../data/barangay";
 import AgeChart from "./AgeChart";
+import ServicesChart from "./ServicesChart";
 function Report() {
  
 
@@ -17,6 +18,7 @@ function Report() {
     
 
       <AgeChart />
+      <ServicesChart/>
 
       {/* <MdIcons.MdArrowBack><Link to="/"> BACK </Link></MdIcons.MdArrowBack>  */}
 

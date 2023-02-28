@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UsePatientContext } from "../../../hooks/usePatientContext";
 import { AiOutlineEye } from "react-icons/ai";
@@ -29,6 +29,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { BsFillLockFill } from "react-icons/bs";
 
+import DataTable from "react-data-table-component";
 const PatientRecord = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -37,7 +38,7 @@ const PatientRecord = () => {
   const [item, setItem] = useState([]);
   const { dispatch, patient } = UsePatientContext();
   const [totalPages, setTotalPages] = useState(0);
-  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [password, setPassword] = useState();
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -93,14 +94,13 @@ const PatientRecord = () => {
 
   useEffect(() => {
     const fetchPatient = async () => {
-      const response = await fetch(`/portal/health/get?page=${currentPage}`);
+      const response = await fetch(`/portal/health/get`);
       const json = await response.json();
 
       try {
         if (response.ok) {
-         
           setItem(json.results);
-          setTotalPages(json.totalPages);
+          setLoading(false);
 
           dispatch({ type: "SET_PATIENT", payload: json.results });
         }
@@ -109,10 +109,61 @@ const PatientRecord = () => {
       }
     };
     fetchPatient();
-  }, [currentPage, patient,item]);
+  }, [currentPage, patient, item]);
 
-  // DELETE FUNCTION
+  const columns = [
+    {
+      name: "First Name",
+      selector: (row) => row.fname,
+      sortable: true,
+      ignoreRowClick: true,
+    },
+    {
+      name: "Middle Name",
+      selector: (row) => row.mname,
+      sortable: true,
+      ignoreRowClick: true,
 
+    },
+    {
+      name: "Last Name",
+      selector: (row) => row.lname,
+      sortable: true,
+      ignoreRowClick: true,
+
+    },
+    {
+      name: "Birthdate",
+      selector: (row) => row.birthDate.split("T")[0],
+      sortable: true,
+      ignoreRowClick: true,
+
+    },
+    {
+      name: "Address",
+      selector: (row) => row.address,
+      sortable: true,
+      ignoreRowClick: true,
+
+    },
+    {
+      name: "Contact",
+      selector: (row) => row.contact,
+      sortable: true,
+      ignoreRowClick: true,
+
+    },
+    {
+      name: "View",
+      sortable: true,
+      cell: () => <AiOutlineEye  class="w-16 h-5 text-amber-800 cursor-pointer" data-tag="allowRowEvents"/>,
+    },
+  ];
+
+  const navigate = useNavigate();
+  const handleClick = (row) => {
+    navigate(`/${row._id}`);
+  };
   return (
     <div className="tbl-patient ml-20">
       <Helmet>
@@ -129,50 +180,17 @@ const PatientRecord = () => {
             >
               Patient Information
             </p>
-            <div class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded">
-              <p>Sort By:</p>
-              <select
-                aria-label="select"
-                class="focus:text-indigo-600 focus:outline-none bg-transparent ml-1"
-              >
-                <option class="text-sm text-indigo-800">Latest</option>
-                <option class="text-sm text-indigo-800">Oldest</option>
-                <option class="text-sm text-indigo-800">Latest</option>
-              </select>
-            </div>
+           
           </div>
         </div>
 
         <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
           <div class="sm:flex items-center justify-between">
-            <div class="flex items-center">
-              <a
-                class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800"
-                href=" javascript:void(0)"
-              >
-                <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
-                  <p>All</p>
-                </div>
-              </a>
-            </div>
+            
 
             <PatientForm />
           </div>
-          <div class="flex flex-row items-center justify-center mb-10">
-            {pages&&pages.map((item) => (
-              <button
-                class="p-2  bg-gray-500  text-white "
-                onClick={() =>setCurrentPage(item)}
-              >
-                {item + 1}
-              </button>
-            ))}
-          </div>
-          <div>
-            <p>
-              Showing {currentPage + 1} out of {totalPages} pages
-            </p>
-          </div>
+
           <div class="p-6">
             <Button
               class="float-right bg-gray-200 p-2 rounded"
@@ -224,76 +242,39 @@ const PatientRecord = () => {
             </ModalContent>
           </Modal>
           <div class="mt-7 overflow-x-auto">
-            <table class="w-full whitespace-nowrap text-sm">
-              <thead>
-                <tr
-                  tabindex="0"
-                  class="focus:outline-none h-14 border border-gray-100 rounded"
-                >
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Gender</th>
-                  <th>Birth Date</th>
-
-                  <th>Age</th>
-                  <th>Address</th>
-                  <th>Contact</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {item&& item? (
-                  <>
-                    {item&& item.map((item) => (
-                      <tr
-                        tabindex="0"
-                        class="focus:outline-none h-14 border text-center border-gray-100 rounded"
-                      >
-                        {/* make fname first letter only visible */}
-
-                        <td>
-                          {item.fname.charAt(0) +
-                            "*".repeat(item.fname.length - 1)}
-                        </td>
-                        <td>
-                          {item.mname.charAt(0) +
-                            "*".repeat(item.mname ? item.mname.length - 1 : "")}
-                        </td>
-                        <td>
-                          {item.lname.charAt(0) +
-                            "*".repeat(item.lname.length - 1)}
-                        </td>
-                        <td>{item.gender}</td>
-                        <td>
-                          {item.birthDate ? item.birthDate.split("T")[0] : ""}
-                        </td>
-                        <td>
-                          <Age birthdate={item.birthDate} />
-                        </td>
-                        <td>{item.address}</td>
-                        <td>{item.contact ? item.contact : "N/A"}</td>
-                        <td>
-                          <td class="items-center flex flex-col justify-center">
-                            <Link to={`/${item._id}`}>
-                              {" "}
-                              <AiOutlineEye class="w-16 h-5 text-amber-800" />{" "}
-                            </Link>
-                          </td>
-                        </td>
-                      </tr>
-                    ))}
-                  </>
-                ) : (
-                  <Spinner />
-                )}
-              </tbody>
-            </table>
+            <td class="items-center flex flex-col justify-center"></td>
           </div>
         </div>
       </div>
+      <div>
+        {loading ? (
+          <div class='flex flex-col items-center'>
+          <Spinner />
 
-      <div></div>
+            </div>
+        ) : (
+          <div>
+            <DataTable
+              columns={columns}
+              data={patient}
+              pagination
+              onRowClicked={handleClick}
+            />
+          </div>
+        )}
+
+        {/* <div>
+      {item.map((item) => (
+          <div>
+          
+          <Link to={`/${item._id}`}>
+            {" "}
+            <AiOutlineEye class="w-16 h-5 text-amber-800" />{" "}
+          </Link>
+          </div>
+        ))}
+      </div> */}
+      </div>
     </div>
   );
 };

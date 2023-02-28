@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
+
 const Filter = ({ address, filterAddress, setFilterAddress }) => {
   const [checked, setChecked] = useState(true);
   const onChange = ({ currentTarget: input }) => {
@@ -14,23 +16,20 @@ const Filter = ({ address, filterAddress, setFilterAddress }) => {
   return (
     <div class="flex-start">
       <h1>Filter By Address</h1>
-      <div class="flex flex-row flex-wrap">
+      <br/>
 
-      {address &&
+        {address &&
           address.map((item) => (
-            <div>
-              <input
-                class="w-64 flex items-center m-0"
-                type="checkbox"
-                value={item}
-                onChange={onChange}
-              />
-              <p class="m-0 ml-2">{item}</p>
-            </div>
+            <CheckboxGroup colorScheme="orange">
+              <div>
+          <Stack spacing={[1, 5]} direction={["column", "row"]}>
+                <Checkbox value={item} onChange={onChange}></Checkbox>
+                <p class="m-0">{item}</p>
+              </Stack>
+              </div>
+            </CheckboxGroup>
           ))}
- 
-     
-      </div>
+      
     </div>
   );
 };

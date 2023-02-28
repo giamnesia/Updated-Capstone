@@ -147,7 +147,7 @@ const Signup = () => {
                   )}
                 </div>
               </div>
-              <p class='text-xs text-red-500 w-56'>{error}</p>
+              <p class='text-xs text-red-500 w-72'>{error}</p>
 
             </div>
             <br/>

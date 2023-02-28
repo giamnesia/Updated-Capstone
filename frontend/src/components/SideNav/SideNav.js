@@ -171,6 +171,7 @@ const SideNav = () => {
             <div class="w-max -mb-3">
               <li class="min-w-max">
                 <a
+                 target='_blank'
                   href="https://rhu-calauag.herokuapp.com"
                   class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
                 >

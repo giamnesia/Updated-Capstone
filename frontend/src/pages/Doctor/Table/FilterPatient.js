@@ -1,11 +1,12 @@
-import React, { useEffect, useState ,useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Filter from "./Filter";
 import FilterServices from "./FilterServices";
 import { UsePatientContext } from "../../../hooks/usePatientContext";
 import FilterGender from "./FilterGender";
 import FilterMonth from "./FilterMonth";
-import {useReactToPrint} from 'react-to-print';
+import { useReactToPrint } from "react-to-print";
+import Calauag from "../../../images/calauag.png";
 import {
   Drawer,
   DrawerBody,
@@ -31,13 +32,14 @@ import {
   TagLabel,
   TagCloseButton,
   TagIcon,
-  HStack
+  HStack,
 } from "@chakra-ui/react";
 import * as XLSX from "xlsx";
 import { toast } from "react-toastify";
+import DataTable from "react-data-table-component";
 
 import "react-toastify/dist/ReactToastify.css";
-import { AiFillEyeInvisible, AiFillEye, AiFillPrinter} from "react-icons/ai";
+import { AiFillEyeInvisible, AiFillEye, AiFillPrinter } from "react-icons/ai";
 import { BsFillLockFill } from "react-icons/bs";
 const FilterPatient = () => {
   const [filterAddress, setFilterAddress] = useState([]);
@@ -55,7 +57,7 @@ const FilterPatient = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [page, setPage] = useState(0);
-  const [total,setTotal]= useState(0);
+  const [total, setTotal] = useState(0);
   const [show, setShow] = useState(false);
   const pages = new Array(totalPages).fill(null).map((v, i) => i);
   const componentRef = useRef();
@@ -66,6 +68,46 @@ const FilterPatient = () => {
   const togglePass = () => {
     setShow(!show);
   };
+
+  const columns = [
+    {
+      name: "First Name",
+      selector: (row) => row.fname,
+      sortable: true,
+    },
+    {
+      name: "Middle Name",
+      selector: (row) => row.mname,
+      sortable: true,
+    },
+    {
+      name: "Last Name",
+      selector: (row) => row.lname,
+      sortable: true,
+    },
+    {
+      name: "Gender",
+      selector: (row) => row.gender,
+      sortable: true,
+    },
+    {
+      name: "Age",
+      selector: (row) => row.age,
+      sortable: true,
+    },
+    {
+      name: "Address",
+      selector: (row) => row.address,
+      sortable: true,
+    },
+    {
+      name: "Purpose",
+      selector: (row) => row.purpose,
+
+      sortable: true,
+
+    },
+  ];
   useEffect(() => {
     const fetchPatient = async () => {
       const response = await fetch(
@@ -79,9 +121,10 @@ const FilterPatient = () => {
 
       try {
         if (response.ok) {
-          setItem(json ? json : []);
+          setItem(json);
+          setResults(json.filtered);
           setTotalPages(json.totalPages);
-          setTotal(json.totalResultsFiltered)
+          setTotal(json.totalResultsFiltered);
           dispatch({ type: "SET_PATIENT", payload: json });
         }
       } catch (err) {
@@ -127,11 +170,11 @@ const FilterPatient = () => {
   return (
     <div>
       <div class="ml-20">
-        <p>Filter by Barangay</p>
+        <p class='ml-5'>Filter by Barangay</p>
         <Button onClick={onOpen} m={4}>
           Choose Barangay
         </Button>
-        <Drawer onClose={onClose} isOpen={isOpen} size={"xl"}>
+        <Drawer onClose={onClose} isOpen={isOpen} size={"md"}>
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
@@ -178,7 +221,6 @@ const FilterPatient = () => {
           <p>None</p>
         )}
       </div>
-    
 
       <div class="sm:px-6 w-full ">
         <div class="px-7 ">
@@ -202,9 +244,8 @@ const FilterPatient = () => {
             </div> */}
           </div>
         </div>
-   
+
         <div class="bg-white py-4 md:py-7  md:px-8 xl:px-10">
-         
           <div class="p-6">
             <Button
               class="float-right bg-gray-200 p-2 rounded"
@@ -221,34 +262,54 @@ const FilterPatient = () => {
               Print File
             </Button>
           </div>
-          <div class='ml-20'>
-          <p class='text-xl'>Showing {total} results</p>
-        </div>
+          <div class="ml-20">
+            <p class="text-xl">Showing {total} results</p>
+          </div>
 
-        <HStack spacing={4} ml='20' mt='10' >
-      <Tag size="sm" borderRadius="full" variant="solid" colorScheme="green">
-        <TagLabel>
-          {filterAddress.length > 0 ? filterAddress.toString() : "All"}
-        </TagLabel>
-      
-      </Tag >
-      <Tag size="sm" borderRadius="full" variant="solid" colorScheme="green">
-        <TagLabel>
-          {filterServices.length > 0 ? filterServices.toString() : "All"}
-        </TagLabel>
-      </Tag>
-      <Tag size="sm" borderRadius="full" variant="solid" colorScheme="green">
-        <TagLabel>
-          {filterGender.length > 0 ? filterGender.toString() : "All"}
-        </TagLabel>
-      </Tag>
-      <Tag size="sm" borderRadius="full" variant="solid" colorScheme="green">
-        <TagLabel>
-          {filterMonth.length > 0 ? filterMonth.toString() : "All"}
-        </TagLabel>
-      </Tag>
-      </HStack>
-   
+          <HStack spacing={4} ml="20" mt="10">
+            <Tag
+              size="sm"
+              borderRadius="full"
+              variant="solid"
+              colorScheme="green"
+            >
+              <TagLabel>
+                {filterAddress.length > 0 ? filterAddress.toString() : "All"}
+              </TagLabel>
+            </Tag>
+            <Tag
+              size="sm"
+              borderRadius="full"
+              variant="solid"
+              colorScheme="green"
+            >
+              <TagLabel>
+                {filterServices.length > 0 ? filterServices.toString() : "All"}
+              </TagLabel>
+            </Tag>
+            <Tag
+              size="sm"
+              borderRadius="full"
+              variant="solid"
+              colorScheme="green"
+            >
+              <TagLabel>
+                {filterGender.length > 0 ? filterGender.toString() : "All"}
+              </TagLabel>
+            </Tag>
+            <Tag
+              size="sm"
+              borderRadius="full"
+              variant="solid"
+              colorScheme="green"
+            >
+              <TagLabel>
+                {filterMonth.length > 0 ? filterMonth.toString() : "All"}
+              </TagLabel>
+            </Tag>
+          </HStack>
+          <br/>
+
           {/* <Modal
 
         isOpen={isOpen}
@@ -294,57 +355,129 @@ const FilterPatient = () => {
                   </ModalFooter>
                 </ModalContent>
               </Modal> */}
-          <div class="mt-7 overflow-x-auto">
-            <table ref={componentRef} class="w-full whitespace-nowrap text-sm">
-              <thead>
-                <tr
-                  tabindex="0"
-                  class="focus:outline-none h-14 border border-gray-100 rounded"
-                >
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Gender</th>
+          <div style={{ display: "none" }}>
+            <div class="mt-7 overflow-x-auto" ref={componentRef}>
+              <div class="flex flex-row items-center justify-center">
+                <img src={Calauag} class="w-12 h-12 m-3 " />
+                <p class="text-center text-2xl font-bold">RHU Calauag</p>
+              </div>
+              <div>
+                <div class="ml-10">
+                  <p class="text-xl">{total} results</p>
+                </div>
 
-                  <th>Age</th>
-                  <th>Address</th>
+                <HStack spacing={4} ml="10" mt="10">
+                  <Tag
+                    size="sm"
+                    borderRadius="full"
+                    variant="solid"
+                    colorScheme="green"
+                  >
+                    <TagLabel>
+                      {filterAddress.length > 0
+                        ? filterAddress.toString()
+                        : "All"}
+                    </TagLabel>
+                  </Tag>
+                  <Tag
+                    size="sm"
+                    borderRadius="full"
+                    variant="solid"
+                    colorScheme="green"
+                  >
+                    <TagLabel>
+                      {filterServices.length > 0
+                        ? filterServices.toString()
+                        : "All"}
+                    </TagLabel>
+                  </Tag>
+                  <Tag
+                    size="sm"
+                    borderRadius="full"
+                    variant="solid"
+                    colorScheme="green"
+                  >
+                    <TagLabel>
+                      {filterGender.length > 0
+                        ? filterGender.toString()
+                        : "All"}
+                    </TagLabel>
+                  </Tag>
+                  <Tag
+                    size="sm"
+                    borderRadius="full"
+                    variant="solid"
+                    colorScheme="green"
+                  >
+                    <TagLabel>
+                      {filterMonth.length > 0 ? filterMonth.toString() : "All"}
+                    </TagLabel>
+                  </Tag>
+                </HStack>
+                <br />
+              </div>
 
-                  <th>Purpose</th>
-                </tr>
-              </thead>
-              <tbody >
-                {item.filtered &&
-                  item.filtered.map((item) => (
-                    <tr
-                      tabindex="0"
-                      class="focus:outline-none h-14 border text-center border-gray-100 rounded"
-                    >
-                      <td>
-                        {item.fname.charAt(0) +
-                          "*".repeat(item.fname ? item.fname.length - 1 : "")}
-                      </td>
-                      <td>
-                        {item.mname.charAt(0) +
-                          "*".repeat(item.mname ? item.mname.length - 1 : "")}
-                      </td>
-                      <td>
-                        {item.lname.charAt(0) +
-                          "*".repeat(item.lname ? item.lname.length - 1 : "")}
-                      </td>
-                      <td>{item.gender}</td>
-                      <td>{item.age}</td>
+              <table class="w-full whitespace-nowrap text-sm">
+                <thead>
+                  <tr
+                    tabindex="0"
+                    class="focus:outline-none h-14 border border-gray-100 rounded"
+                  >
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
 
-                      <td>{item.address}</td>
-                      <td>{item.purpose}</td>
+                    <th>Age</th>
+                    <th>Address</th>
 
-                      <td>
-                        <td class="items-center flex flex-col justify-center"></td>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {item.filtered &&
+                    item.filtered.map((item) => (
+                      <tr
+                        tabindex="0"
+                        class="focus:outline-none h-14 border text-center border-gray-100 rounded"
+                      >
+                        <td>
+                          {item.fname.charAt(0) +
+                            "*".repeat(item.fname ? item.fname.length - 1 : "")}
+                        </td>
+                        <td>
+                          {item.mname.charAt(0) +
+                            "*".repeat(item.mname ? item.mname.length - 1 : "")}
+                        </td>
+                        <td>
+                          {item.lname.charAt(0) +
+                            "*".repeat(item.lname ? item.lname.length - 1 : "")}
+                        </td>
+                        <td>{item.gender}</td>
+                        <td>{item.age}</td>
+
+                        <td>{item.address}</td>
+                        <td>{item.purpose}</td>
+
+                        <td>
+                          <td class="items-center flex flex-col justify-center"></td>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
           </div>
+          <div class='ml-10'>
+          <DataTable
+              columns={columns}
+              data={results}
+              pagination
+          
+            />
+          </div>
+
+      
         </div>
       </div>
 

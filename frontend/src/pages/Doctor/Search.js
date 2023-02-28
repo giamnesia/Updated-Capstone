@@ -141,10 +141,7 @@ const Search = () => {
                               query={search ? search : "none"}
                               styles={{ px: "1", py: "1", bg: "orange.100" }}
                             >
-                              {item.fname.charAt(0) +
-                                "*".repeat(
-                                  item.fname ? item.fname.length - 1 : ""
-                                )}
+                              {item.fname}
                             </Highlight>
                           </td>
                           <td>
@@ -152,10 +149,7 @@ const Search = () => {
                               query={search ? search : "none"}
                               styles={{ px: "1", py: "1", bg: "orange.100" }}
                             >
-                              {item.mname.charAt(0) +
-                                "*".repeat(
-                                  item.mname ? item.mname.length - 1 : ""
-                                )}
+                              {item.mname}
                             </Highlight>
                           </td>
                           <td>
@@ -163,10 +157,7 @@ const Search = () => {
                               query={search ? search : "none"}
                               styles={{ px: "1", py: "1", bg: "orange.100" }}
                             >
-                              {item.lname.charAt(0) +
-                                "*".repeat(
-                                  item.lname ? item.lname.length - 1 : ""
-                                )}
+                              {item.lname}
                             </Highlight>
                           </td>
                           <td>{item.gender}</td>

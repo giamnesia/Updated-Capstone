@@ -8,17 +8,12 @@ const MongoClient = require('mongodb').MongoClient;
 const getAllPatients = async (req, res) => {
   // const user_id = req.user._id
 
-  const page_size = 20;
-  const page = parseInt(req.query.page || "0");
 
   const totalResults = await patientInfo.countDocuments({});
 
-  const totalPages = Math.ceil(totalResults / page_size);
+
   const results = await patientInfo
-    .find({})
-    .limit(page_size)
-    .skip(page_size * page)
-    .sort({
+    .find({}).sort({
       createdAt: -1,
     });
 
@@ -241,9 +236,7 @@ const getAllPatients = async (req, res) => {
   const patient = await patientInfo.find({}).sort({ createdAt: -1 }); 
   res.status(200).json({
     results: results,
-    totalResults: totalResults,
-    totalPages: totalPages,
-    
+
     patient: patient,
     filtered: filtered,
     address: addressOptions,

@@ -25,7 +25,6 @@ import ManageDoctor from "./pages/Admin/ManageDoctor";
 // import ViewHistory from "./pages/Doctor/ViewHistory";
 import AddConsult from "./pages/Doctor/AddConsult";
 import ViewConsult from "./pages/Doctor/ViewConsult";
-import TablePatient from "./pages/Doctor/charts/tablepatient";
 import PatientRecord from "./pages/Doctor/Table/PatientRecord";
 import FilterPatient from "./pages/Doctor/Table/FilterPatient";
 
@@ -112,11 +111,7 @@ function App() {
               </ProtectedRoute>
               }
             />
-            <Route path="/tablepatient"  
-             element={<ProtectedRoute>
-              <TablePatient />
-            </ProtectedRoute>
-            } />
+          
             <Route path="/patientRecord" 
             element={<ProtectedRoute>
               <PatientRecord />
