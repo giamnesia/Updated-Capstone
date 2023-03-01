@@ -39,11 +39,8 @@ function Report() {
       <div className="chart-address">
         <iframe
           title="chartaddress"
-          style={{
-           
-            width: "100%",
-            height: "400px",
-          }}
+          class='w-full'
+          height="600"
           src="https://charts.mongodb.com/charts-capstone-rdggn/embed/charts?id=636f9c40-bbc8-4d24-8f07-ebbe86ffb1c1&maxDataAge=10&theme=light&autoRefresh=true"
         ></iframe>
       </div>

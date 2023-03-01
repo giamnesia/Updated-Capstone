@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { UsePatientContext } from '../../hooks/usePatientContext'
 import { toast } from 'react-toastify'
+import { useUserAuth } from '../../context/UserAuthContext'
 
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -31,6 +32,7 @@ const UserDelete = ({item}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const {dispatch,patient} = UsePatientContext()
     const [password,setPassword] = useState();
+    const {user,deleteUser} =useUserAuth()
 
     const [show, setShow] = useState(false);
     const handleDelete = async (e) =>{
@@ -47,12 +49,12 @@ const UserDelete = ({item}) => {
           const response = await fetch(`/portal/user/${item._id}` , {
             method: "DELETE"
           });
-      
           const json = await response.json();
       
           try {
             if (response.ok) {
               dispatch({type:'DELETE_PATIENT', payload: json})
+              onClose()
               navigate('/addUser')
             
             }

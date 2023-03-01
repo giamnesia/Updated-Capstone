@@ -20,7 +20,6 @@ import ConsultPage from "./pages/ConsultPage";
 import Page404 from "./pages/Page404";
 import ManagePatient from "./pages/Doctor/ManagePatient";
 import AddPatient from "./pages/Doctor/AddPatient";
-import AddDoctor from "./pages/Admin/AddDoctor";
 import ManageDoctor from "./pages/Admin/ManageDoctor";
 // import ViewHistory from "./pages/Doctor/ViewHistory";
 import AddConsult from "./pages/Doctor/AddConsult";
@@ -95,7 +94,6 @@ function App() {
               </ProtectedRoute>
               }
             />
-            <Route path="/adddoctor" element={<AddDoctor />} />
             <Route path="/addUser" 
              element={
               <UserList/>

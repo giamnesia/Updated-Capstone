@@ -1,11 +1,13 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UsePatientContext } from "../../../hooks/usePatientContext";
 import { AiOutlineEye } from "react-icons/ai";
 import PatientForm from "../../../components/patientForm";
 import { Helmet } from "react-helmet";
+import { useReactToPrint } from "react-to-print";
+import Calauag from "../../../images/calauag.png";
 import {
   Modal,
   ModalOverlay,
@@ -33,21 +35,20 @@ import DataTable from "react-data-table-component";
 const PatientRecord = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
   const [item, setItem] = useState([]);
   const { dispatch, patient } = UsePatientContext();
-  const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [password, setPassword] = useState();
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [page, setPage] = useState(0);
   const [show, setShow] = useState(false);
-  const pages = new Array(totalPages).fill(null).map((v, i) => i);
   const togglePass = () => {
     setShow(!show);
   };
+  const componentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   const exportToExcel = () => {
     if (!password) {
       toast.error("Please input your password", {
@@ -109,7 +110,7 @@ const PatientRecord = () => {
       }
     };
     fetchPatient();
-  }, [currentPage, patient, item]);
+  }, [patient, item]);
 
   const columns = [
     {
@@ -123,40 +124,44 @@ const PatientRecord = () => {
       selector: (row) => row.mname,
       sortable: true,
       ignoreRowClick: true,
-
     },
     {
       name: "Last Name",
       selector: (row) => row.lname,
       sortable: true,
       ignoreRowClick: true,
-
     },
     {
       name: "Birthdate",
       selector: (row) => row.birthDate.split("T")[0],
       sortable: true,
       ignoreRowClick: true,
-
+    },
+    {
+      name: "Age",
+      selector: (row) => <Age birthdate={row.birthDate} />,
+      sortable: true,
+      ignoreRowClick: true,
     },
     {
       name: "Address",
       selector: (row) => row.address,
       sortable: true,
       ignoreRowClick: true,
-
     },
     {
       name: "Contact",
-      selector: (row) => row.contact,
-      sortable: true,
+      selector: (row) => (row.contact ? row.contact : "None"),
       ignoreRowClick: true,
-
     },
     {
       name: "View",
-      sortable: true,
-      cell: () => <AiOutlineEye  class="w-16 h-5 text-amber-800 cursor-pointer" data-tag="allowRowEvents"/>,
+      cell: () => (
+        <AiOutlineEye
+          class="w-16 h-5 text-amber-800 cursor-pointer"
+          data-tag="allowRowEvents"
+        />
+      ),
     },
   ];
 
@@ -180,14 +185,11 @@ const PatientRecord = () => {
             >
               Patient Information
             </p>
-           
           </div>
         </div>
 
         <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
           <div class="sm:flex items-center justify-between">
-            
-
             <PatientForm />
           </div>
 
@@ -197,6 +199,14 @@ const PatientRecord = () => {
               onClick={onOpen}
             >
               Export to Excel (.xlsx) file
+            </Button>
+          </div>
+          <div class="p-6">
+            <Button
+              class="float-right bg-gray-200 p-2 rounded"
+              onClick={handlePrint}
+            >
+              Print File
             </Button>
           </div>
 
@@ -246,14 +256,13 @@ const PatientRecord = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div class='ml-10'>
         {loading ? (
-          <div class='flex flex-col items-center'>
-          <Spinner />
-
-            </div>
+          <div class="flex flex-col items-center">
+            <Spinner />
+          </div>
         ) : (
-          <div>
+          <div ref={componentRef}>
             <DataTable
               columns={columns}
               data={patient}
@@ -262,18 +271,9 @@ const PatientRecord = () => {
             />
           </div>
         )}
-
-        {/* <div>
-      {item.map((item) => (
-          <div>
-          
-          <Link to={`/${item._id}`}>
-            {" "}
-            <AiOutlineEye class="w-16 h-5 text-amber-800" />{" "}
-          </Link>
-          </div>
-        ))}
-      </div> */}
+        
+      
+      
       </div>
     </div>
   );

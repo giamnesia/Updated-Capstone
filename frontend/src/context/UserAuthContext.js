@@ -69,13 +69,35 @@ export function UserAuthContextProvider({ children }) {
   function sendEmail(email) {
     return sendPasswordResetEmail(auth, email);
   }
-  function changePass(currentPassword, newPassword){
-  
-      var user = auth().currentUser;
-      user.updatePassword(newPassword).then(() => {
+  function changePass(currentPassword, newPassword) {
+    var user = auth().currentUser;
+    user
+      .updatePassword(newPassword)
+      .then(() => {
         console.log("Password updated!");
-      }).catch((error) => { console.log(error); });
-    
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  //delete user based on input email
+  function deleteUser(email) {
+    auth()
+      .getUserByEmail(email)
+      .then((user) => {
+        user
+          .delete()
+          .then(() => {
+            console.log("Password updated!");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   useEffect(() => {
@@ -108,7 +130,8 @@ export function UserAuthContextProvider({ children }) {
         googleSignIn,
         verifyEmail,
         sendEmail,
-        changePass
+        changePass,
+        deleteUser
       }}
     >
       {children}

@@ -17,30 +17,17 @@ import {
   DrawerCloseButton,
   useDisclosure,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Input,
-  FormControl,
-  FormLabel,
-  Spinner,
+
   Tag,
   TagLabel,
-  TagCloseButton,
-  TagIcon,
+
   HStack,
 } from "@chakra-ui/react";
 import * as XLSX from "xlsx";
 import { toast } from "react-toastify";
 import DataTable from "react-data-table-component";
 
-import "react-toastify/dist/ReactToastify.css";
-import { AiFillEyeInvisible, AiFillEye, AiFillPrinter } from "react-icons/ai";
-import { BsFillLockFill } from "react-icons/bs";
+
 const FilterPatient = () => {
   const [filterAddress, setFilterAddress] = useState([]);
   const [filterServices, setFilterServices] = useState([]);

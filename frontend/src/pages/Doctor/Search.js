@@ -1,14 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { UseDoctorContext } from "../../hooks/useDoctorContext";
 import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { Highlight } from "@chakra-ui/react";
+import { Highlight, Button } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
+import { useReactToPrint } from "react-to-print";
+import Calauag from "../../images/calauag.png";
 const Search = () => {
   const { docInfo, dispatch } = UseDoctorContext();
 
   const [search, setSearch] = useState();
   const [display, setDisplay] = useState();
+  const componentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -70,6 +77,51 @@ const Search = () => {
           />
         </div>
       </form>
+      <div style={{ display: "none" }}>
+       
+        <div class="mt-7 overflow-x-auto" ref={componentRef}>
+        <div class="flex flex-row items-center justify-center">
+          <img src={Calauag} class="w-12 h-12 m-3 " />
+          <p class="text-center text-2xl font-bold">RHU Calauag</p>
+        </div>
+        <br/>
+          <table class="w-full whitespace-nowrap text-sm">
+            <thead>
+              <tr
+                tabindex="0"
+                class="focus:outline-none h-14 border border-gray-100 rounded"
+              >
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Contact</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {docInfo &&
+                docInfo.map((item) => (
+                  <tr
+                    tabindex="0"
+                    class="focus:outline-none h-14 border text-center border-gray-100 rounded"
+                  >
+                    <td>{item.fname}</td>
+                    <td>{item.mname}</td>
+                    <td>{item.lname}</td>
+                    <td>{item.gender}</td>
+                    <td>{item.age}</td>
+                    <td>{item.address}</td>
+
+                    <td>{item.contact ? item.contact : "None"}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <div class="flex flex-row flex-wrap items-center justify-center">
         {docInfo && docInfo ? (
@@ -94,6 +146,13 @@ const Search = () => {
                   </select>
                 </div>
               </div>
+              <br/>
+              <Button
+                class="float-right bg-gray-200 p-2 rounded"
+                onClick={handlePrint}
+              >
+                Print File
+              </Button>
             </div>
             <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
               <div class="sm:flex items-center justify-between">
@@ -126,7 +185,7 @@ const Search = () => {
                       <th>Age</th>
                       <th>Address</th>
                       <th>Contact</th>
-                      <th>Action</th>
+                  
                     </tr>
                   </thead>
                   <tbody>
@@ -171,7 +230,7 @@ const Search = () => {
                             </Highlight>
                           </td>
 
-                          <td>{item.contact}</td>
+                          <td>{item.contact ? item.contact : "None"}</td>
                           <td>
                             <td class="items-center flex flex-col justify-center">
                               <Link to={`/${item._id}`}>

@@ -126,7 +126,7 @@ const AddUser = () => {
       return;
     }
     if (auth) {
-      toast.error("Invalid password", {
+      toast.error("Invalid credentials", {
         position: "bottom-left",
         autoClose: 5000,
       });

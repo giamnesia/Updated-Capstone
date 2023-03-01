@@ -64,22 +64,7 @@ const ModalPatient = ({ item }) => {
     }
   };
 
-  const handleFname = (e) => {
-    const { value } = e.target;
-
-    const re = /^[A-Za-z]+$/;
-    if (value === "" || re.test(value)) {
-      setFname(e.target.value.toUpperCase());
-    }
-  };
-  const handleMname = (e) => {
-    const { value } = e.target;
-
-    const re = /^[A-Za-z]+$/;
-    if (value === "" || re.test(value)) {
-      setMname(e.target.value.toUpperCase());
-    }
-  };
+ 
   const handleBirthDate = (e) => {
     setBirthDate(e.target.value);
     setAge(

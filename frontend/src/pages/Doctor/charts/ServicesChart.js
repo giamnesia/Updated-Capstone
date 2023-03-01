@@ -33,11 +33,7 @@ function AgeChart() {
     const date = new Date(e.target.value);
     chart.setFilter({ createdAt: { $gte: date } });
   };
-  const handleGender = (e) => {
-    e.preventDefault();
 
-    chart.setFilter({ gender: { $eq: e.target.value } });
-  };
   const handleBarangay = (e) => {
     chart.setFilter({ address: { $eq: e.target.value } });
   };
@@ -57,6 +53,22 @@ function AgeChart() {
       </div>
 
       <br />
+      <form onChange={handleBarangay} class='w-56 ml-10'>
+      <select
+          class="block w-full px-8 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md   focus:ring-amber-400 focus:outline-none focus:ring focus:ring-opacity-40"
+          
+          >
+      
+          {barangays.map((item) => (
+          <>
+              <option value="" selected="selected" hidden="hidden">
+              Choose Barangay
+              </option>
+              <option key={item.name} value={item.name}>{item.name}</option>
+          </>
+          ))}
+      </select> 
+      </form>
 
       <div ref={chartDiv}></div>
     </div>

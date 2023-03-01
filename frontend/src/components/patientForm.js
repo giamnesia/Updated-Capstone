@@ -106,6 +106,7 @@ const PatientForm = () => {
                 });
             }
             if (response.ok) {
+              onClose()
                 setError(null)
                 setEmptyFields([])
                 setFname('')
