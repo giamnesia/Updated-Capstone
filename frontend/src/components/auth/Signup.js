@@ -145,7 +145,7 @@ const Signup = () => {
             }
           )
           
-              toast.success(`😃 Successfully created account:  ${email}`, {
+              toast.success(` Successfully created account:  ${email}`, {
                 autoClose: 5000,
                 position: "bottom-right",
                 pauseOnHover: false,

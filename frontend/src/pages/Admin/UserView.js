@@ -48,7 +48,7 @@ const UserView = () => {
   const [currentPass, setCurrentPass] = useState();
 
     const [display, setDisplay] = useState();
-    const {user} =useUserAuth()
+    const {user,deleteUser} =useUserAuth()
     const [show, setShow] = useState(false);
     const auth = getAuth();
     useEffect(() => {

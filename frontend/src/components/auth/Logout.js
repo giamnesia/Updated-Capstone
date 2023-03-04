@@ -14,7 +14,7 @@ const Logout = () => {
   const handleLogOut = async () => {
     try {
       await logOut();
-      toast.success(`😃 Successfully logged out`, {
+      toast.success(` Successfully logged out`, {
         autoClose: 5000,
         position: "bottom-right",
         pauseOnHover: false,

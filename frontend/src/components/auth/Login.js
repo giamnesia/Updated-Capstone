@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
 import ReCAPTCHA from "react-google-recaptcha";
-
+import RHU from "../../images/rhu.jpg";
 const Signup = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -31,7 +31,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(!email && !password){
+    if (!email && !password) {
       toast.error("Invalid credentials", {
         position: "bottom-right",
         autoClose: 5000,
@@ -39,14 +39,14 @@ const Signup = () => {
       return;
     }
 
-    if(!email){
+    if (!email) {
       toast.error("Invalid email address", {
         position: "bottom-right",
         autoClose: 5000,
       });
       return;
     }
-    if(!password){
+    if (!password) {
       toast.error("Invalid password", {
         position: "bottom-right",
         autoClose: 5000,
@@ -54,13 +54,12 @@ const Signup = () => {
       return;
     }
 
-
     try {
       if (recaptchaHandler === true) {
         await logIn(email, password);
 
         navigate("/");
-        toast.success(`😃 Successfully logged in as ${email ? email : []}`, {
+        toast.success(` Successfully logged in as ${email ? email : []}`, {
           autoClose: 5000,
           position: "bottom-right",
           pauseOnHover: false,
@@ -78,104 +77,102 @@ const Signup = () => {
         pauseOnHover: false,
         position: "bottom-right",
       });
-      setError(`Your account or password is incorrect. If you don't remember your password,reset it now`)
-      
+      setError(
+        `Your account or password is incorrect. If you don't remember your password,reset it now`
+      );
     }
   };
 
   return (
-    <div class="mt-10">
+    <div class="mt-56">
       <Helmet>
         <title>RHU Calauag | Login</title>
         <meta name="description" content="Login" />
       </Helmet>
 
-      <div class="min-h-screen flex justify-center  items-center">
-        <div class="absolute w-60 h-60 rounded-xl -top-5 -left-16 z-0 transform rotate-45 hidden md:block"></div>
-        <div class="absolute w-48 h-48 rounded-xl  -bottom-6 -right-10 transform rotate-12 hidden md:block"></div>
-        <div class="py-12 px-12  bg-white rounded-2xl shadow-xl ">
-          <div>
-            <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">
-              Login
-            </h1>
-            <p class="w-80 text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide cursor-pointer">
-              Login to your account
-            </p>
+      <div class="py-6 ">
+        <h2 class="text-4xl font-semibold text-gray-700 text-center ">
+          Login to your account
+        </h2>
+
+        <br />
+        <br />
+        <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+          <div class="hidden lg:block lg:w-1/2 bg-cover ">
+            <img src={RHU} />
           </div>
-          <form onSubmit={handleSubmit}>
-            <div class="space-y-4">
-              <div class="relative">
-                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <svg
-                    aria-hidden="true"
-                    class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                  </svg>
+          <div class="w-full p-5 lg:w-1/2">
+            <form onSubmit={handleSubmit}>
+              <div class="s">
+                <div class="relative">
+                  <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <svg
+                      aria-hidden="true"
+                      class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    </svg>
+                  </div>
+                  <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="text"
+                    id="email-address-icon"
+                    class="block w-full px-8 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md   focus:ring-amber-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="name@email.com"
+                    autoComplete="off"
+                  />
                 </div>
-                <input
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="text"
-                  id="email-address-icon"
-                  class="block w-full px-8 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md   focus:ring-amber-400 focus:outline-none focus:ring focus:ring-opacity-40"
 
-                  placeholder="name@email.com"
-                  autoComplete="off"
-                />
+                <div class="relative">
+                  <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <BsFillLockFill class="text-gray-400" />
+                  </div>
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    type={show ? "text" : "password"}
+                    class="block w-full px-8 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md   focus:ring-amber-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="password"
+                  />
+                  <div class="flex absolute inset-y-0  right-0 text-gray-500 items-center px-3 cursor-pointer">
+                    {show ? (
+                      <AiFillEye class="w-5 h-5" onClick={togglePass} />
+                    ) : (
+                      <AiFillEyeInvisible
+                        class="w-5 h-5"
+                        onClick={togglePass}
+                      />
+                    )}
+                  </div>
+                </div>
+                <p class="text-xs text-red-500 w-72">{error}</p>
               </div>
+              <br />
 
-              <div class="relative">
-                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <BsFillLockFill class="text-gray-400" />
-                </div>
-                <input
-                  onChange={(e) => setPassword(e.target.value)}
-                  type={show ? "text" : "password"}
-                  class="block w-full px-8 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md   focus:ring-amber-400 focus:outline-none focus:ring focus:ring-opacity-40"
+              <ReCAPTCHA
+                sitekey="6Ld_HxckAAAAAIiLCNHriKVxG1oxzLm-mVpPObex"
+                onChange={onChange}
+              />
 
-                  placeholder="password"
-                />
-                <div class="flex absolute inset-y-0  right-0 text-gray-500 items-center px-3 cursor-pointer">
-                  {show ? (
-                    <AiFillEye class="w-5 h-5" onClick={togglePass} />
-                  ) : (
-                    <AiFillEyeInvisible class="w-5 h-5" onClick={togglePass} />
-                  )}
-                </div>
+              <div class="mt-4 flex items-center justify-between">
+                <Link
+                  class="inline-block align-baseline font-bold text-sm text-amber-500 hover:text-amber-600"
+                  to="/forgot"
+                >
+                  Forgot Password?
+                </Link>
               </div>
-              <p class='text-xs text-red-500 w-72'>{error}</p>
-
-            </div>
-            <br/>
-
-            <ReCAPTCHA
-              sitekey="6Ld_HxckAAAAAIiLCNHriKVxG1oxzLm-mVpPObex"
-              onChange={onChange}
-            />
-
-            <div class="mt-4 flex items-center justify-between">
-              <Link
-                class="inline-block align-baseline font-bold text-sm text-amber-500 hover:text-amber-600"
-                to="/forgot"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-            <div>
-              <button class="bg-amber-500 w-full mt-4 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Sign In
-              </button>
-            </div>
-          </form>
-
-          
+              <div>
+                <button class="bg-amber-500 w-full mt-4 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                  Sign In
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="w-40 h-40 absolute rounded-full top-0 right-12 hidden md:block"></div>
-        <div class="w-20 h-40 absolute  rounded-full bottom-20 left-10 transform rotate-45 hidden md:block"></div>
       </div>
     </div>
   );
