@@ -429,16 +429,13 @@ const FilterPatient = () => {
                         class="focus:outline-none h-14 border text-center border-gray-100 rounded"
                       >
                         <td>
-                          {item.fname.charAt(0) +
-                            "*".repeat(item.fname ? item.fname.length - 1 : "")}
+                          {item.fname}
                         </td>
                         <td>
-                          {item.mname.charAt(0) +
-                            "*".repeat(item.mname ? item.mname.length - 1 : "")}
+                          {item.mname}
                         </td>
                         <td>
-                          {item.lname.charAt(0) +
-                            "*".repeat(item.lname ? item.lname.length - 1 : "")}
+                          {item.lname}
                         </td>
                         <td>{item.gender}</td>
                         <td>{item.age}</td>
