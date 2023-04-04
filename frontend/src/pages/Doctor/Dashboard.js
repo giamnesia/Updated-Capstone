@@ -108,13 +108,13 @@ const Count = () => {
       <br />
       <div class="flex flex-row items-center">
         <iframe
-          width="640"
+          width="500"
           height="480"
           src="https://charts.mongodb.com/charts-capstone-rdggn/embed/charts?id=63fe398a-276b-4c81-848c-76a6e802b5d6&maxDataAge=60&theme=light&autoRefresh=true"
         ></iframe>
         <iframe
           title="chartservices"
-          width="640"
+          width="900"
           height="480"
           src="https://charts.mongodb.com/charts-capstone-rdggn/embed/charts?id=637fb005-733c-47dd-837a-4e2520db6d40&maxDataAge=10&theme=light&autoRefresh=true"
         >

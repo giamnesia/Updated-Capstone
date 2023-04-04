@@ -40,11 +40,6 @@ const rhuServices = [
 
   },
   {
-    id: 9,
-    name: "Immunization Program",
-    date:'(Every Wednesday)'
-  },
-  {
     id: 10,
     name: "Post- Natal Care",
     date:'( Monday to Friday)'
@@ -70,12 +65,7 @@ const rhuServices = [
     date:'(Monday to Friday)'
     
   },
-  {
-    id: 15,
-    name: "Bantay Presyon Program",
-    date:' (Tuesday)'
-
-  },
+ 
   {
     id: 16,
     name: "Laboratory Examination",

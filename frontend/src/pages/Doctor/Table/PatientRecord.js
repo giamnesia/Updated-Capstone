@@ -188,7 +188,7 @@ const PatientRecord = () => {
           </div>
         </div>
 
-        <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+        <div class="bg-white py-4 md:py-0 px-4 md:px-8 ">
           <div class="sm:flex items-center justify-between">
             <PatientForm />
           </div>
@@ -201,14 +201,14 @@ const PatientRecord = () => {
               Export to Excel (.xlsx) file
             </Button>
           </div>
-          <div class="p-6">
+          {/* <div class="p-6">
             <Button
               class="float-right bg-gray-200 p-2 rounded"
               onClick={handlePrint}
             >
               Print File
             </Button>
-          </div>
+          </div> */}
 
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />

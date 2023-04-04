@@ -6,22 +6,18 @@ import EmbedSDK from "@mongodb-js/charts-embed-dom/";
 import barangays from "../../../data/barangay";
 import AgeChart from "./AgeChart";
 import ServicesChart from "./ServicesChart";
-import GenderChart from './GenderChart'
+import GenderChart from "./GenderChart";
 function Report() {
- 
-
   return (
     <div class="ml-20">
       <Helmet>
         <title>RHU Calauag | Charts</title>
         <meta name="description" content="Charts" />
       </Helmet>
-    
 
       <AgeChart />
-      <ServicesChart/>
-      <GenderChart/>
-
+      <ServicesChart />
+      <GenderChart />
 
       {/* <MdIcons.MdArrowBack><Link to="/"> BACK </Link></MdIcons.MdArrowBack>  */}
 
@@ -30,7 +26,6 @@ function Report() {
         <iframe
           title="donut-gender"
           style={{
-         
             width: "100%",
             height: "400px",
           }}
@@ -42,7 +37,7 @@ function Report() {
       <div className="chart-address">
         <iframe
           title="chartaddress"
-          class='w-full'
+          class="w-full"
           height="600"
           src="https://charts.mongodb.com/charts-capstone-rdggn/embed/charts?id=636f9c40-bbc8-4d24-8f07-ebbe86ffb1c1&maxDataAge=10&theme=light&autoRefresh=true"
         ></iframe>
@@ -53,7 +48,6 @@ function Report() {
         <iframe
           title="chartage"
           style={{
-           
             width: "100%",
             height: "400px",
           }}
@@ -62,19 +56,13 @@ function Report() {
       </div>
 
       {/* CHART - SERVICES */}
-      <div className="chart-services">
-        <iframe
-          title="chartservices"
-          style={{
-    
-            width: "100%",
-            height: "400px",
-          }}
-          src="https://charts.mongodb.com/charts-capstone-rdggn/embed/charts?id=637fb005-733c-47dd-837a-4e2520db6d40&maxDataAge=10&theme=light&autoRefresh=true"
-        >
-          {" "}
-        </iframe>
-      </div>
+      <iframe
+      style={{
+        width: "100%",
+        height: "400px",
+      }}
+        src="https://charts.mongodb.com/charts-capstone-rdggn/embed/charts?id=640b474f-0743-4d0e-8659-cef57d01b48b&maxDataAge=3600&theme=light&autoRefresh=true"
+      ></iframe>
     </div>
   );
 }

@@ -173,7 +173,6 @@ const getAllPatients = async (req, res) => {
 
     "Environmental & Sanitation Program",
 
-    "Immunization Program",
     "Post- Natal Care",
 
     "Maternal Care",
@@ -182,7 +181,6 @@ const getAllPatients = async (req, res) => {
 
     "Nutrition Program",
 
-    "Bantay Presyon Program",
     "Laboratory Examination",
   ];
 
