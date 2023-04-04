@@ -17,16 +17,13 @@ import {
   DrawerCloseButton,
   useDisclosure,
   Button,
-
   Tag,
   TagLabel,
-
   HStack,
 } from "@chakra-ui/react";
 import * as XLSX from "xlsx";
 import { toast } from "react-toastify";
 import DataTable from "react-data-table-component";
-
 
 const FilterPatient = () => {
   const [filterAddress, setFilterAddress] = useState([]);
@@ -92,7 +89,6 @@ const FilterPatient = () => {
       selector: (row) => row.purpose,
 
       sortable: true,
-
     },
   ];
   useEffect(() => {
@@ -131,9 +127,49 @@ const FilterPatient = () => {
           }&gender=${filterGender.toString()}&services=${filterServices.toString()}&month=${filterMonth.toString()}`
         )
         .then((response) => {
-          const data = response.data.filtered;
+          const rawData = response.data.filtered;
+          // Transform the data
+          const data = rawData.map((record) => {
+            return {
+              // Map the fields to custom column names
+              "Full Name": `${record.fname} ${record.lname}`,
+              Address: record.address,
+              Gender: record.gender,
+              Age: record.age,
+              Service: record.purpose,
+              Date: ` ${new Date(record.createdAt).toLocaleDateString()}`,
+              Month: record.month,
+              Diagnosis: record.diagnosis ? record.diagnosis : "No data",
+              Treatment: record.treatment ? record.treatment : "No data",
+              Weight: record.weight ? record.weight : "No data",
+              Height: record.height ? record.height : "No data",
+              Temperature: record.temp ? record.temp : "No data",
+              "Blood Sugar": record.bloodsugar ? record.bloodsugar : "No data",
+              "Blood Pressure": record.bp ? record.bp : "No data",
+              Doctor: record.attendingDoc,
+            };
+          });
           const ws = XLSX.utils.json_to_sheet(data);
+          ws["!cols"] = [
+            { width: 20 },
+            { width: 20 },
+            { width: 10 },
+            { width: 10 },
+            { width: 30 },
+            { width: 20 },
+            { width: 10 },
+            { width: 20 },
+            { width: 20 },
+            { width: 10 },
+            { width: 10 },
+            { width: 10 },
+            { width: 15 },
+            { width: 15 },
+            { width: 20 },
+          ];
+
           const wb = XLSX.utils.book_new();
+
           XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
           const link = document.createElement("a");
           link.href = window.URL.createObjectURL(
@@ -157,7 +193,7 @@ const FilterPatient = () => {
   return (
     <div>
       <div class="ml-20">
-        <p class='ml-5'>Filter by Barangay</p>
+        <p class="ml-5">Filter by Barangay</p>
         <Button onClick={onOpen} m={4}>
           Choose Barangay
         </Button>
@@ -295,7 +331,7 @@ const FilterPatient = () => {
               </TagLabel>
             </Tag>
           </HStack>
-          <br/>
+          <br />
 
           {/* <Modal
 
@@ -344,75 +380,66 @@ const FilterPatient = () => {
               </Modal> */}
           <div style={{ display: "none" }}>
             <div class="mt-7 overflow-x-auto" ref={componentRef}>
-              <div class="flex flex-row items-center justify-center">
+              <div class="flex flex-col items-center justify-center">
                 <img src={Calauag} class="w-12 h-12 m-3 " />
-                <p class="text-center text-2xl font-bold">RHU Calauag</p>
+                <p class="text-center text-lg font-bold">
+                  Republic of the Philippines
+                </p>
+                <p class="text-center text-md text-gray-500">
+                  Province of Quezon
+                </p>
+                <p class="text-center text-md text-gray-500">
+                  Rural Health Unit of Calauag
+                </p>
               </div>
+              <br />
               <div>
                 <div class="ml-10">
-                  <p class="text-xl">{total} results</p>
+                  <p class="text-lg font-bold">RHU Calauag Data Report</p>
+
+                  <p class="text-gray-500 text-sm">
+                    Data as of: {new Date().toLocaleDateString()}
+                  </p>
+                  <br />
+                  <p class="text-md">{total} results</p>
                 </div>
 
-                <HStack spacing={4} ml="10" mt="10">
-                  <Tag
-                    size="sm"
-                    borderRadius="full"
-                    variant="solid"
-                    colorScheme="green"
-                  >
-                    <TagLabel>
-                      {filterAddress.length > 0
-                        ? filterAddress.toString()
-                        : "All"}
-                    </TagLabel>
-                  </Tag>
-                  <Tag
-                    size="sm"
-                    borderRadius="full"
-                    variant="solid"
-                    colorScheme="green"
-                  >
-                    <TagLabel>
-                      {filterServices.length > 0
-                        ? filterServices.toString()
-                        : "All"}
-                    </TagLabel>
-                  </Tag>
-                  <Tag
-                    size="sm"
-                    borderRadius="full"
-                    variant="solid"
-                    colorScheme="green"
-                  >
-                    <TagLabel>
-                      {filterGender.length > 0
-                        ? filterGender.toString()
-                        : "All"}
-                    </TagLabel>
-                  </Tag>
-                  <Tag
-                    size="sm"
-                    borderRadius="full"
-                    variant="solid"
-                    colorScheme="green"
-                  >
-                    <TagLabel>
-                      {filterMonth.length > 0 ? filterMonth.toString() : "All"}
-                    </TagLabel>
-                  </Tag>
-                </HStack>
+                <br />
+                <p class="ml-10 text-sm ">
+                  Barangay:{" "}
+                  {filterAddress.length > 0
+                    ? filterAddress.toString()
+                    : "All barangays"}
+                </p>
+                <p class="ml-10 text-sm ">
+                  Gender:{" "}
+                  {filterGender.length > 0
+                    ? filterGender.toString()
+                    : "Both Gender"}
+                </p>
+                <p class="ml-10 text-sm ">
+                  Services chosen:{" "}
+                  {filterServices.length > 0
+                    ? filterServices.toString()
+                    : "All Services"}
+                </p>
+                <p class="ml-10 text-sm ">
+                  Reports for the month of:{" "}
+                  {filterMonth.length > 0
+                    ? filterMonth.toString()
+                    : "All Months"}
+                </p>
                 <br />
               </div>
 
-              <table class="w-full whitespace-nowrap text-sm">
+              <table class="w-full whitespace-nowrap text-xs mx-8">
                 <thead>
                   <tr
                     tabindex="0"
-                    class="focus:outline-none h-14 border border-gray-100 rounded"
+                    class="focus:outline-none h-10 border border-gray-100 rounded"
                   >
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
+                    <th>Month</th>
+                    <th>Name</th>
                     <th>Gender</th>
 
                     <th>Age</th>
@@ -426,19 +453,15 @@ const FilterPatient = () => {
                     item.filtered.map((item) => (
                       <tr
                         tabindex="0"
-                        class="focus:outline-none h-14 border text-center border-gray-100 rounded"
+                        class="focus:outline-none h-10 border text-center border-gray-100 rounded"
                       >
+                        <td>{item.month}</td>
                         <td>
-                          {item.fname}
+                          {item.fname} {item.lname}
                         </td>
-                        <td>
-                          {item.mname}
-                        </td>
-                        <td>
-                          {item.lname}
-                        </td>
+
                         <td>{item.gender}</td>
-                        <td>{item.age}</td>
+                        <td>{item.age ? item.age : "No data"}</td>
 
                         <td>{item.address}</td>
                         <td>{item.purpose}</td>
@@ -452,20 +475,12 @@ const FilterPatient = () => {
               </table>
             </div>
           </div>
-          <div class='ml-10'>
-          <DataTable
-              columns={columns}
-              data={results}
-              pagination
-          
-            />
+          <div class="ml-10">
+            <DataTable columns={columns} data={results} pagination />
           </div>
-
-      
         </div>
       </div>
 
-      <div></div>
     </div>
   );
 };

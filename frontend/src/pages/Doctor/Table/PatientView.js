@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import ModalPatient from "./ModalPatient";
 import ModalDelete from "./ModalDelete";
@@ -6,6 +6,8 @@ import { Icon } from "@chakra-ui/react";
 import ConsultForm from "../../../components/consultForm";
 import LabResults from "./LabResults";
 import VitalSigns from "./VitalSigns";
+import Calauag from "../../../images/calauag.png";
+
 import {
   Modal,
   ModalOverlay,
@@ -36,7 +38,7 @@ import { AiFillEyeInvisible, AiFillEye, AiFillPrinter } from "react-icons/ai";
 import { BsFillLockFill } from "react-icons/bs";
 import Age from "./Age";
 import "react-toastify/dist/ReactToastify.css";
-import {useReactToPrint} from 'react-to-print';
+import { useReactToPrint } from "react-to-print";
 import ModalConsultDelete from "./ModalConsultDelete";
 import ModalEditConsult from "./ModalEditConsult";
 
@@ -57,6 +59,7 @@ const PatientView = () => {
   const togglePass = () => {
     setShow(!show);
   };
+
   useEffect(() => {
     const fetchPatient = async () => {
       const response = await fetch(`/portal/health/agg/${id}`);
@@ -85,8 +88,50 @@ const PatientView = () => {
       axios
         .get(`/portal/health/agg/${id}`)
         .then((response) => {
-          const data = response.data.patient;
+          const rawData = response.data.patient;
+          // Transform the data
+          const data = rawData.map((record) => {
+            return {
+              // Map the fields to custom column names
+
+              Date: ` ${new Date(record.createdAt).toLocaleDateString()}`,
+              Service: record.purpose ? record.purpose : "No data",
+
+              Complaint: record.complaint ? record.complaint : "No data",
+              Height: record.height ? record.height : "No data",
+
+              Weight: record.weight ? record.weight : "No data",
+              Temperature: record.temp ? record.temp : "No data",
+              "Blood Pressure": record.bp ? record.bp : "No data",
+
+              "Blood Sugar": record.bloodsugar ? record.bloodsugar : "No data",
+              CBC: record.cbc ? record.cbc : "No data",
+              Diagnosis: record.diagnosis ? record.diagnosis : "No data",
+              Treatment: record.treatment ? record.treatment : "No data",
+
+              Physician: record.attendingDoc,
+            };
+          });
           const ws = XLSX.utils.json_to_sheet(data);
+
+          ws["!cols"] = [
+            { width: 20 },
+            { width: 10 },
+            { width: 10 },
+            { width: 10 },
+            { width: 20 },
+            { width: 20 },
+            { width: 20 },
+            { width: 20 },
+            { width: 20 },
+            { width: 10 },
+            { width: 10 },
+            { width: 10 },
+            { width: 15 },
+            { width: 15 },
+            { width: 20 },
+          ];
+
           const wb = XLSX.utils.book_new();
           XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
           const link = document.createElement("a");
@@ -125,16 +170,26 @@ const PatientView = () => {
       <h3 class="text-2xl text-gray-700 font-bold pt-6 ml-3">
         Patient Details
       </h3>
-      <div class="flex flex-row items-start justify-start m-3">
+      <div class="flex flex-row items-start justify-start m-3 ">
         <ModalPatient item={display} />
         <ConsultForm item={display} />
         <ModalDelete item={display} />
-        <Button class="float-right bg-gray-200 p-2 m-1 rounded" onClick={onOpen}>
-          Export {display&& display.fname}'s data to Excel
+        <Button
+          class="float-right bg-gray-200 p-2 m-1 rounded"
+          onClick={onOpen}
+        >
+          Export {display && display.fname}'s data to Excel
         </Button>
+        <div>
+          <Button
+            class="float-right bg-gray-200 p-2 m-1 rounded"
+            onClick={handlePrint}
+          >
+            Print File
+          </Button>
+        </div>
       </div>
-
-      <TableContainer >
+      <TableContainer style={{ width: "660px" }}>
         <Table variant="simple">
           <Thead>
             <Tr></Tr>
@@ -143,12 +198,8 @@ const PatientView = () => {
             <Tr>
               <Td>Name</Td>
               <Td>
-                {display &&
-                  display.fname}{" "}
-                {display &&
-                  display.mname}{" "}
-                {display &&
-                  display.lname}
+                {display && display.fname} {display && display.mname}{" "}
+                {display && display.lname}
               </Td>
             </Tr>
             <Tr>
@@ -182,14 +233,16 @@ const PatientView = () => {
               <Td>Contact</Td>
               <Td>{display && display.contact}</Td>
             </Tr>
-            
           </Tbody>
         </Table>
       </TableContainer>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Export {display&& display.fname}'s data to Excel</ModalHeader>
+          <ModalHeader>
+            Export {display && display.fname}'s data to Excel
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl mt={4}>
@@ -227,7 +280,7 @@ const PatientView = () => {
       <br />
       <h3 class="text-2xl text-gray-700 font-bold mb-6 ml-3">Consultation</h3>
 
-      <TableContainer >
+      <TableContainer>
         <Table variant="simple">
           <TableCaption>Consultation History</TableCaption>
           <Thead>
@@ -251,7 +304,6 @@ const PatientView = () => {
               <Th>Edit</Th>
 
               <Th>Delete</Th>
-
             </Tr>
           </Thead>
           <Tbody>
@@ -279,15 +331,118 @@ const PatientView = () => {
                   <Td>{item.remarks ? item.remarks : "None"}</Td>
 
                   <Td>{item.attendingDoc}</Td>
-                  <Td><ModalEditConsult item={item}/></Td>
+                  <Td>
+                    <ModalEditConsult item={item} />
+                  </Td>
 
-                  <Td><ModalConsultDelete item={item}/></Td>
-
+                  <Td>
+                    <ModalConsultDelete item={item} />
+                  </Td>
                 </Tr>
               ))}
           </Tbody>
         </Table>
       </TableContainer>
+      <div style={{ display: "none" }}>
+        <div class="mt-7 overflow-x-auto" ref={componentRef}>
+          <div class="flex flex-col items-center justify-center">
+            <img src={Calauag} class="w-12 h-12 m-3 " />
+            <p class="text-center text-lg font-bold">
+              Republic of the Philippines
+            </p>
+            <p class="text-center text-md text-gray-500">Province of Quezon</p>
+            <p class="text-center text-md text-gray-500">
+              Rural Health Unit of Calauag
+            </p>
+          </div>
+          <br />
+          <div>
+            <div class="ml-10">
+              <p class="text-lg font-bold">Patient Data Report</p>
+
+              <p class="text-gray-500 text-sm">
+                Data as of: {new Date().toLocaleDateString()}
+              </p>
+              <br />
+              <br />
+              <p class="text-sm">
+                Name: {display && display.fname} {display && display.lname}
+              </p>
+              <p class="text-sm">Address: {display && display.address}</p>
+              <p class="text-sm">
+                Age:{" "}
+                <Age
+                  birthdate={
+                    display && display.birthDate ? display.birthDate : ""
+                  }
+                />
+              </p>
+              <p class="text-sm">Contact No: {display && display.contact?display.contact:'N/A'}</p>
+            </div>
+
+            <br />
+          </div>
+
+          <table class="w-full whitespace-nowrap  text-xs">
+            <thead>
+              <tr
+                tabindex="0"
+                class="focus:outline-none h-10 border border-gray-100 rounded"
+              >
+                <th>Date</th>
+                <th>Service</th>
+                <th>Complaint</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Temp</th>
+                <th>BP</th>
+                <th>Blood Sugar</th>
+                <th>CBC</th>
+                <th>Diagnosis</th>
+                <th>Treatment</th>
+
+                <th>Physician</th>
+              </tr>
+            </thead>
+            <tbody>
+              {consult &&
+                consult.map((item) => (
+                  <tr
+                    tabindex="0"
+                    class="focus:outline-none h-10 border text-center border-gray-100 rounded"
+                  >
+                    <td>
+                      {item && new Date(item.createdAt).toLocaleDateString()}
+                    </td>
+                    <td>{item && item.purpose ? item.purpose : "No Data"}</td>
+                    <td>
+                      {item && item.complaint ? item.complaint : "No Data"}
+                    </td>
+
+                    <td>{item && item.height ? item.height : "No data"}</td>
+                    <td>{item && item.weight ? item.weight : "No data"}</td>
+                    <td>{item && item.temp ? item.temp : "No data"}</td>
+                    <td>{item && item.bp ? item.bp : "No data"}</td>
+                    <td>{item && item.bs ? item.bs : "No data"}</td>
+                    <td>{item && item.cbc ? item.cbc : "No data"}</td>
+                    <td>
+                      {item && item.diagnosis ? item.diagnosis : "No data"}
+                    </td>
+                    <td>
+                      {item && item.treatment ? item.treatment : "No data"}
+                    </td>
+
+                    <td>
+                      {item && item.attendingDoc
+                        ? item.attendingDoc
+                        : "No data"}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

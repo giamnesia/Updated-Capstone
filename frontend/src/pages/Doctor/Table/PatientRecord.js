@@ -8,6 +8,7 @@ import PatientForm from "../../../components/patientForm";
 import { Helmet } from "react-helmet";
 import { useReactToPrint } from "react-to-print";
 import Calauag from "../../../images/calauag.png";
+import Word from "./Word";
 import {
   Modal,
   ModalOverlay,
@@ -61,8 +62,46 @@ const PatientRecord = () => {
       axios
         .get("/portal/health/get")
         .then((response) => {
-          const data = response.data.patient;
+          const rawData = response.data.patient;
+          // Transform the data
+          const data = rawData.map((record) => {
+            return {
+              // Map the fields to custom column names
+              "Full Name": `${record.fname} ${record.lname}`,
+              Address: record.address,
+              Gender: record.gender,
+              "Birth Date": ` ${new Date(record.birthDate).toLocaleDateString()}`,
+              Age: record.age?record.age:"No Data",
+              Email: record.email?record.email:"N/A",
+              Contact: record.contact?record.contact:"N/A",
+              Inquiry: record.inquiry?record.inquiry:"No Data",
+              Service: record.reasons?record.reasons:"No Data",
+              Status: record.status?record.status:'No Data',
+              Attend: record.attend?record.attend:'No Data',
+              Date:` ${new Date(record.createdAt).toLocaleDateString()}`,
+           
+
+            };
+          });
           const ws = XLSX.utils.json_to_sheet(data);
+          ws['!cols'] = [
+            { width: 20 },
+            { width: 20 },
+            { width: 10 },
+            { width: 10 },
+            { width: 30 },
+            { width: 20 },
+            { width: 10 },
+            { width: 20 },
+            { width: 20 },
+            { width: 10 },
+            { width: 10 },
+            { width: 10 },
+            { width: 15 },
+            { width: 15 },
+            { width: 20 },
+          ];
+
           const wb = XLSX.utils.book_new();
           XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
           const link = document.createElement("a");
@@ -111,6 +150,11 @@ const PatientRecord = () => {
     };
     fetchPatient();
   }, [patient, item]);
+  const [showDocument, setShowDocument] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowDocument(true);
+  };
 
   const columns = [
     {
@@ -256,6 +300,7 @@ const PatientRecord = () => {
           </div>
         </div>
       </div>
+      
       <div class='ml-10'>
         {loading ? (
           <div class="flex flex-col items-center">
@@ -272,7 +317,6 @@ const PatientRecord = () => {
           </div>
         )}
         
-      
       
       </div>
     </div>

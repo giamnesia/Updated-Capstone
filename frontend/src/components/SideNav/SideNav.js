@@ -1,25 +1,23 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-import Calauag from "../../images/calauag.png";
+import Calauag from '../../images/calauag.png'
 import Logout from "../auth/Logout";
-const SideNav = () => {
+const SideNav= () => {
   return (
     <div>
       <div class="h-full  absolute z-20  ">
-        <div
-          class="sidebar min-h-screen w-[3.35rem] overflow-hidden border-r hover:w-56 hover:bg-white  hover:shadow-lg transition 
-             duration-700"
-        >
+        <div class="sidebar min-h-screen w-[3.40rem] bg-amber-400 overflow-hidden border-r hover:w-56 hover:bg-amber-400  hover:shadow-lg transition 
+             duration-400">
           <div class="flex h-screen flex-col justify-between pt-2 pb-6">
             <div>
               <div class="w-max p-2.5">
-                <img class="w-8" src={Calauag} />
+                 <img class='w-8' src={Calauag}/>
               </div>
               <ul class="mt-6 space-y-2 tracking-wide">
                 <li class="min-w-max ">
                   <Link
                     to="/"
-                    class="relative flex items-center space-x-4 bg-gradient-to-r from-amber-600 to-orange-400 px-4 py-3 text-white"
+                    class="block flex items-center space-x-4 px-4 py-3 text-gray-600 bg-white hover:bg-white rounded-full"
                   >
                     <svg class="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
                       <path
@@ -36,9 +34,26 @@ const SideNav = () => {
                       ></path>
                     </svg>
 
-                    <span class="-mr-1 font-medium">Dashboard</span>
+                    <span class="-mr-1 font-semibold text-lg group-hover:text-amber-500">Dashboard</span>
                   </Link>
                 </li>
+               
+              
+                {/* <li class="min-w-max">
+                  <Link to='/'
+                    class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        width="24" height="24"
+                        viewBox="0 0 24 24">
+                            <path
+                           class="fill-current text-gray-600 group-hover:text-orange-600"
+                            
+                            d="M 6 2 C 4.897 2 4 2.897 4 4 L 4 20 C 4 21.103 4.897 22 6 22 L 18 22 C 19.103 22 20 21.103 20 20 L 20 4 C 20 2.897 19.103 2 18 2 L 6 2 z M 6 4 L 18 4 L 18 20 L 6 20.001953 L 6 4 z M 12 6 C 10.318 6 9 7.317 9 9 C 9 10.683 10.318 12 12 12 C 13.682 12 15 10.683 15 9 C 15 7.317 13.682 6 12 6 z M 12 8 C 12.58 8 13 8.421 13 9 C 13 9.579 12.58 10 12 10 C 11.42 10 11 9.579 11 9 C 11 8.421 11.42 8 12 8 z M 12 13 C 9.149 13 7 14.455766 7 16.384766 L 7 18 L 17 18 L 17 16.384766 C 17 14.455766 14.851 13 12 13 z M 12 15 C 13.47 15 14.489516 15.504 14.853516 16 L 9.1464844 16 C 9.5094844 15.504 10.53 15 12 15 z"></path>
+                        </svg>
+                          <span class="group-hover:text-gray-700">Manage Doctor</span>
+                  </Link>
+                </li> */}
                 <li class="min-w-max">
                   <Link
                     to="/patientRecord"
@@ -166,49 +181,52 @@ const SideNav = () => {
                     <span class="group-hover:text-gray-700">Search</span>
                   </Link>
                 </li>
+
+             
+                
               </ul>
             </div>
             <div class="w-max -mb-3">
-              <li class="min-w-max">
-                <a
-                 target='_blank'
-                  href="https://rhu-calauag.herokuapp.com"
-                  class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    class="h-5 w-5 group-hover:fill-orange-600"
-                    fill="currentColor"
-                  >
-                    <path d="M 3 3 L 3 21 L 21 21 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 3 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z"></path>
-                  </svg>
+<li class="min-w-max">
+  <a
+   target='_blank'
+    href="https://rhu-calauag.herokuapp.com"
+    class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      class="h-5 w-5 group-hover:fill-orange-600"
+      fill="currentColor"
+    >
+      <path d="M 3 3 L 3 21 L 21 21 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 3 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z"></path>
+    </svg>
 
-                  <span class="group-hover:text-gray-700">RHU Portal</span>
-                </a>
-              </li>
+    <span class="group-hover:text-gray-700">RHU Portal</span>
+  </a>
+</li>
 
-              <a
-                href="#"
-                class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 group-hover:fill-orange-600"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <span class="group-hover:text-gray-700">
-                  <Logout />
-                </span>
-              </a>
-            </div>
+<a
+  href="#"
+  class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-5 w-5 group-hover:fill-orange-600"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+      clip-rule="evenodd"
+    />
+  </svg>
+  <span class="group-hover:text-gray-700">
+    <Logout />
+  </span>
+</a>
+</div>
           </div>
         </div>
       </div>
