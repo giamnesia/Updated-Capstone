@@ -398,7 +398,7 @@ const FilterPatient = () => {
                   <p class="text-lg font-bold">RHU Calauag Data Report</p>
 
                   <p class="text-gray-500 text-sm">
-                    Data as of: {new Date().toLocaleDateString()}
+                    Data as of: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
                   </p>
                   <br />
                   <p class="text-md">{total} results</p>
@@ -432,7 +432,7 @@ const FilterPatient = () => {
                 <br />
               </div>
 
-              <table class="w-full whitespace-nowrap text-xs mx-8">
+              <table class="w-full whitespace-nowrap text-xs ">
                 <thead>
                   <tr
                     tabindex="0"
@@ -473,6 +473,14 @@ const FilterPatient = () => {
                     ))}
                 </tbody>
               </table>
+              <div class='flex text-sm flex-col mx-6 my-10 items-end justify-end'>
+                <p class='text-xs'>Prepared by: </p>
+                <br/>
+                <br/>
+                <p class='text-xs'>Trisha Ann Marie V. Sayno</p>
+                <p class='text-gray-500 text xs'>Nurse II</p>
+                
+              </div>
             </div>
           </div>
           <div class="ml-10">

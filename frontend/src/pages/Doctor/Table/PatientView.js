@@ -361,7 +361,8 @@ const PatientView = () => {
               <p class="text-lg font-bold">Patient Data Report</p>
 
               <p class="text-gray-500 text-sm">
-                Data as of: {new Date().toLocaleDateString()}
+              Data as of: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
+                
               </p>
               <br />
               <br />
@@ -441,6 +442,15 @@ const PatientView = () => {
                 ))}
             </tbody>
           </table>
+
+          <div class='flex text-xs flex-col mx-6 my-10 items-end justify-end'>
+                <p class='text-xs'>Prepared by: </p>
+                <br/>
+                <br/>
+                <p class='text-xs'>Trisha Ann Marie V. Sayno</p>
+                <p class='text-gray-500 text xs'>Nurse II</p>
+                
+              </div>
         </div>
       </div>
     </div>
